@@ -4,15 +4,16 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Select } from "./ui/select";
 import { Carousel } from "./ui/carousel";
-import { CarouselSize } from "./Carousel";
+import { CarouselSize } from "./generic/GenericCarousel";
 import { ScrollAreaDemo } from "./ScrollArea";
 import { title } from "process";
+import CarouselProps from "./types/CarouselProps";
 
 
 
 
 
-export default function LandingPage() {
+export default function LandingPage(props : CarouselProps) {
   return (
     <>
       <div
@@ -67,11 +68,11 @@ export default function LandingPage() {
           </Button>
         </div>
 
-        <div>Top companies hiring now</div>
+        <div className={cn("text-[24px] mt-8")}>Top companies hiring now</div>
 
-        <CarouselSize />
-
-        <div>Featured companies actively hiring</div>
+        <CarouselSize  />
+{/* 
+        <div className={cn("text-[24px] mt-8")}>Featured companies actively hiring</div>
 
         <div>
           <Button>All</Button>
@@ -83,13 +84,13 @@ export default function LandingPage() {
 
         <CarouselSize />
 
-        <Button>View all companies</Button>
+        <Button>View all companies</Button> */}
 
-        <div>Discover jobs across popular roles</div>
+        <div className={cn("text-[24px] mt-8")}>Discover jobs across popular roles</div>
 
         <CarouselSize />
 
-        <div>Sponsored Companies</div>
+        {/* <div className={cn("text-[24px] mt-8")}>Sponsored Companies</div>
 
         <div>
           <Button>All</Button>
@@ -119,7 +120,7 @@ export default function LandingPage() {
           View all companies
         </Button>
 
-        <CarouselSize />
+        <CarouselSize /> */}
 
 
 <div className={cn("flex")}>
