@@ -9,7 +9,13 @@ import {
   CarouselPrevious,
 } from "../ui/carousel"
 
-export function CarouselSize() {
+import  CarouselProps from '../types/CarouselProps'
+
+
+
+
+export function CarouselSize({length} : CarouselProps) {
+ 
   return (
     <Carousel
       opts={{
@@ -18,7 +24,8 @@ export function CarouselSize() {
       className="w-full max-w-sm"
     >
       <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {Array.from({ length: length }).map((_, index) => (
+          <>
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <div className="p-1">
               <Card>
@@ -28,6 +35,7 @@ export function CarouselSize() {
               </Card>
             </div>
           </CarouselItem>
+        </>
         ))}
       </CarouselContent>
       <CarouselPrevious />

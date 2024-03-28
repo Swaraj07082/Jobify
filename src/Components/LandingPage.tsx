@@ -5,15 +5,10 @@ import { Button } from "./ui/button";
 import { Select } from "./ui/select";
 import { Carousel } from "./ui/carousel";
 import { CarouselSize } from "./generic/GenericCarousel";
-import { ScrollAreaDemo } from "./ScrollArea";
+import { ScrollAreaDemo } from "./generic/GenericScrollArea";
 import { title } from "process";
-import CarouselProps from "./types/CarouselProps";
 
-
-
-
-
-export default function LandingPage(props : CarouselProps) {
+export default function LandingPage() {
   return (
     <>
       <div
@@ -68,11 +63,13 @@ export default function LandingPage(props : CarouselProps) {
           </Button>
         </div>
 
-        <div className={cn("text-[24px] mt-8")}>Top companies hiring now</div>
+        <div className={cn("text-[24px] mt-11")}>Top companies hiring now</div>
 
-        <CarouselSize  />
-{/* 
-        <div className={cn("text-[24px] mt-8")}>Featured companies actively hiring</div>
+        <CarouselSize length={3} />
+
+        <div className={cn("text-[24px] mt-8")}>
+          Featured companies actively hiring
+        </div>
 
         <div>
           <Button>All</Button>
@@ -82,15 +79,17 @@ export default function LandingPage(props : CarouselProps) {
           <Button>BFSI</Button>
         </div>
 
-        <CarouselSize />
+        <CarouselSize length={3} />
 
-        <Button>View all companies</Button> */}
+        <Button>View all companies</Button>
 
-        <div className={cn("text-[24px] mt-8")}>Discover jobs across popular roles</div>
+        <div className={cn("text-[24px] mt-8")}>
+          Discover jobs across popular roles
+        </div>
 
-        <CarouselSize />
+        <CarouselSize length={5} />
 
-        {/* <div className={cn("text-[24px] mt-8")}>Sponsored Companies</div>
+        <div className={cn("text-[24px] mt-8")}>Sponsored Companies</div>
 
         <div>
           <Button>All</Button>
@@ -110,33 +109,22 @@ export default function LandingPage(props : CarouselProps) {
           <Button>BPM</Button>
         </div>
 
+        <CarouselSize length={3} />
+        <CarouselSize length={3} />
 
+        <Button>View all companies</Button>
 
-        
-        <CarouselSize />
-        <CarouselSize />
+        <CarouselSize length={3} />
 
-        <Button>
-          View all companies
-        </Button>
+        <div className={cn("flex gap-x-5")}>
+          <div className={cn(" h-96 w-[484px] ")}>
+            <ScrollAreaDemo width={480} />
+          </div>
 
-        <CarouselSize /> */}
-
-
-<div className={cn("flex")}>
-
-<div  className={cn(" h-96 w-[484px]  border-black border-2 solid ")}>
-<ScrollAreaDemo  />
-
-<div className={cn(" h-96  w-72  border-black border-2 solid")}>
-<ScrollAreaDemo/>
-  
-</div>
-
-</div>
-
-
-      </div>
+          <div className={cn(" h-96  w-72 ")}>
+            <ScrollAreaDemo width={480} />
+          </div>
+        </div>
       </div>
     </>
   );

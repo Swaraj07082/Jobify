@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { MouseEventHandler, useState } from "react";
 import {
   Menubar,
   MenubarContent,
@@ -10,6 +11,8 @@ import {
 } from "../Components/ui/menubar";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
+
+import icon from "../../public/burgermenu.svg";
 
 import {
   Select,
@@ -23,62 +26,70 @@ import {
 
 import Image from "next/image";
 
-import jobify from '../../public/Jobify.jpg'
+import jobify from "../../public/Jobify.jpg";
+
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import ToggleMenu from "./ToggleMenu";
 
 export default function Navbar() {
+  const [Open, SetOpen] = useState<boolean>(false);
+
+  const OnSetOpen = () => {
+    SetOpen(!Open);
+  };
+
+  console.log(Open);
+
   return (
     <>
-      <Menubar className={cn("h-20 flex justify-around")}>
-        <div className={cn("flex gap-x-6")}>
+      <Menubar
+        className={cn(
+          "h-20 flex justify-around  max-lg:justify-between max-lg:pl-12 max-lg:pr-12 "
+        )}
+      >
+        <div className={cn("flex gap-x-6 ")}>
           <MenubarMenu>
-            {/* <MenubarTrigger>File</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem>
-                New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-              </MenubarItem>
-              <MenubarItem>New Window</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Share</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Print</MenubarItem>
-            </MenubarContent> */}
-            <Image src={jobify} width={100} height={100} alt=""/>
+            <Image src={jobify} width={100} height={100} alt="" />
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>Jobs</MenubarTrigger>
+            <MenubarTrigger className=" max-lg:hidden">
+              Start a search
+            </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>Companies</MenubarTrigger>
+            <MenubarTrigger className=" max-lg:hidden">My Jobs</MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger>Services</MenubarTrigger>
+            <MenubarTrigger className=" max-lg:hidden">
+              Salary Estimate
+            </MenubarTrigger>
+          </MenubarMenu>
+
+          <MenubarMenu>
+            <MenubarTrigger className=" max-lg:hidden">
+              Post A Job
+            </MenubarTrigger>
           </MenubarMenu>
         </div>
 
-        <div className={cn("flex gap-x-6")}>
-          <Button>Login</Button>
-          <Button>Register</Button>
+        <div className={cn("flex gap-x-2")}>
+          <Button className=" max-lg:hidden">Login</Button>
 
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select a fruit" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Fruits</SelectLabel>
-                <SelectItem value="apple">Apple</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <Button className=" max-lg:hidden">Register</Button>
+          <Image
+            onClick={OnSetOpen}
+            className=" lg:hidden "
+            src={icon}
+            height={50}
+            width={50}
+            alt="image not found"
+          />
         </div>
       </Menubar>
+      {Open && <ToggleMenu/>}
     </>
   );
 }
