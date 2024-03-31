@@ -1,6 +1,16 @@
+export interface locationArray {
+    location : location[]
+}
+
+export interface location {
+    value : string,
+    label : string
+}
+
 type GenericComboBoxProps = {
-    data : string[];
+    data : location[]
     title : string
 }
 
 export default GenericComboBoxProps;
+
