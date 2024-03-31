@@ -15,20 +15,25 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { CommandList } from "cmdk";
 import GenericComboBoxProps from "../types/GenericComboBoxProps";
+import StateContext from "@/Context/StateContext";
 
-const frameworks = [
-  {
-    value: "next.js",
-    label: "Next.js",
-  },
-];
+// const frameworks = [
+//   {
+//     value: "next.js",
+//     label: "Next.js",
+//   },
+// ];
 
 export function GenericComboBox({ data, title }: GenericComboBoxProps) {
   // console.log(data)
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  // const [value, setValue] = React.useState<string>("");
+
+  const {value , setValue} = React.useContext(StateContext);
+  
 
   //   console.log(frameworks)
+  // console.log(value)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>

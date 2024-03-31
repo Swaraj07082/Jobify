@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { Jobs } from "@/Components/types/BannerProps";
 import { JobsArray } from "@/Components/types/BannerProps";
 import Main from "@/Components/Main";
+import { StateContextProvider } from "@/Context/StateContextProvider";
 
 export default function Home() {
   const [Jobs, SetJobs] = useState<Jobs[]>([]);
@@ -27,8 +28,10 @@ export default function Home() {
   return (
     <>
       {/* <LandingPage/> */}
-      <Banner Jobs={Jobs} />
-      <Main/>
+      <StateContextProvider>
+        <Banner Jobs={Jobs} />
+        <Main />
+      </StateContextProvider>
     </>
   );
 }
