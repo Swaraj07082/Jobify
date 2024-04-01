@@ -8,8 +8,9 @@ export interface location {
 }
 
 type GenericComboBoxProps = {
-    data : location[]
+    data: location[]
     title : string
+    duration : location[]
 }
 
 export default GenericComboBoxProps;

@@ -24,18 +24,21 @@ import StateContext from "@/Context/StateContext";
 //   },
 // ];
 
-export function GenericComboBox({ data, title }: GenericComboBoxProps) {
+export function GenericComboBox({ data, title , duration }: GenericComboBoxProps) {
   // console.log(data)
   const [open, setOpen] = React.useState(false);
   // const [value, setValue] = React.useState<string>("");
+  const [open2 , setOpen2] =React.useState(false)
 
-  const {value , setValue} = React.useContext(StateContext);
-  
+  const { value, setValue } = React.useContext(StateContext);
+  const [ durations , setdurations] = React.useState('')
 
   //   console.log(frameworks)
-  // console.log(value)
+  console.log(value) 
+  console.log(durations)
 
   return (
+    <>
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
@@ -62,14 +65,14 @@ export function GenericComboBox({ data, title }: GenericComboBoxProps) {
                     setValue(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
-                >
+                  >
                   {item.label}
                   <CheckIcon
                     className={cn(
                       "ml-auto h-4 w-4",
                       value === item.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
+                      )}
+                      />
                 </CommandItem>
               ))}
             </CommandList>
@@ -77,5 +80,52 @@ export function GenericComboBox({ data, title }: GenericComboBoxProps) {
         </Command>
       </PopoverContent>
     </Popover>
+
+
+
+
+
+<Popover open={open2} onOpenChange={setOpen2}>
+<PopoverTrigger asChild>
+  <Button
+    variant="outline"
+    role="combobox"
+    aria-expanded={open2}
+    className="w-[200px] justify-between"
+    >
+    {durations ? duration.find((item) => item.value === durations)?.label : title}
+    <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+  </Button>
+</PopoverTrigger>
+<PopoverContent className="w-[200px] h-48 p-0">
+  <Command>
+    <CommandInput placeholder={`Search ${title}...`} className="h-9" />
+    <CommandEmpty>No framework found.</CommandEmpty>
+    <CommandGroup>
+      <CommandList>
+        {duration.map((item) => (
+          <CommandItem
+          key={item.value}
+          value={item.value}
+          onSelect={(currentValue) => {
+            setdurations(currentValue === durations ? "" : currentValue);
+              setOpen2(false);
+            }}
+          >
+            {item.label}
+            <CheckIcon
+              className={cn(
+                "ml-auto h-4 w-4",
+                durations === item.value ? "opacity-100" : "opacity-0"
+              )}
+              />
+          </CommandItem>
+        ))}
+      </CommandList>
+    </CommandGroup>
+  </Command>
+</PopoverContent>
+</Popover> 
+        </>
   );
 }

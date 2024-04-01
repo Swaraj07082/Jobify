@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Select,
     SelectContent,
@@ -12,12 +12,13 @@ import {
 
 export default function GenericSelect({placeholder , data} : SelectProps) {
     // console.log(data)
+    
   return (
     <Select>
   <SelectTrigger className="w-[180px]">
     <SelectValue placeholder={placeholder} />
   </SelectTrigger>
-  <SelectContent>
+  <SelectContent >
     {data.map( item=>
     <SelectItem key={item} value={`${item}`}>{item}</SelectItem>
     // <SelectItem value="dark">Dark</SelectItem>

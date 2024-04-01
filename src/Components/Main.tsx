@@ -14,11 +14,39 @@ export default function Main() {
       <div className={cn(" flex-[1] ")}>
         <div className={cn("flex flex-col gap-y-7")}>
           {/* <GenericSelect placeholder='Location' data={Location}/> */}
-          <GenericComboBox data={Location} title="Location" />
-          <GenericSelect
+          <GenericComboBox data={Location} title="Location" duration={[
+            {
+              value : 'Hourly',
+              label : 'Hourly'
+            },
+            {
+              value : 'Monthly',
+              label : 'Monthly'
+            },
+            {
+              value : 'Yearly',
+              label : 'Yearly'
+            }
+          ]} />
+          {/* <GenericSelect
             placeholder="Duration"
             data={["Hourly", "Monthly", "Yearly"]}
-          />
+          /> */}
+
+          {/* <GenericComboBox title="Duration"  data={[]} duration={[
+            {
+              value : 'Hourly',
+              label : 'Hourly'
+            },
+            {
+              value : 'Monthly',
+              label : 'Monthly'
+            },
+            {
+              value : 'Yearly',
+              label : 'Yearly'
+            }
+          ]}/> */}
           <div>
             Salary
             <GenericRadioGroup
