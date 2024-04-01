@@ -14,57 +14,102 @@ export default function Main() {
       <div className={cn(" flex-[1] ")}>
         <div className={cn("flex flex-col gap-y-7")}>
           {/* <GenericSelect placeholder='Location' data={Location}/> */}
-          <GenericComboBox data={Location} title="Location" duration={[
-            {
-              value : 'Hourly',
-              label : 'Hourly'
-            },
-            {
-              value : 'Monthly',
-              label : 'Monthly'
-            },
-            {
-              value : 'Yearly',
-              label : 'Yearly'
-            }
-          ]} />
-          {/* <GenericSelect
-            placeholder="Duration"
-            data={["Hourly", "Monthly", "Yearly"]}
-          /> */}
-
-          {/* <GenericComboBox title="Duration"  data={[]} duration={[
-            {
-              value : 'Hourly',
-              label : 'Hourly'
-            },
-            {
-              value : 'Monthly',
-              label : 'Monthly'
-            },
-            {
-              value : 'Yearly',
-              label : 'Yearly'
-            }
-          ]}/> */}
-          <div>
-            Salary
-            <GenericRadioGroup
-              length={5}
-              options={["Any", "< 30000k", "< 50000k", "< 80000k", "< 100000k"]}
-            />
-          </div>
-          <GenericRadioGroup
-            length={4}
-            options={["All time", "Last 24 hours", "Last 7 days", "Last Month"]}
-          />
-          <GenericRadioGroup
-            length={3}
-            options={["Any experience", "Internship", "Work remotely"]}
-          />
-          <GenericRadioGroup
-            length={4}
-            options={["Any", "Full time", "Temporary", "Part time"]}
+          <GenericComboBox
+            data={Location}
+            title={[
+              "Location",
+              "Duration",
+              "Salary",
+              "Date of Posting",
+              "Work experience",
+              "Type of employment",
+            ]}
+            duration={[
+              {
+                value: "Hourly",
+                label: "Hourly",
+              },
+              {
+                value: "Monthly",
+                label: "Monthly",
+              },
+              {
+                value: "Yearly",
+                label: "Yearly",
+              },
+            ]}
+            salary={[
+              {
+                value: "Any",
+                label: "Any",
+              },
+              {
+                value: "< 30000k",
+                label: "< 30000k",
+              },
+              {
+                value: "< 50000k",
+                label: "< 50000k",
+              },
+              {
+                value: "< 80000k",
+                label: "< 80000k",
+              },
+              {
+                value: "< 100000k",
+                label: "< 100000k",
+              },
+            ]}
+            postingdate={[
+              {
+                value: "All time",
+                label: "All time",
+              },
+              {
+                value: "Last 24 hours",
+                label: "Last 24 hours",
+              },
+              {
+                value: "Last 7 days",
+                label: "Last 7 days",
+              },
+              {
+                value: "Last Month",
+                label: "Last Month",
+              },
+            ]}
+            workExp={[
+              {
+                value: "Any experience",
+                label: "Any experience",
+              },
+              {
+                value: "Internship",
+                label: "Internship",
+              },
+              {
+                value: "Work remotely",
+                label: "Work remotely",
+              },
+            ]}
+            employement={[
+              {
+                value: "Any",
+                label: "Any",
+              },
+              {
+                value: "Full time",
+                label: "Full time",
+              },
+              {
+                value: "Temporary",
+                label: "Temporary",
+              },
+              {
+                value: "Part time",
+                label: "Part time",
+              },
+            ]}
           />
         </div>
       </div>
