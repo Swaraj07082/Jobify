@@ -5,9 +5,12 @@ import GenericSelect from "./generic/GenericSelect";
 import Location from "../../public/location.json";
 import { GenericComboBox } from "./generic/GenericComboBox";
 import GenericRadioGroup from "./generic/GenericRadioGroup";
+import { JobsArray } from "./types/BannerProps";
+import { Joan } from "next/font/google";
 
-export default function Main() {
+export default function Main( {Jobs} : JobsArray) {
   // console.log(Location)
+  // console.log(Jobs)
 
   return (
     <div className={cn("flex ml-48 mr-48 mt-20 ")}>

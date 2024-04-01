@@ -30,7 +30,7 @@ export default function Home() {
       {/* <LandingPage/> */}
       <StateContextProvider>
         <Banner Jobs={Jobs} />
-        <Main />
+        <Main Jobs= {Jobs} />
       </StateContextProvider>
     </>
   );
