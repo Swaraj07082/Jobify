@@ -34,23 +34,22 @@ export function GenericComboBox({
   employement,
 }: GenericComboBoxProps) {
   // console.log(data)
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   // const [value, setValue] = React.useState<string>("");
-  const [open2, setOpen2] = React.useState(false);
+  const [open2, setOpen2] = React.useState<boolean>(false);
 
   const { value, setValue } = React.useContext(StateContext);
-  const [durations, setdurations] = React.useState("");
-  const [salaries, setsalaries] = React.useState("");
-  const [postingdates, setpostingdates] = React.useState("");
-  const [workExps, setworkexps] = React.useState("");
-  const [emps, setemps] = React.useState("");
+  const { salaries, setsalaries } = React.useContext(StateContext);
+  const { postingdates, setpostingdates } = React.useContext(StateContext);
+  const { workExps, setworkexps } = React.useContext(StateContext);
+  const { emps, setemps } = React.useContext(StateContext);
+  const { durations, setdurations } = React.useContext(StateContext);
 
-  const [open3, setOpen3] = React.useState(false);
-  const [open4, setOpen4] = React.useState(false);
-  const [open5, setOpen5] = React.useState(false);
-  const [open6, setOpen6] = React.useState(false);
+  const [open3, setOpen3] = React.useState<boolean>(false);
+  const [open4, setOpen4] = React.useState<boolean>(false);
+  const [open5, setOpen5] = React.useState<boolean>(false);
+  const [open6, setOpen6] = React.useState<boolean>(false);
 
-  //   console.log(frameworks)
   // console.log(value);
   // console.log(durations);
   // console.log(salaries);
