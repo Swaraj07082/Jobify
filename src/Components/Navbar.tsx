@@ -38,7 +38,7 @@ export default function Navbar() {
     SetOpen(!Open);
   };
 
-  console.log(Open);
+  // console.log(Open);
 
   return (
     <>

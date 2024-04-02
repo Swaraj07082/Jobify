@@ -4,17 +4,13 @@ import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 // import BannerProps from "./types/BannerProps";
 // import { BannerProps } from "./types/BannerProps";
-import { JobsArray } from "./types/BannerProps";
+// import { JobsArray } from "./types/BannerProps";
 import { Jobs } from "./types/BannerProps";
+// import { query } from "./types/BannerProps";
+import { BannerProps } from "./types/BannerProps";
 
-export default function Banner({ Jobs }: JobsArray) {
-  const [query, setquery] = useState<string>("");
-
+export default function Banner({ Jobs, query, setquery }: BannerProps) {
   // console.log(Jobs)
-
-  const filtereddata = Jobs.filter((item) => item.jobTitle == query);
-
-  console.log(filtereddata);
 
   const onsetquery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setquery(e.target.value);

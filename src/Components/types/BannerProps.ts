@@ -1,5 +1,12 @@
-export interface JobsArray {
+export interface BannerProps {
   Jobs: Jobs[];
+  query: string;
+  setquery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export interface MainProps {
+  Jobs: Jobs[];
+  filtereddata: Jobs[];
 }
 
 export interface Jobs {
@@ -16,4 +23,3 @@ export interface Jobs {
   employmentType: string;
   description: string;
 }
-

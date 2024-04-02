@@ -5,12 +5,21 @@ import GenericSelect from "./generic/GenericSelect";
 import Location from "../../public/location.json";
 import { GenericComboBox } from "./generic/GenericComboBox";
 import GenericRadioGroup from "./generic/GenericRadioGroup";
-import { JobsArray } from "./types/BannerProps";
-import { Joan } from "next/font/google";
 
-export default function Main( {Jobs} : JobsArray) {
+import { Joan } from "next/font/google";
+import StateContext from "@/Context/StateContext";
+import { BannerProps, MainProps } from "./types/BannerProps";
+
+export default function Main({ Jobs, filtereddata }: MainProps) {
   // console.log(Location)
   // console.log(Jobs)
+
+  const { value, setValue } = React.useContext(StateContext);
+  const { salaries, setsalaries } = React.useContext(StateContext);
+  const { postingdates, setpostingdates } = React.useContext(StateContext);
+  const { workExps, setworkexps } = React.useContext(StateContext);
+  const { emps, setemps } = React.useContext(StateContext);
+  const { durations, setdurations } = React.useContext(StateContext);
 
   return (
     <div className={cn("flex ml-48 mr-48 mt-20 ")}>
@@ -117,7 +126,29 @@ export default function Main( {Jobs} : JobsArray) {
         </div>
       </div>
 
-      <div className={cn(" flex-[3]")}></div>
+      <div className={cn(" flex-[3]")}>
+        {filtereddata.map((item) => (
+          <div
+            key={item.id}
+            className={cn("flex solid border-red-600 border-4 h-64 w-auto ")}
+          >
+            <div className={cn("flex-[1]")}>Image</div>
+
+            <div className={cn(" flex-[4] ")}>
+              <div>{item.companyName}</div>
+
+              <div>{item.jobTitle}</div>
+
+              <span>{item.jobLocation}</span>
+              <span>{item.employmentType}</span>
+              <span>{`${item.minPrice} - ${item.maxPrice}`}</span>
+              <span>{item.postingDate}</span>
+
+              <div>{item.description}</div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
