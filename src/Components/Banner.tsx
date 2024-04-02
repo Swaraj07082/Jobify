@@ -48,7 +48,7 @@ export default function Banner({ Jobs, query, setquery ,location , setlocation}:
           value={location}
           onChange={onsetlocation}
         />
-        <Button className={cn(" w-44 max-md:w-auto")}>Search</Button>
+        {/* <Button className={cn(" w-44 max-md:w-auto")}>Search</Button> */}
       </div>
     </div>
   );

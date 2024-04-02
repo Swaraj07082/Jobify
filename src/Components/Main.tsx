@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
 import { Select } from "./ui/select";
 import GenericSelect from "./generic/GenericSelect";
 import Location from "../../public/location.json";
@@ -8,9 +8,18 @@ import GenericRadioGroup from "./generic/GenericRadioGroup";
 
 import { Joan } from "next/font/google";
 import StateContext from "@/Context/StateContext";
-import { BannerProps} from "./types/BannerProps";
+import { BannerProps } from "./types/BannerProps";
+import { Button } from "./ui/button";
+import Image from "next/image";
+import { Card } from "./ui/card";
 
-export default function Main({ Jobs , query ,setquery , location , setlocation}: BannerProps) {
+export default function Main({
+  Jobs,
+  query,
+  setquery,
+  location,
+  setlocation,
+}: BannerProps) {
   // console.log(Location)
   // console.log(Jobs)
 
@@ -21,8 +30,10 @@ export default function Main({ Jobs , query ,setquery , location , setlocation}:
   const { emps, setemps } = React.useContext(StateContext);
   const { durations, setdurations } = React.useContext(StateContext);
 
-   // console.log(query.toLowerCase().split(" ").join(""))
-   const filtereddata = Jobs.filter(
+  const [page, setpage] = useState(0);
+
+  // console.log(query.toLowerCase().split(" ").join(""))
+  const filtereddata = Jobs.filter(
     (item) =>
       // item.jobTitle.toLocaleLowerCase().indexOf(query.toLowerCase()) !== -1
       item.jobTitle
@@ -35,40 +46,38 @@ export default function Main({ Jobs , query ,setquery , location , setlocation}:
         .split(" ")
         .join("")
         .includes(location.toLowerCase().split(" ").join("")) &&
-
-        item.salaryType
+      item.salaryType
         .toLowerCase()
         .split(" ")
         .join("")
         .includes(durations.toLowerCase().split(" ").join("")) &&
-
-        item.experienceLevel
+      item.experienceLevel
         .toLowerCase()
         .split(" ")
         .join("")
         .includes(workExps.toLowerCase().split(" ").join("")) &&
-
-        
-        item.employmentType
+      item.employmentType
         .toLowerCase()
         .split(" ")
         .join("")
-        .includes(emps.toLowerCase().split(" ").join(""))&& 
-         
-        item.salary
+        .includes(emps.toLowerCase().split(" ").join("")) &&
+      item.salary
         .toLowerCase()
         .split(" ")
         .join("")
-        .includes(salaries.toLowerCase().split(" ").join("")) 
+        .includes(salaries.toLowerCase().split(" ").join(""))
   );
-
 
   console.log(filtereddata);
 
   return (
-    <div className={cn("flex ml-48 mr-48 mt-20 ")}>
-      <div className={cn(" flex-[1] ")}>
-        <div className={cn("flex flex-col gap-y-7")}>
+    <>
+      <div
+        className={cn(
+          " flex flex-col justify-center items-center mt-12 gap-y-12 "
+        )}
+      >
+        <div className={cn(" flex  gap-x-[65px]  ")}>
           {/* <GenericSelect placeholder='Location' data={Location}/> */}
           <GenericComboBox
             data={Location}
@@ -168,29 +177,51 @@ export default function Main({ Jobs , query ,setquery , location , setlocation}:
             ]}
           />
         </div>
+
+        <div className={cn("   w-[72%] ")}>
+          {filtereddata.map((item) => (
+            <Card key={item.id} className={cn(" mb-5")}>
+              <div className={cn("flex h-56 w-auto ")}>
+                <div className={cn("flex-[1]  self-center pl-11 ")}>
+                  <Image
+                    src={item.companyLogo}
+                    alt="image not found"
+                    height={140}
+                    width={140}
+                  />
+                </div>
+
+                <div className={cn(" flex-[4] ")}>
+                  <div className={cn("  text-[15px] mt-7 ")}>
+                    {" "}
+                    {item.companyName}
+                  </div>
+
+                  <div className={cn("  text-[20px] mt-2 mb-2 ")}>
+                    {item.jobTitle}
+                  </div>
+
+                  <span className={cn("  text-[15px] mt-2 ")}>
+                    {" "}
+                    📍{item.jobLocation}
+                  </span>
+                  <span className={cn("  text-[15px] mt-2")}>
+                    {" "}
+                    ⌚ {item.employmentType}
+                  </span>
+                  <span className={cn("  text-[15px] mt-2 ")}>
+                    {" "}
+                    💲{item.salary}
+                  </span>
+                  <div className={cn("  text-[15px]  mt-2")}>
+                    {item.description}
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
-
-      <div className={cn(" flex-[3]")}>
-        {filtereddata.map((item) => (
-          <div
-            key={item.id}
-            className={cn("flex solid border-red-600 border-4 h-64 w-auto ")}
-          >
-            <div className={cn("flex-[1]")}>Image</div>
-
-            <div className={cn(" flex-[4] ")}>
-              <div>{item.companyName}</div>
-
-              <div>{item.jobTitle}</div>
-
-              <span>{item.jobLocation}</span>
-              <span>{item.employmentType}</span>
-              <span>{item.salary}</span>
-              <div>{item.description}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    </>
   );
 }
