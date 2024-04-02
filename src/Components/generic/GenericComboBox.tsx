@@ -59,7 +59,7 @@ export function GenericComboBox({
 
   return (
     <>
-      <Popover open={open} onOpenChange={setOpen}>
+      {/* <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
@@ -104,7 +104,7 @@ export function GenericComboBox({
             </CommandGroup>
           </Command>
         </PopoverContent>
-      </Popover>
+      </Popover> */}
 
       <Popover open={open2} onOpenChange={setOpen2}>
         <PopoverTrigger asChild>
@@ -197,7 +197,7 @@ export function GenericComboBox({
           </Command>
         </PopoverContent>
       </Popover>
-
+{/* 
       <Popover open={open4} onOpenChange={setOpen4}>
         <PopoverTrigger asChild>
           <Button
@@ -214,7 +214,7 @@ export function GenericComboBox({
         </PopoverTrigger>
         <PopoverContent className="w-[200px] h-48 p-0">
           <Command>
-            {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
+            <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" />
             <CommandEmpty>No framework found.</CommandEmpty>
             <CommandGroup>
               <CommandList>
@@ -244,7 +244,7 @@ export function GenericComboBox({
             </CommandGroup>
           </Command>
         </PopoverContent>
-      </Popover>
+      </Popover> */}
 
       <Popover open={open5} onOpenChange={setOpen5}>
         <PopoverTrigger asChild>

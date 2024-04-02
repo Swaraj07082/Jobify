@@ -6,21 +6,18 @@ export interface BannerProps {
   setlocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface MainProps {
-  Jobs: Jobs[];
-  filtereddata: Jobs[];
-}
+// export interface MainProps {
+//   Jobs: Jobs[];
+// }
 
 export interface Jobs {
   id: number;
   companyName: string;
   jobTitle: string;
   companyLogo: string;
-  minPrice: string;
-  maxPrice: string;
+  salary : string;
   salaryType: string;
   jobLocation: string;
-  postingDate: string;
   experienceLevel: string;
   employmentType: string;
   description: string;

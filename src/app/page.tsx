@@ -15,7 +15,7 @@ export default function Home() {
     const getdata = async () => {
       const data = await fetch("jobs.json");
       const parsedata = await data.json();
-      // console.log(parsedata);
+      console.log(parsedata);
       SetJobs(parsedata);
     };
     getdata();
@@ -29,22 +29,7 @@ export default function Home() {
 
   // console.log(Jobs);
 
-  // console.log(query.toLowerCase().split(" ").join(""))
-  const filtereddata = Jobs.filter(
-    (item) =>
-      // item.jobTitle.toLocaleLowerCase().indexOf(query.toLowerCase()) !== -1
-      item.jobTitle
-        .toLowerCase()
-        .split(" ")
-        .join("")
-        .includes(query.toLowerCase().split(" ").join("")) &&
-      item.jobLocation
-        .toLowerCase()
-        .split(" ")
-        .join("")
-        .includes(location.toLowerCase().split(" ").join(""))
-  );
-  console.log(filtereddata);
+ 
 
   return (
     <>
@@ -57,7 +42,8 @@ export default function Home() {
           location={location}
           setlocation={setlocation}
         />
-        <Main Jobs={Jobs} filtereddata={filtereddata} />
+        <Main Jobs={Jobs} query={query} setquery={setquery}  location={location}
+          setlocation={setlocation} />
       </StateContextProvider>
     </>
   );

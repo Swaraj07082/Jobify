@@ -8,9 +8,9 @@ import GenericRadioGroup from "./generic/GenericRadioGroup";
 
 import { Joan } from "next/font/google";
 import StateContext from "@/Context/StateContext";
-import { BannerProps, MainProps } from "./types/BannerProps";
+import { BannerProps} from "./types/BannerProps";
 
-export default function Main({ Jobs, filtereddata }: MainProps) {
+export default function Main({ Jobs , query ,setquery , location , setlocation}: BannerProps) {
   // console.log(Location)
   // console.log(Jobs)
 
@@ -20,6 +20,50 @@ export default function Main({ Jobs, filtereddata }: MainProps) {
   const { workExps, setworkexps } = React.useContext(StateContext);
   const { emps, setemps } = React.useContext(StateContext);
   const { durations, setdurations } = React.useContext(StateContext);
+
+   // console.log(query.toLowerCase().split(" ").join(""))
+   const filtereddata = Jobs.filter(
+    (item) =>
+      // item.jobTitle.toLocaleLowerCase().indexOf(query.toLowerCase()) !== -1
+      item.jobTitle
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(query.toLowerCase().split(" ").join("")) &&
+      item.jobLocation
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(location.toLowerCase().split(" ").join("")) &&
+
+        item.salaryType
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(durations.toLowerCase().split(" ").join("")) &&
+
+        item.experienceLevel
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(workExps.toLowerCase().split(" ").join("")) &&
+
+        
+        item.employmentType
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(emps.toLowerCase().split(" ").join(""))&& 
+         
+        item.salary
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(salaries.toLowerCase().split(" ").join("")) 
+  );
+
+
+  console.log(filtereddata);
 
   return (
     <div className={cn("flex ml-48 mr-48 mt-20 ")}>
@@ -141,9 +185,7 @@ export default function Main({ Jobs, filtereddata }: MainProps) {
 
               <span>{item.jobLocation}</span>
               <span>{item.employmentType}</span>
-              <span>{`${item.minPrice} - ${item.maxPrice}`}</span>
-              <span>{item.postingDate}</span>
-
+              <span>{item.salary}</span>
               <div>{item.description}</div>
             </div>
           </div>
