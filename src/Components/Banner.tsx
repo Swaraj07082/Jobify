@@ -9,11 +9,15 @@ import { Jobs } from "./types/BannerProps";
 // import { query } from "./types/BannerProps";
 import { BannerProps } from "./types/BannerProps";
 
-export default function Banner({ Jobs, query, setquery }: BannerProps) {
+export default function Banner({ Jobs, query, setquery ,location , setlocation}: BannerProps) {
   // console.log(Jobs)
 
   const onsetquery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setquery(e.target.value);
+  };
+
+  const onsetlocation = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setlocation(e.target.value);
   };
 
   //   console.log(query);
@@ -41,6 +45,8 @@ export default function Banner({ Jobs, query, setquery }: BannerProps) {
         <Input
           className={cn("w-[600px] max-md:w-auto")}
           placeholder="Location"
+          value={location}
+          onChange={onsetlocation}
         />
         <Button className={cn(" w-44 max-md:w-auto")}>Search</Button>
       </div>

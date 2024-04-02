@@ -23,11 +23,26 @@ export default function Home() {
 
   const [Jobs, SetJobs] = useState<Jobs[]>([]);
   const [query, setquery] = useState<string>("");
+  const [location, setlocation] = useState<string>("");
+
+  console.log(location);
 
   // console.log(Jobs);
-  const filtereddata = Jobs.filter((item) =>
-    // item.jobTitle.toLocaleLowerCase().indexOf(query.toLowerCase()) !== -1
-    item.jobTitle.toLowerCase().trim().includes(query.toLowerCase().trim())
+
+  // console.log(query.toLowerCase().split(" ").join(""))
+  const filtereddata = Jobs.filter(
+    (item) =>
+      // item.jobTitle.toLocaleLowerCase().indexOf(query.toLowerCase()) !== -1
+      item.jobTitle
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(query.toLowerCase().split(" ").join("")) &&
+      item.jobLocation
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(location.toLowerCase().split(" ").join(""))
   );
   console.log(filtereddata);
 
@@ -35,7 +50,13 @@ export default function Home() {
     <>
       {/* <LandingPage/> */}
       <StateContextProvider>
-        <Banner Jobs={Jobs} query={query} setquery={setquery} />
+        <Banner
+          Jobs={Jobs}
+          query={query}
+          setquery={setquery}
+          location={location}
+          setlocation={setlocation}
+        />
         <Main Jobs={Jobs} filtereddata={filtereddata} />
       </StateContextProvider>
     </>

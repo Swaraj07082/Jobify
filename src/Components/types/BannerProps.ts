@@ -2,6 +2,8 @@ export interface BannerProps {
   Jobs: Jobs[];
   query: string;
   setquery: React.Dispatch<React.SetStateAction<string>>;
+  location: string;
+  setlocation: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface MainProps {
