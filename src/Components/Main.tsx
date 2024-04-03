@@ -72,117 +72,115 @@ export default function Main({
 
   return (
     <>
-      <div
-        className={cn(
-          " flex flex-col justify-center items-center mt-12 gap-y-12 "
-        )}
-      >
-        <div className={cn(" flex  gap-x-[65px]  ")}>
+      <div className={cn(" flex ml-48 mr-48 gap-x-5 mt-12 ")}>
+        
           {/* <GenericSelect placeholder='Location' data={Location}/> */}
-          <GenericComboBox
-            data={Location}
-            title={[
-              "Location",
-              "Duration",
-              "Salary",
-              "Date of Posting",
-              "Work experience",
-              "Type of employment",
-            ]}
-            duration={[
-              {
-                value: "Hourly",
-                label: "Hourly",
-              },
-              {
-                value: "Monthly",
-                label: "Monthly",
-              },
-              {
-                value: "Yearly",
-                label: "Yearly",
-              },
-            ]}
-            salary={[
-              {
-                value: "Any",
-                label: "Any",
-              },
-              {
-                value: "< 30000k",
-                label: "< 30000k",
-              },
-              {
-                value: "< 50000k",
-                label: "< 50000k",
-              },
-              {
-                value: "< 80000k",
-                label: "< 80000k",
-              },
-              {
-                value: "< 100000k",
-                label: "< 100000k",
-              },
-            ]}
-            postingdate={[
-              {
-                value: "All time",
-                label: "All time",
-              },
-              {
-                value: "Last 24 hours",
-                label: "Last 24 hours",
-              },
-              {
-                value: "Last 7 days",
-                label: "Last 7 days",
-              },
-              {
-                value: "Last Month",
-                label: "Last Month",
-              },
-            ]}
-            workExp={[
-              {
-                value: "Any experience",
-                label: "Any experience",
-              },
-              {
-                value: "Internship",
-                label: "Internship",
-              },
-              {
-                value: "Work remotely",
-                label: "Work remotely",
-              },
-            ]}
-            employement={[
-              {
-                value: "Any",
-                label: "Any",
-              },
-              {
-                value: "Full time",
-                label: "Full time",
-              },
-              {
-                value: "Temporary",
-                label: "Temporary",
-              },
-              {
-                value: "Part time",
-                label: "Part time",
-              },
-            ]}
-          />
-        </div>
+          <div className={cn(" flex flex-col flex-[1] w-2 h-64 ")}>
+            <GenericComboBox
+              data={Location}
+              title={[
+                "Location",
+                "Duration",
+                "Salary",
+                "Date of Posting",
+                "Work experience",
+                "Type of employment",
+              ]}
+              duration={[
+                {
+                  value: "Hourly",
+                  label: "Hourly",
+                },
+                {
+                  value: "Monthly",
+                  label: "Monthly",
+                },
+                {
+                  value: "Yearly",
+                  label: "Yearly",
+                },
+              ]}
+              salary={[
+                {
+                  value: "Any",
+                  label: "Any",
+                },
+                {
+                  value: "< 30000k",
+                  label: "< 30000k",
+                },
+                {
+                  value: "< 50000k",
+                  label: "< 50000k",
+                },
+                {
+                  value: "< 80000k",
+                  label: "< 80000k",
+                },
+                {
+                  value: "< 100000k",
+                  label: "< 100000k",
+                },
+              ]}
+              postingdate={[
+                {
+                  value: "All time",
+                  label: "All time",
+                },
+                {
+                  value: "Last 24 hours",
+                  label: "Last 24 hours",
+                },
+                {
+                  value: "Last 7 days",
+                  label: "Last 7 days",
+                },
+                {
+                  value: "Last Month",
+                  label: "Last Month",
+                },
+              ]}
+              workExp={[
+                {
+                  value: "Any experience",
+                  label: "Any experience",
+                },
+                {
+                  value: "Internship",
+                  label: "Internship",
+                },
+                {
+                  value: "Work remotely",
+                  label: "Work remotely",
+                },
+              ]}
+              employement={[
+                {
+                  value: "Any",
+                  label: "Any",
+                },
+                {
+                  value: "Full time",
+                  label: "Full time",
+                },
+                {
+                  value: "Temporary",
+                  label: "Temporary",
+                },
+                {
+                  value: "Part time",
+                  label: "Part time",
+                },
+              ]}
+            />
+          </div>
+    
 
-        <div className={cn("   w-[72%] ")}>
+        <div className={cn("   flex flex-col w-[72%] flex-[3] ")}>
           {filtereddata.map((item) => (
             <Card key={item.id} className={cn(" mb-5")}>
-              <div className={cn("flex h-56 w-auto ")}>
-                <div className={cn("flex-[1]  self-center pl-11 ")}>
+              <div className={cn("flex h-56 w-auto pl-5 ")}>
+                <div className={cn("flex-[1]   self-center ")}>
                   <Image
                     src={item.companyLogo}
                     alt="image not found"
@@ -191,7 +189,7 @@ export default function Main({
                   />
                 </div>
 
-                <div className={cn(" flex-[4] ")}>
+                <div className={cn(" flex-[4] pl-5 ")}>
                   <div className={cn("  text-[15px] mt-7 ")}>
                     {" "}
                     {item.companyName}

@@ -24,13 +24,16 @@ export default function Banner({ Jobs, query, setquery ,location , setlocation}:
 
   return (
     <div
+
+
+
       className={cn(
         "    ml-48 mr-48 mt-20  text-left max-lg:ml-16 max-lg:mr-16"
       )}
     >
-      <div className={cn("text-[54px] text-left")}>Find your new job today</div>
+      <div className={cn("text-[54px] text-center")}>Find your new job today</div>
 
-      <div className={cn(" text-left text-xl")}>
+      <div className={cn(" text-center text-xl")}>
         Thousands of jobs in computer , engineering and technology sectors are
         waiting for you.
       </div>
@@ -41,12 +44,14 @@ export default function Banner({ Jobs, query, setquery ,location , setlocation}:
           value={query}
           onChange={onsetquery}
           placeholder="What position are you looking for?"
+          type="text"
         />
         <Input
           className={cn("w-[600px] max-md:w-auto")}
           placeholder="Location"
           value={location}
           onChange={onsetlocation}
+          type="text"
         />
         {/* <Button className={cn(" w-44 max-md:w-auto")}>Search</Button> */}
       </div>

@@ -59,10 +59,11 @@ export function GenericComboBox({
 
   return (
     <>
+        <div className={cn("flex flex-col justify-center items-center gap-y-6")}> 
       {/* <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
-            variant="outline"
+            variant="outline" 
             role="combobox"
             aria-expanded={open}
             className="w-[200px] justify-between"
@@ -106,6 +107,9 @@ export function GenericComboBox({
         </PopoverContent>
       </Popover> */}
 
+     
+
+
       <Popover open={open2} onOpenChange={setOpen2}>
         <PopoverTrigger asChild>
           <Button
@@ -142,8 +146,8 @@ export function GenericComboBox({
                       className={cn(
                         "ml-auto h-4 w-4",
                         durations === item.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
+                        )}
+                        />
                   </CommandItem>
                 ))}
               </CommandList>
@@ -174,7 +178,7 @@ export function GenericComboBox({
               <CommandList>
                 {salary.map((item) => (
                   <CommandItem
-                    key={item.value}
+                  key={item.value}
                     value={item.value}
                     onSelect={(currentValue) => {
                       setsalaries(
@@ -182,14 +186,14 @@ export function GenericComboBox({
                       );
                       setOpen3(false);
                     }}
-                  >
+                    >
                     {item.label}
                     <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4",
                         salaries === item.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
+                        )}
+                        />
                   </CommandItem>
                 ))}
               </CommandList>
@@ -199,52 +203,54 @@ export function GenericComboBox({
       </Popover>
 {/* 
       <Popover open={open4} onOpenChange={setOpen4}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open4}
-            className="w-[200px] justify-between"
-          >
-            {postingdates
-              ? postingdate.find((item) => item.value === postingdates)?.label
-              : title[3]}
-            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-          </Button>
+      <PopoverTrigger asChild>
+      <Button
+      variant="outline"
+      role="combobox"
+      aria-expanded={open4}
+      className="w-[200px] justify-between"
+      >
+      {postingdates
+        ? postingdate.find((item) => item.value === postingdates)?.label
+        : title[3]}
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
         </PopoverTrigger>
         <PopoverContent className="w-[200px] h-48 p-0">
-          <Command>
-            <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" />
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandGroup>
-              <CommandList>
-                {postingdate.map((item) => (
-                  <CommandItem
-                    key={item.value}
-                    value={item.value}
+        <Command>
+        <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" />
+        <CommandEmpty>No framework found.</CommandEmpty>
+        <CommandGroup>
+        <CommandList>
+        {postingdate.map((item) => (
+          <CommandItem
+          key={item.value}
+          value={item.value}
                     onSelect={(currentValue) => {
                       setpostingdates(
                         currentValue === postingdates ? "" : currentValue
-                      );
-                      setOpen4(false);
-                    }}
-                  >
-                    {item.label}
-                    <CheckIcon
+                        );
+                        setOpen4(false);
+                      }}
+                      >
+                      {item.label}
+                      <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4",
                         postingdates === item.value
-                          ? "opacity-100"
-                          : "opacity-0"
-                      )}
-                    />
-                  </CommandItem>
-                ))}
-              </CommandList>
-            </CommandGroup>
-          </Command>
-        </PopoverContent>
-      </Popover> */}
+                        ? "opacity-100"
+                        : "opacity-0"
+                        )}
+                        />
+                        </CommandItem>
+                        ))}
+                        </CommandList>
+                        </CommandGroup>
+                        </Command>
+                        </PopoverContent>
+                      </Popover> */}
+
+
 
       <Popover open={open5} onOpenChange={setOpen5}>
         <PopoverTrigger asChild>
@@ -253,7 +259,7 @@ export function GenericComboBox({
             role="combobox"
             aria-expanded={open5}
             className="w-[200px] justify-between"
-          >
+            >
             {workExps
               ? workExp.find((item) => item.value === workExps)?.label
               : title[4]}
@@ -268,22 +274,22 @@ export function GenericComboBox({
               <CommandList>
                 {workExp.map((item) => (
                   <CommandItem
-                    key={item.value}
-                    value={item.value}
-                    onSelect={(currentValue) => {
-                      setworkexps(
-                        currentValue === workExps ? "" : currentValue
+                  key={item.value}
+                  value={item.value}
+                  onSelect={(currentValue) => {
+                    setworkexps(
+                      currentValue === workExps ? "" : currentValue
                       );
                       setOpen5(false);
                     }}
-                  >
+                    >
                     {item.label}
                     <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4",
                         workExps === item.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
+                        )}
+                        />
                   </CommandItem>
                 ))}
               </CommandList>
@@ -299,7 +305,7 @@ export function GenericComboBox({
             role="combobox"
             aria-expanded={open6}
             className="w-[200px] justify-between"
-          >
+            >
             {emps
               ? employement.find((item) => item.value === emps)?.label
               : title[5]}
@@ -314,20 +320,20 @@ export function GenericComboBox({
               <CommandList>
                 {employement.map((item) => (
                   <CommandItem
-                    key={item.value}
-                    value={item.value}
-                    onSelect={(currentValue) => {
-                      setemps(currentValue === emps ? "" : currentValue);
-                      setOpen6(false);
-                    }}
+                  key={item.value}
+                  value={item.value}
+                  onSelect={(currentValue) => {
+                    setemps(currentValue === emps ? "" : currentValue);
+                    setOpen6(false);
+                  }}
                   >
                     {item.label}
                     <CheckIcon
                       className={cn(
                         "ml-auto h-4 w-4",
                         emps === item.value ? "opacity-100" : "opacity-0"
-                      )}
-                    />
+                        )}
+                        />
                   </CommandItem>
                 ))}
               </CommandList>
@@ -335,6 +341,8 @@ export function GenericComboBox({
           </Command>
         </PopoverContent>
       </Popover>
+              
+                        </div>
     </>
   );
 }
