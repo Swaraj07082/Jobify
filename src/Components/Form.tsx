@@ -27,8 +27,10 @@ import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { CommandList } from "cmdk";
 import { Card } from "./ui/card";
 import { useEffect, useState } from "react";
-import { toast } from "./ui/use-toast";
+import { toast, useToast } from "./ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
+import MultipleSelectorDemo from "./MultiSelectDemo";
+// import { FancyMultiSelect } from "./ui/MultiSelect";
 // import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 
 const formSchema = z.object({
@@ -62,11 +64,12 @@ const formSchema = z.object({
   description: z.string().min(10, {
     message: "Username must be at least 10 characters.",
   }),
-  companylogo: z.string()
-  .url({ message: "Please enter a valid URL in https:// format " })
-  .refine(value => value.startsWith("https://"), {
-    message: "URL must start with 'https://'."
-  }),
+  companylogo: z
+    .string()
+    .url({ message: "Please enter a valid URL in https:// format " })
+    .refine((value) => value.startsWith("https://"), {
+      message: "URL must start with 'https://'.",
+    }),
   email: z.string().min(1, {
     message: "This field has to be filled.",
   }),
@@ -485,8 +488,6 @@ const employmenttype = [
   },
 ];
 
-
-
 export function ProfileForm() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -495,15 +496,24 @@ export function ProfileForm() {
     //   username: "",
     // },
   });
+
+  const [set, setset] = useState<boolean>(false);
+  const { toast } = useToast();
+
+  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    setset(!set);
+    console.log(set);
     console.log(values);
   }
 
   return (
     <>
+<MultipleSelectorDemo/>
+
       <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
@@ -587,7 +597,8 @@ export function ProfileForm() {
                         </PopoverContent>
                       </Popover>
                       <FormDescription>
-                        This is the Job Title that will be used in the dashboard.
+                        This is the Job Title that will be used in the
+                        dashboard.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -702,7 +713,8 @@ export function ProfileForm() {
                         </PopoverContent>
                       </Popover>
                       <FormDescription>
-                        This is the language that will be used in the dashboard.
+                        This is the experience level that will be used in the
+                        dashboard.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -734,18 +746,18 @@ export function ProfileForm() {
                                 ? Salaries.find(
                                     (salary) => salary.value === field.value
                                   )?.label
-                                : "Select language"}
+                                : "Select salary"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
                           <Command>
-                            <CommandInput
+                            {/* <CommandInput
                               placeholder="Search framework..."
                               className="h-9"
                             />
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandEmpty>No framework found.</CommandEmpty> */}
                             <CommandGroup>
                               <CommandList>
                                 {Salaries.map((salary) => (
@@ -773,7 +785,7 @@ export function ProfileForm() {
                         </PopoverContent>
                       </Popover>
                       <FormDescription>
-                        This is the language that will be used in the dashboard.
+                        This is the salary that will be used in the dashboard.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -802,18 +814,18 @@ export function ProfileForm() {
                                     (salarytype) =>
                                       salarytype.value === field.value
                                   )?.label
-                                : "Select language"}
+                                : "Select salary type"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
                           <Command>
-                            <CommandInput
+                            {/* <CommandInput
                               placeholder="Search framework..."
                               className="h-9"
                             />
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandEmpty>No framework found.</CommandEmpty> */}
                             <CommandGroup>
                               <CommandList>
                                 {SalaryType.map((salarytype) => (
@@ -844,7 +856,8 @@ export function ProfileForm() {
                         </PopoverContent>
                       </Popover>
                       <FormDescription>
-                        This is the language that will be used in the dashboard.
+                        This is the salary type that will be used in the
+                        dashboard.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -856,7 +869,7 @@ export function ProfileForm() {
                   name="skillset"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
-                      <FormLabel>Skill Set</FormLabel>
+                      <FormLabel>SkillSet</FormLabel>
                       <Popover>
                         <PopoverTrigger asChild>
                           <FormControl>
@@ -872,18 +885,18 @@ export function ProfileForm() {
                                 ? skillset.find(
                                     (exp) => exp.value === field.value
                                   )?.label
-                                : "Select language"}
+                                : "Select skillset"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
                           <Command>
-                            <CommandInput
+                            {/* <CommandInput
                               placeholder="Search framework..."
                               className="h-9"
                             />
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandEmpty>No framework found.</CommandEmpty> */}
                             <CommandGroup>
                               <CommandList>
                                 {skillset.map((JobTitle) => (
@@ -911,7 +924,7 @@ export function ProfileForm() {
                         </PopoverContent>
                       </Popover>
                       <FormDescription>
-                        This is the language that will be used in the dashboard.
+                        This is the skillset that will be used in the dashboard.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -939,18 +952,18 @@ export function ProfileForm() {
                                 ? employmenttype.find(
                                     (exp) => exp.value === field.value
                                   )?.label
-                                : "Select language"}
+                                : "Select employment type"}
                               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
                           <Command>
-                            <CommandInput
+                            {/* <CommandInput
                               placeholder="Search framework..."
                               className="h-9"
                             />
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandEmpty>No framework found.</CommandEmpty> */}
                             <CommandGroup>
                               <CommandList>
                                 {employmenttype.map((JobTitle) => (
@@ -981,7 +994,8 @@ export function ProfileForm() {
                         </PopoverContent>
                       </Popover>
                       <FormDescription>
-                        This is the language that will be used in the dashboard.
+                        This is the employment type that will be used in the
+                        dashboard.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -1000,13 +1014,13 @@ export function ProfileForm() {
                       <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="shadcn"
+                          placeholder="Description"
                           {...field}
                           className={cn("w-full")}
                         />
                       </FormControl>
                       <FormDescription>
-                        This is your public display name.
+                        This is your description.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -1022,10 +1036,13 @@ export function ProfileForm() {
                     <FormItem>
                       <FormLabel>Company Logo</FormLabel>
                       <FormControl>
-                        <Input placeholder="shadcn" {...field} />
+                        <Input
+                          placeholder="Enter company logo URL"
+                          {...field}
+                        />
                       </FormControl>
                       <FormDescription>
-                        This is your public display name.
+                        This is your company logo.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -1042,15 +1059,13 @@ export function ProfileForm() {
                       <FormLabel>Email</FormLabel>
                       <FormControl>
                         <Input
-                          placeholder="shadcn"
+                          placeholder="Enter your email"
                           {...field}
                           type="email"
                           required
                         />
                       </FormControl>
-                      <FormDescription>
-                        This is your public display name.
-                      </FormDescription>
+                      <FormDescription>This is your email.</FormDescription>
                       <FormMessage />
                     </FormItem>
                   </>
@@ -1059,16 +1074,17 @@ export function ProfileForm() {
 
               <Button
                 type="submit"
-                className={cn("button  w-36 self-center justify-self-center mb-7")}
+                className={cn(
+                  "button w-36 self-center justify-self-center mb-7"
+                )}
                 id="button"
-                onClick={
-                  function () {
-                    var button = document.getElementById("button");
-                    if (button) {
-                      button.style.animation = "clickAnimation 0.2s";
-                      setTimeout(function(){
-                        button.style.animation = "";
-                      }, 200);
+                onClick={function () {
+                  var button = document.getElementById("button");
+                  if (button) {
+                    button.style.animation = "clickAnimation 0.2s";
+                    setTimeout(function () {
+                      button.style.animation = "";
+                    }, 200);
                   }
 
                   // handleclick
@@ -1076,10 +1092,14 @@ export function ProfileForm() {
               >
                 Submit
               </Button>
+
+
             </div>
           </form>
         </Form>
       </Card>
+
+
     </>
   );
 }
