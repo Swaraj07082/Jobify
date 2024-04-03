@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 
+import Link from "next/link";
 import icon from "../../public/burgermenu.svg";
 
 import {
@@ -30,6 +31,7 @@ import jobify from "../../public/Jobify.jpg";
 
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import ToggleMenu from "./ToggleMenu";
+import { redirect } from "next/navigation";
 
 export default function Navbar() {
   const [Open, SetOpen] = useState<boolean>(false);
@@ -70,7 +72,9 @@ export default function Navbar() {
 
           <MenubarMenu>
             <MenubarTrigger className=" max-lg:hidden">
+            <Link href={'post-job'}>
               Post A Job
+            </Link>
             </MenubarTrigger>
           </MenubarMenu>
         </div>
