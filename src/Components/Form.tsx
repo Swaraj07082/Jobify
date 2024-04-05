@@ -29,7 +29,7 @@ import { Card } from "./ui/card";
 import { useEffect, useState } from "react";
 import { toast, useToast } from "./ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
-import MultipleSelectorDemo from "./MultiSelectDemo";
+// import MultipleSelectorDemo from "./MultiSelectDemo";
 // import { FancyMultiSelect } from "./ui/MultiSelect";
 // import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 
@@ -512,7 +512,6 @@ export function ProfileForm() {
 
   return (
     <>
-<MultipleSelectorDemo/>
 
       <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>
         <Form {...form}>
@@ -564,7 +563,7 @@ export function ProfileForm() {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
-                          <Command>
+                          <Command className={cn(' h-[228px]')}>
                             <CommandInput
                               placeholder="Search Job Title..."
                               className="h-9"
