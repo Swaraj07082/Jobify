@@ -512,7 +512,6 @@ export function ProfileForm() {
 
   return (
     <>
-
       <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
@@ -532,7 +531,7 @@ export function ProfileForm() {
               <FormMessage />
               </FormItem>
               </>
-              )}
+            )}
             /> */}
             <div className={cn("flex justify-around mt-8 ")}>
               <div className={cn(" w-[570px] ml-6 flex flex-col gap-y-7 ")}>
