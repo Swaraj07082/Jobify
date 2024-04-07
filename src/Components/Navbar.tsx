@@ -61,7 +61,12 @@ export default function Navbar() {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">My Jobs</MenubarTrigger>
+            <MenubarTrigger className=" max-lg:hidden">
+              <Link href={'my-jobs'}>
+              
+              My Jobs
+              </Link>
+              </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
