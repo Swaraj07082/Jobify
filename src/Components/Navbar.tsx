@@ -85,7 +85,12 @@ export default function Navbar() {
         </div>
 
         <div className={cn("flex gap-x-2")}>
-          <Button className=" max-lg:hidden">Login</Button>
+          <Button className=" max-lg:hidden">
+            <Link href={'/login'}>
+            
+            Login
+            </Link>
+            </Button>
 
           <Button className=" max-lg:hidden">Register</Button>
           <Image
