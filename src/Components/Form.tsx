@@ -1,4 +1,11 @@
 "use client";
+import {
+  Select,
+  SelectTrigger,
+  SelectItem,
+  SelectContent,
+  SelectValue,
+} from "../Components/ui/select";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -40,8 +47,8 @@ const formSchema = z.object({
   JobTitle: z.string({
     required_error: "Please select a Job Title.",
   }),
-  companyname: z.string({
-    required_error: "Please enter the company name.",
+  companyname: z.string().min(1, {
+    message: "Please enter the company name.",
   }),
   salary: z.string({
     required_error: "Please select Salary",
@@ -49,11 +56,11 @@ const formSchema = z.object({
   salarytype: z.string({
     required_error: "Please select a Salary type",
   }),
-  joblocation: z.string().min(0, {
+  joblocation: z.string().min(1, {
     message: "Please enter the job location.",
   }),
-  experiencelevel: z.string({
-    required_error: "Please enter your experience level",
+  experiencelevel: z.string().min(1, {
+    message: "Please enter your experience level",
   }),
   skillset: z.string({
     required_error: "Please select your skillset",
@@ -70,7 +77,7 @@ const formSchema = z.object({
     .refine((value) => value.startsWith("https://"), {
       message: "URL must start with 'https://'.",
     }),
-  email: z.string().min(1, {
+  email: z.string().email().min(1, {
     message: "This field has to be filled.",
   }),
 });
@@ -492,21 +499,24 @@ export function ProfileForm() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    // defaultValues: {
-    //   username: "",
-    // },
+    defaultValues: {
+      joblocation: "",
+      companyname: "",
+      experiencelevel: "",
+      description: "",
+      companylogo: "",
+      email: "",
+    },
   });
 
-  const [set, setset] = useState<boolean>(false);
-  const { toast } = useToast();
+  const { reset } = form;
 
-  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    setset(!set);
-    console.log(set);
+    alert("Form Submitted");
+    reset();
     console.log(values);
   }
 
@@ -515,26 +525,8 @@ export function ProfileForm() {
       <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
-            {/* <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <>
-              <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-              <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-              This is your public display name.
-              </FormDescription>
-              <FormMessage />
-              </FormItem>
-              </>
-            )}
-            /> */}
             <div className={cn("flex justify-around mt-8 ")}>
-              <div className={cn(" w-[570px] ml-6 flex flex-col gap-y-7 ")}>
+              <div className={cn(" w-[570px] ml-6 mt-[10px] flex flex-col gap-y-7 ")}>
                 <FormField
                   control={form.control}
                   name="JobTitle"
@@ -562,7 +554,7 @@ export function ProfileForm() {
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent className="w-[200px] p-0">
-                          <Command className={cn(' h-[228px]')}>
+                          <Command className={cn(" h-[228px]")}>
                             <CommandInput
                               placeholder="Search Job Title..."
                               className="h-9"
@@ -647,73 +639,29 @@ export function ProfileForm() {
                     </>
                   )}
                 />
-
                 <FormField
                   control={form.control}
-                  name="experiencelevel"
+                  name="email"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Experience Level</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? experienceLevel.find(
-                                    (exp) => exp.value === field.value
-                                  )?.label
-                                : "Select experience level"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command>
-                            {/* <CommandInput
-                              placeholder="Search framework..."
-                              className="h-9"
-                            /> */}
-                            {/* <CommandEmpty>No framework found.</CommandEmpty> */}
-                            <CommandGroup>
-                              <CommandList>
-                                {experienceLevel.map((JobTitle) => (
-                                  <CommandItem
-                                    value={JobTitle.label}
-                                    key={JobTitle.value}
-                                    onSelect={() => {
-                                      form.setValue(
-                                        "experiencelevel",
-                                        JobTitle.value
-                                      );
-                                    }}
-                                  >
-                                    {JobTitle.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        JobTitle.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandList>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        This is the experience level that will be used in the
-                        dashboard.
-                      </FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select experience level..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {experienceLevel.map((item) => (
+                            <SelectItem key={item.value} value={item.value}>
+                              {item.value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -721,70 +669,31 @@ export function ProfileForm() {
               </div>
 
               <div
-                className={cn(" w-[570px]  mr-6 flex flex-col gap-y-[35px]")}
+                className={cn(" w-[570px]  mr-6 flex flex-col gap-y-14")}
               >
                 <FormField
                   control={form.control}
                   name="salary"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Salary</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                " justify-between w-full",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? Salaries.find(
-                                    (salary) => salary.value === field.value
-                                  )?.label
-                                : "Select salary"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command>
-                            {/* <CommandInput
-                              placeholder="Search framework..."
-                              className="h-9"
-                            />
-                            <CommandEmpty>No framework found.</CommandEmpty> */}
-                            <CommandGroup>
-                              <CommandList>
-                                {Salaries.map((salary) => (
-                                  <CommandItem
-                                    value={salary.label}
-                                    key={salary.value}
-                                    onSelect={() => {
-                                      form.setValue("salary", salary.value);
-                                    }}
-                                  >
-                                    {salary.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        salary.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandList>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        This is the salary that will be used in the dashboard.
-                      </FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Salary..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Salaries.map((item) => (
+                            <SelectItem key={item.value} value={item.value}>
+                              {item.value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -794,136 +703,52 @@ export function ProfileForm() {
                   control={form.control}
                   name="salarytype"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Salary Type</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                " w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? SalaryType.find(
-                                    (salarytype) =>
-                                      salarytype.value === field.value
-                                  )?.label
-                                : "Select salary type"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command>
-                            {/* <CommandInput
-                              placeholder="Search framework..."
-                              className="h-9"
-                            />
-                            <CommandEmpty>No framework found.</CommandEmpty> */}
-                            <CommandGroup>
-                              <CommandList>
-                                {SalaryType.map((salarytype) => (
-                                  <CommandItem
-                                    value={salarytype.label}
-                                    key={salarytype.value}
-                                    onSelect={() => {
-                                      form.setValue(
-                                        "salarytype",
-                                        salarytype.value
-                                      );
-                                    }}
-                                  >
-                                    {salarytype.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        salarytype.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandList>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        This is the salary type that will be used in the
-                        dashboard.
-                      </FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Salary Type..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {SalaryType.map((item) => (
+                            <SelectItem key={item.value} value={item.value}>
+                              {item.value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="skillset"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>SkillSet</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                " w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? skillset.find(
-                                    (exp) => exp.value === field.value
-                                  )?.label
-                                : "Select skillset"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command>
-                            {/* <CommandInput
-                              placeholder="Search framework..."
-                              className="h-9"
-                            />
-                            <CommandEmpty>No framework found.</CommandEmpty> */}
-                            <CommandGroup>
-                              <CommandList>
-                                {skillset.map((JobTitle) => (
-                                  <CommandItem
-                                    value={JobTitle.label}
-                                    key={JobTitle.value}
-                                    onSelect={() => {
-                                      form.setValue("skillset", JobTitle.value);
-                                    }}
-                                  >
-                                    {JobTitle.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        JobTitle.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandList>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        This is the skillset that will be used in the dashboard.
-                      </FormDescription>
+                    <FormItem>
+                      <FormLabel>Skillset</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Skillset..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {skillset.map((item) => (
+                            <SelectItem key={item.value} value={item.value}>
+                              {item.value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -933,68 +758,25 @@ export function ProfileForm() {
                   control={form.control}
                   name="employmenttype"
                   render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                    <FormItem>
                       <FormLabel>Employment Type</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                "w-full justify-between",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? employmenttype.find(
-                                    (exp) => exp.value === field.value
-                                  )?.label
-                                : "Select employment type"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command>
-                            {/* <CommandInput
-                              placeholder="Search framework..."
-                              className="h-9"
-                            />
-                            <CommandEmpty>No framework found.</CommandEmpty> */}
-                            <CommandGroup>
-                              <CommandList>
-                                {employmenttype.map((JobTitle) => (
-                                  <CommandItem
-                                    value={JobTitle.label}
-                                    key={JobTitle.value}
-                                    onSelect={() => {
-                                      form.setValue(
-                                        "employmenttype",
-                                        JobTitle.value
-                                      );
-                                    }}
-                                  >
-                                    {JobTitle.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        JobTitle.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandList>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormDescription>
-                        This is the employment type that will be used in the
-                        dashboard.
-                      </FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Employment Type..." />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {employmenttype.map((item) => (
+                            <SelectItem key={item.value} value={item.value}>
+                              {item.value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -1060,7 +842,6 @@ export function ProfileForm() {
                           placeholder="Enter your email"
                           {...field}
                           type="email"
-                          required
                         />
                       </FormControl>
                       <FormDescription>This is your email.</FormDescription>
@@ -1090,14 +871,10 @@ export function ProfileForm() {
               >
                 Submit
               </Button>
-
-
             </div>
           </form>
         </Form>
       </Card>
-
-
     </>
   );
 }
