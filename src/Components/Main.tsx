@@ -32,6 +32,8 @@ export default function Main({
 
   const [page, setpage] = useState(0);
 
+  console.log(Jobs)
+
   // console.log(query.toLowerCase().split(" ").join(""))
   const filtereddata = Jobs.filter(
     (item) =>

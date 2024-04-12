@@ -21,4 +21,6 @@ export interface Jobs {
   experienceLevel: string;
   employmentType: string;
   description: string;
+  skillset:string;
+  email:string 
 }

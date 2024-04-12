@@ -44,34 +44,34 @@ const formSchema = z.object({
   // username: z.string().min(2, {
   //   message: "Username must be at least 2 characters.",
   // }),
-  JobTitle: z.string({
+  jobTitle: z.string({
     required_error: "Please select a Job Title.",
   }),
-  companyname: z.string().min(1, {
+  companyName: z.string().min(1, {
     message: "Please enter the company name.",
   }),
   salary: z.string({
     required_error: "Please select Salary",
   }),
-  salarytype: z.string({
+  salaryType: z.string({
     required_error: "Please select a Salary type",
   }),
-  joblocation: z.string().min(1, {
+  jobLocation: z.string().min(1, {
     message: "Please enter the job location.",
   }),
-  experiencelevel: z.string().min(1, {
+  experienceLevel: z.string().min(1, {
     message: "Please enter your experience level",
   }),
   skillset: z.string({
     required_error: "Please select your skillset",
   }),
-  employmenttype: z.string({
+  employmentType: z.string({
     required_error: "Please select a Employment type",
   }),
   description: z.string().min(10, {
     message: "Username must be at least 10 characters.",
   }),
-  companylogo: z
+  companyLogo: z
     .string()
     .url({ message: "Please enter a valid URL in https:// format " })
     .refine((value) => value.startsWith("https://"), {
@@ -500,16 +500,16 @@ export function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      joblocation: "",
-      companyname: "",
-      experiencelevel: "",
+      jobLocation: "",
+      companyName: "",
+      experienceLevel: "",
       description: "",
-      companylogo: "",
+      companyLogo: "",
       email: "",
       salary:"",
-      salarytype:"",
+      salaryType:"",
       skillset:"",
-      employmenttype:"",
+      employmentType:"",
     },
   });
 
@@ -533,7 +533,7 @@ export function ProfileForm() {
               <div className={cn(" w-[570px] ml-6 mt-[10px] flex flex-col gap-y-7 ")}>
                 <FormField
                   control={form.control}
-                  name="JobTitle"
+                  name="jobTitle"
                   render={({ field }) => (
                     <FormItem className="flex flex-col">
                       <FormLabel>Job Title</FormLabel>
@@ -571,7 +571,7 @@ export function ProfileForm() {
                                     value={JobTitle.label}
                                     key={JobTitle.value}
                                     onSelect={() => {
-                                      form.setValue("JobTitle", JobTitle.value);
+                                      form.setValue("jobTitle", JobTitle.value);
                                     }}
                                   >
                                     {JobTitle.label}
@@ -600,7 +600,7 @@ export function ProfileForm() {
                 />
                 <FormField
                   control={form.control}
-                  name="joblocation"
+                  name="jobLocation"
                   render={({ field }) => (
                     <>
                       <FormItem>
@@ -623,7 +623,7 @@ export function ProfileForm() {
 
                 <FormField
                   control={form.control}
-                  name="companyname"
+                  name="companyName"
                   render={({ field }) => (
                     <>
                       <FormItem>
@@ -645,7 +645,7 @@ export function ProfileForm() {
                 />
                 <FormField
                   control={form.control}
-                  name="experiencelevel"
+                  name="experienceLevel"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Experience Level</FormLabel>
@@ -705,7 +705,7 @@ export function ProfileForm() {
 
                 <FormField
                   control={form.control}
-                  name="salarytype"
+                  name="salaryType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Salary Type</FormLabel>
@@ -760,7 +760,7 @@ export function ProfileForm() {
 
                 <FormField
                   control={form.control}
-                  name="employmenttype"
+                  name="employmentType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Employment Type</FormLabel>
@@ -814,7 +814,7 @@ export function ProfileForm() {
 
               <FormField
                 control={form.control}
-                name="companylogo"
+                name="companyLogo"
                 render={({ field }) => (
                   <>
                     <FormItem>

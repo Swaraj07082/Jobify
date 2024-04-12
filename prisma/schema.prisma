@@ -15,15 +15,15 @@ datasource db {
 
 model Job {
   id              String @id @default(auto()) @map("_id") @db.ObjectId
-  JobTitle        String
-  companyname     String
+  jobTitle        String
+  companyName     String
   salary          String
-  salarytype      String
-  joblocation     String
-  experiencelevel String
+  salaryType      String
+  jobLocation     String
+  experienceLevel String
   skillset        String
-  employmenttype  String
+  employmentType  String
   description     String
-  companylogo     String
+  companyLogo     String
   email           String
 }

@@ -13,7 +13,7 @@ import { StateContextProvider } from "@/Context/StateContextProvider";
 export default function Home() {
   useEffect(() => {
     const getdata = async () => {
-      const data = await fetch("jobs.json");
+      const data = await fetch("/api/jobs");
       const parsedata = await data.json();
       console.log(parsedata);
       SetJobs(parsedata);
