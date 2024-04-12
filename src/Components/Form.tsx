@@ -506,6 +506,10 @@ export function ProfileForm() {
       description: "",
       companylogo: "",
       email: "",
+      salary:"",
+      salarytype:"",
+      skillset:"",
+      employmenttype:"",
     },
   });
 
@@ -647,7 +651,7 @@ export function ProfileForm() {
                       <FormLabel>Experience Level</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -679,7 +683,7 @@ export function ProfileForm() {
                       <FormLabel>Salary</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -707,7 +711,7 @@ export function ProfileForm() {
                       <FormLabel>Salary Type</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -734,7 +738,7 @@ export function ProfileForm() {
                       <FormLabel>Skillset</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -762,7 +766,7 @@ export function ProfileForm() {
                       <FormLabel>Employment Type</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
