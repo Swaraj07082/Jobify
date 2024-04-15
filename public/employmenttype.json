@@ -1,0 +1,18 @@
+[
+    {
+      "value": "Any",
+      "label": "Any"
+    },
+    {
+      "value": "Full time",
+      "label": "Full time"
+    },
+    {
+      "value": "Temporary",
+      "label": "Temporary"
+    },
+    {
+      "value": "Part time",
+      "label": "Part time"
+    }
+  ]

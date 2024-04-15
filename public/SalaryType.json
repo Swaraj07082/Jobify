@@ -1,0 +1,14 @@
+[
+  {
+    "value": "Hourly",
+    "label": "Hourly"
+  },
+  {
+    "value": "Monthly",
+    "label": "Monthly"
+  },
+  {
+    "value": "Yearly",
+    "label": "Yearly"
+  }
+]
