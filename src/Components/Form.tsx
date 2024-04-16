@@ -33,7 +33,7 @@ import { cn } from "@/lib/utils";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { CommandList } from "cmdk";
 import { Card } from "./ui/card";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast, useToast } from "./ui/use-toast";
 import { ToastAction } from "@radix-ui/react-toast";
 // import MultipleSelectorDemo from "./MultiSelectDemo";
@@ -45,6 +45,9 @@ import SalaryType from "../../public/SalaryType.json"
 import skillset from "../../public/skillset.json"
 import employmenttype from "../../public/employmenttype.json"
 import experienceLevel from "../../public/experienceLevel.json"
+import FormDataContext from "@/Context/FormDataContext";
+import db from "@/lib/db";
+import { Sub } from "@radix-ui/react-menubar";
 
 const formSchema = z.object({
   // username: z.string().min(2, {
@@ -96,7 +99,7 @@ const formSchema = z.object({
 
 
 
-export function ProfileForm() {
+export  function ProfileForm() {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -116,6 +119,14 @@ export function ProfileForm() {
 
   const { reset } = form;
 
+  // const [Formdata, SetFormdata] = useState({})
+const {Formdata , SetFormdata} = useContext(FormDataContext);
+
+
+
+  console.log(Formdata);
+  
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -123,7 +134,11 @@ export function ProfileForm() {
     alert("Form Submitted");
     reset();
     console.log(values);
+    SetFormdata(values);
   }
+
+
+
 
   return (
     <>
@@ -483,3 +498,5 @@ export function ProfileForm() {
     </>
   );
 }
+
+
