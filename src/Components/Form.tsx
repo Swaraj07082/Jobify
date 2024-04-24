@@ -99,7 +99,8 @@ const formSchema = z.object({
 
 
 
-export  function ProfileForm() {
+export function ProfileForm() {
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -128,13 +129,20 @@ const {Formdata , SetFormdata} = useContext(FormDataContext);
   
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     alert("Form Submitted");
     reset();
     console.log(values);
     SetFormdata(values);
+
+    const res = await fetch('/api/jobs',{
+      method :'POST',
+      body: JSON.stringify({values}
+      )
+    });
+    console.log(res);
   }
 
 
