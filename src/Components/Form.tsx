@@ -39,12 +39,12 @@ import { ToastAction } from "@radix-ui/react-toast";
 // import MultipleSelectorDemo from "./MultiSelectDemo";
 // import { FancyMultiSelect } from "./ui/MultiSelect";
 // import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
-import JobTitles from "../../public/JobTitles.json"
-import Salaries from "../../public/Salaries.json"
-import SalaryType from "../../public/SalaryType.json"
-import skillset from "../../public/skillset.json"
-import employmenttype from "../../public/employmenttype.json"
-import experienceLevel from "../../public/experienceLevel.json"
+import JobTitles from "../../public/JobTitles.json";
+import Salaries from "../../public/Salaries.json";
+import SalaryType from "../../public/SalaryType.json";
+import skillset from "../../public/skillset.json";
+import employmenttype from "../../public/employmenttype.json";
+import experienceLevel from "../../public/experienceLevel.json";
 import FormDataContext from "@/Context/FormDataContext";
 import db from "@/lib/db";
 import { Sub } from "@radix-ui/react-menubar";
@@ -91,16 +91,12 @@ const formSchema = z.object({
   }),
 });
 
-
 // const jobLocation = [{
 //     "value":"San Francisco",
 //     "label":"San Francisco"
 // }]
 
-
-
 export function ProfileForm() {
-
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -111,22 +107,19 @@ export function ProfileForm() {
       description: "",
       companyLogo: "",
       email: "",
-      salary:"",
-      salaryType:"",
-      skillset:"",
-      employmentType:"",
+      salary: "",
+      salaryType: "",
+      skillset: "",
+      employmentType: "",
     },
   });
 
   const { reset } = form;
 
   // const [Formdata, SetFormdata] = useState({})
-const {Formdata , SetFormdata} = useContext(FormDataContext);
-
-
+  const { Formdata, SetFormdata } = useContext(FormDataContext);
 
   console.log(Formdata);
-  
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -135,18 +128,45 @@ const {Formdata , SetFormdata} = useContext(FormDataContext);
     alert("Form Submitted");
     reset();
     console.log(values);
+    // console.log(values.description)
     SetFormdata(values);
 
-    const res = await fetch('/api/jobs',{
-      method :'POST',
-      body: JSON.stringify({values}
-      )
+    // const res = await fetch("/api/jobs", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     jobTitle: values.jobTitle,
+    //     companyName: values.companyName,
+    //     salary: values.salary,
+    //     salaryType: values.salaryType,
+    //     jobLocation: values.jobLocation,
+    //     experienceLevel: values.experienceLevel,
+    //     skillset: values.skillset,
+    //     employmentType: values.employmentType,
+    //     description: values.description,
+    //     companyLogo: values.companyLogo,
+    //     email: values.email,
+    //   }),
+    // });
+
+    const res = await fetch("/api/jobs", {
+      method: "POST",
+      body: JSON.stringify({
+        jobTitle: "edf",
+        companyName: "efgfew",
+        salary: "erfew",
+        salaryType: "ettewd",
+        jobLocation: "r4333",
+        experienceLevel: "er222",
+        skillset: "wwfg",
+        employmentType: "egggr",
+        description: "eggtreweereeeeerrrgrggrgrgreeeegee",
+        companyLogo: "https://eer4r",
+        email: "demo@gmail.com",
+      }),
     });
+    // const data = await res.json();
     console.log(res);
   }
-
-
-
 
   return (
     <>
@@ -154,7 +174,11 @@ const {Formdata , SetFormdata} = useContext(FormDataContext);
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
             <div className={cn("flex justify-around mt-8 ")}>
-              <div className={cn(" w-[570px] ml-6 mt-[10px] flex flex-col gap-y-7 ")}>
+              <div
+                className={cn(
+                  " w-[570px] ml-6 mt-[10px] flex flex-col gap-y-7 "
+                )}
+              >
                 <FormField
                   control={form.control}
                   name="jobTitle"
@@ -296,9 +320,7 @@ const {Formdata , SetFormdata} = useContext(FormDataContext);
                 />
               </div>
 
-              <div
-                className={cn(" w-[570px]  mr-6 flex flex-col gap-y-14")}
-              >
+              <div className={cn(" w-[570px]  mr-6 flex flex-col gap-y-14")}>
                 <FormField
                   control={form.control}
                   name="salary"
@@ -506,5 +528,3 @@ const {Formdata , SetFormdata} = useContext(FormDataContext);
     </>
   );
 }
-
-
