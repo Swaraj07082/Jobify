@@ -150,19 +150,8 @@ export function ProfileForm() {
 
     const res = await fetch("/api/jobs", {
       method: "POST",
-      body: JSON.stringify({
-        jobTitle: "edf",
-        companyName: "efgfew",
-        salary: "erfew",
-        salaryType: "ettewd",
-        jobLocation: "r4333",
-        experienceLevel: "er222",
-        skillset: "wwfg",
-        employmentType: "egggr",
-        description: "eggtreweereeeeerrrgrggrgrgreeeegee",
-        companyLogo: "https://eer4r",
-        email: "demo@gmail.com",
-      }),
+      body: JSON.stringify(
+      values)
     });
     // const data = await res.json();
     console.log(res);
