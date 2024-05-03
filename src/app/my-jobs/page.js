@@ -2,24 +2,17 @@ import { LoginForm } from '@/Components/LoginForm'
 import React from 'react'
 import {Input} from '../../Components/ui/input'
 import {Card} from '../../Components/ui/card'
+import { MyJobTable } from '@/Components/MyJobTable'
 
 export default function page() {
   return (
 <>
 
-<div className='flex flex-col items-center'>
+<Card className=' w-[500px]'>
 
-<div className=' mt-24 '>
-<Input/>
-</div>
 
-<div className=' mt-16 '>
-  <Card>
-    My Jobs Section
-  </Card>
-</div>
-
-</div>
+<MyJobTable/>
+</Card>
 
 </>
   )
