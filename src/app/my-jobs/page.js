@@ -8,7 +8,7 @@ export default function page() {
   return (
 <>
 
-<Card className=' w-[500px]'>
+<Card className='w-[500px]' >
 
 
 <MyJobTable/>
