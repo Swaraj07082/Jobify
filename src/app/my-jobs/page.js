@@ -8,12 +8,16 @@ export default function page() {
   return (
 <>
 
-<Card className='w-[500px]' >
+ <div className=' flex flex-col justify-center items-center'>
 
+<Input className=' py-10'/>
 
+<Card className=' w-fit' >
 <MyJobTable/>
 </Card>
 
+
+</div>
 </>
   )
 }

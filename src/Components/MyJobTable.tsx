@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Table,
   TableBody,
@@ -17,50 +17,54 @@ const invoices = [
     TITLE: "Paid",
     COMPANYNAME: "$250.00",
     SALARY: "Credit Card",
-    EDIT:<Button onClick={()=>{console.log("clicked")}} >Edit</Button>,
-    DELETE:<Button>Delete</Button>
-
+    EDIT: (
+      <Button
+        onClick={() => {
+          console.log("clicked");
+        }}
+      >
+        Edit
+      </Button>
+    ),
+    DELETE: <Button>Delete</Button>,
   },
   {
     NO: "INV001",
     TITLE: "Paid",
     COMPANYNAME: "$250.00",
     SALARY: "Credit Card",
-    EDIT:<Button>Edit</Button>,
-    DELETE:<Button>Delete</Button>
+    EDIT: <Button>Edit</Button>,
+    DELETE: <Button>Delete</Button>,
   },
   {
     NO: "INV001",
     TITLE: "Paid",
     COMPANYNAME: "$250.00",
     SALARY: "Credit Card",
-    EDIT:<Button>Edit</Button>,
-    DELETE:<Button>Delete</Button>
-
+    EDIT: <Button>Edit</Button>,
+    DELETE: <Button>Delete</Button>,
   },
   {
     NO: "INV001",
     TITLE: "Paid",
     COMPANYNAME: "$250.00",
     SALARY: "Credit Card",
-    EDIT:<Button>Edit</Button>,
-    DELETE:<Button>Delete</Button>
-
+    EDIT: <Button>Edit</Button>,
+    DELETE: <Button>Delete</Button>,
   },
   {
     NO: "INV001",
     TITLE: "Paid",
     COMPANYNAME: "$250.00",
     SALARY: "Credit Card",
-    EDIT:<Button>Edit</Button>,
-    DELETE:<Button>Delete</Button>
-
-  }
+    EDIT: <Button>Edit</Button>,
+    DELETE: <Button>Delete</Button>,
+  },
 ];
 
 export function MyJobTable() {
   return (
-    <Table className=" w-[800px]">
+    <Table className=" w-[850px]">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
         <TableRow>
@@ -70,20 +74,20 @@ export function MyJobTable() {
           <TableHead className=" w-32 text-center">SALARY</TableHead>
           <TableHead className=" w-32 text-center">EDIT</TableHead>
           <TableHead className="w-32 text-center">DELETE</TableHead>
-
         </TableRow>
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => (
           <TableRow key={invoice.NO}>
-            <TableCell className="font-medium text-center">{invoice.NO}</TableCell>
+            <TableCell className="font-medium text-center">
+              {invoice.NO}
+            </TableCell>
             <TableCell className="text-center">{invoice.TITLE}</TableCell>
             <TableCell className="text-center">{invoice.COMPANYNAME}</TableCell>
-            <TableCell className=" text-center" >{invoice.SALARY}</TableCell>
+            <TableCell className=" text-center">{invoice.SALARY}</TableCell>
             <TableCell className=" text-center">{invoice.EDIT}</TableCell>
             <TableCell className=" text-center">{invoice.DELETE}</TableCell>
-
-        </TableRow>
+          </TableRow>
         ))}
       </TableBody>
       {/* <TableFooter>
