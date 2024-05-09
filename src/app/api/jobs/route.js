@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import db from "../../../lib/db";
+import FormDataContext from '../../../Context/FormDataContext'
+import { useContext } from "react";
+
+
 
 export const GET = async (req, res) => {
   try {
-console.log(req.status)
+// console.log(req.status)
 
     const jobs = await db.job.findMany();
 
@@ -19,6 +23,6 @@ console.log(req.status)
 
 // consol.log(Formdata)
 export const POST = async(req) =>{
-console.log(req)
+console.log(req.body)
 
 }

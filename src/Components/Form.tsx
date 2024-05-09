@@ -48,6 +48,7 @@ import experienceLevel from "../../public/experienceLevel.json";
 import FormDataContext from "@/Context/FormDataContext";
 import db from "@/lib/db";
 import { Sub } from "@radix-ui/react-menubar";
+import { error } from "console";
 
 const formSchema = z.object({
   // username: z.string().min(2, {
@@ -132,33 +133,54 @@ export function ProfileForm() {
   //   console.log(res);
   // };
 
-  const postdata = async () => {
-     await db.job.create({
-      data: {
-        jobTitle: Formdata.jobTitle,
-        companyName: Formdata.companyName,
-        salary: Formdata.salary,
-        salaryType: Formdata.salaryType,
-        jobLocation: Formdata.jobLocation,
-        experienceLevel: Formdata.experienceLevel,
-        skillset: Formdata.skillset,
-        employmentType: Formdata.employmentType,
-        description: Formdata.description,
-        companyLogo: Formdata.companyLogo,
-        email: Formdata.email,
-      },
-    });
-  };
+  // const postdata = async () => {
+  //    await db.job.create({
+  //     data: {
+  //       jobTitle: Formdata.jobTitle,
+  //       companyName: Formdata.companyName,
+  //       salary: Formdata.salary,
+  //       salaryType: Formdata.salaryType,
+  //       jobLocation: Formdata.jobLocation,
+  //       experienceLevel: Formdata.experienceLevel,
+  //       skillset: Formdata.skillset,
+  //       employmentType: Formdata.employmentType,
+  //       description: Formdata.description,
+  //       companyLogo: Formdata.companyLogo,
+  //       email: Formdata.email,
+  //     },
+  //   });
+  // };
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    alert("Form Submitted");
-    reset();
-    console.log(values);
+    try{
+      await db.job.create({
+        data: {
+          jobTitle: values.jobTitle,
+          companyName: values.companyName,
+          salary: values.salary,
+          salaryType: values.salaryType,
+          jobLocation: values.jobLocation,
+          experienceLevel: values.experienceLevel,
+          skillset: values.skillset,
+          employmentType: values.employmentType,
+          description: values.description,
+          companyLogo: values.companyLogo,
+          email: values.email,
+        },
+      });
+  
+      alert("Form Submitted");
+      reset();
+      console.log(values);
+      SetFormdata(values);
+    } catch {
+      console.error('Error submitting form:');
+      alert('An error occurred. Please try again later.');
+    }
     // console.log(values.description)
-    SetFormdata(values);
 
     // const res = await fetch("/api/jobs", {
     //   method: "POST",
@@ -185,7 +207,7 @@ export function ProfileForm() {
     // // const data = await res.json();
     // console.log(res);
 
-    postdata();
+    // postdata();
   }
 
   return (
