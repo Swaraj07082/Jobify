@@ -9,8 +9,8 @@ export default function page() {
   return (
     <>
       <div className=" flex flex-col justify-center items-center">
-        <div className=" flex gap-8">
-          <Input style={{ width: "700px" }} />
+        <div style={{ display : 'flex' , marginTop : '100px' , marginBottom : '20px'}} >
+          <Input style={{ width: "750px" ,marginRight : '20px' }} />
           <Button>Search</Button>
         </div>
 

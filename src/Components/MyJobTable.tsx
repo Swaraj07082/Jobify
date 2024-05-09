@@ -11,6 +11,8 @@ import {
 } from "../Components/ui/table";
 import { Button } from "./ui/button";
 
+import { Input } from "./ui/input";
+
 const invoices = [
   {
     NO: "INV001",

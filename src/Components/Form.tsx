@@ -121,8 +121,37 @@ export function ProfileForm() {
 
   console.log(Formdata);
 
+  // const postdata = async () => {
+  //   const res = await fetch("/api/jobs", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       jobTitle : Formdata.jobTitle,
+  //     }),
+  //   });
+
+  //   console.log(res);
+  // };
+
+  const postdata = async () => {
+     await db.job.create({
+      data: {
+        jobTitle: Formdata.jobTitle,
+        companyName: Formdata.companyName,
+        salary: Formdata.salary,
+        salaryType: Formdata.salaryType,
+        jobLocation: Formdata.jobLocation,
+        experienceLevel: Formdata.experienceLevel,
+        skillset: Formdata.skillset,
+        employmentType: Formdata.employmentType,
+        description: Formdata.description,
+        companyLogo: Formdata.companyLogo,
+        email: Formdata.email,
+      },
+    });
+  };
+
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     alert("Form Submitted");
@@ -148,13 +177,15 @@ export function ProfileForm() {
     //   }),
     // });
 
-    const res = await fetch("/api/jobs", {
-      method: "POST",
-      body: JSON.stringify(
-      values)
-    });
-    // const data = await res.json();
-    console.log(res);
+    // const res = await fetch("/api/jobs", {
+    //   method: "POST",
+    //   body: JSON.stringify(
+    //   values)
+    // });
+    // // const data = await res.json();
+    // console.log(res);
+
+    postdata();
   }
 
   return (
