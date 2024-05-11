@@ -122,6 +122,7 @@ export function ProfileForm() {
 
   console.log(Formdata);
 
+
   // const postdata = async () => {
   //   const res = await fetch("/api/jobs", {
   //     method: "POST",
@@ -155,6 +156,7 @@ export function ProfileForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    console.log(values.jobTitle)
     try{
       await db.job.create({
         data: {
