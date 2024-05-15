@@ -23,6 +23,17 @@ export const GET = async (req, res) => {
 
 // consol.log(Formdata)
 export const POST = async(req) =>{
-console.log(req.body)
+  try{
+const demo = await db.job.create({
+  data : {jobTitle : "Hope this works"}
+});
+
+return new NextResponse(JSON.stringify(demo , { status: 200 }));
+} catch (err) {
+  console.log(err);
+  return new NextResponse(
+    JSON.stringify({ message: "Something went wrong!" }, { status: 500 })
+  );
+}
 
 }
