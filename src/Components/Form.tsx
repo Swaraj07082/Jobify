@@ -49,6 +49,9 @@ import FormDataContext from "@/Context/FormDataContext";
 import db from "@/lib/db";
 import { Sub } from "@radix-ui/react-menubar";
 import { error } from "console";
+import { useRouter } from "next/navigation";
+
+// in client components u can use the hooke useSearchParams , but for server components u get it as a prop as searchParams
 
 const formSchema = z.object({
   // username: z.string().min(2, {
@@ -122,7 +125,6 @@ export function ProfileForm() {
 
   console.log(Formdata);
 
-
   // const postdata = async () => {
   //   const res = await fetch("/api/jobs", {
   //     method: "POST",
@@ -152,64 +154,49 @@ export function ProfileForm() {
   //   });
   // };
 
+  // console.log(Formdata.companyName)
+  // const data = await fetch("/api/demo", {
+  //   method: "POST",
+  //   body: JSON.stringify({
+  //     jobTitle: Formdata.jobTitle,
+  //     companyName: Formdata.companyName,
+  //     salary: Formdata.salary,
+  //     salaryType: Formdata.salaryType,
+  //     jobLocation: Formdata.jobLocation,
+  //     experienceLevel: Formdata.experienceLevel,
+  //     skillset: Formdata.skillset,
+  //     employmentType: Formdata.employmentType,
+  //     description: Formdata.description,
+  //     companyLogo: Formdata.companyLogo,
+  //     email: Formdata.email,
+  //   }),
+  // });
+
+  // console.log(data)
+  // console.log(Formdata.companyName)
+  // const parsedata = await data.json();
+
+  // console.log(parsedata);
+  const router = useRouter();
+  useEffect(() => {
+    // window.history.pushState(null, " ", `?formdata=${Formdata}`);
+
+    router.push(`?formdata=${Formdata.jobTitle}`),
+      {
+        scroll: false,
+      };
+  }, [Formdata, router]);
+
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values.jobTitle)
-    try{
-      await db.job.create({
-        data: {
-          jobTitle: values.jobTitle,
-          companyName: values.companyName,
-          salary: values.salary,
-          salaryType: values.salaryType,
-          jobLocation: values.jobLocation,
-          experienceLevel: values.experienceLevel,
-          skillset: values.skillset,
-          employmentType: values.employmentType,
-          description: values.description,
-          companyLogo: values.companyLogo,
-          email: values.email,
-        },
-      });
-  
-      alert("Form Submitted");
-      reset();
-      console.log(values);
-      SetFormdata(values);
-    } catch {
-      console.error('Error submitting form:');
-      alert('An error occurred. Please try again later.');
-    }
-    // console.log(values.description)
+    console.log(values.jobTitle);
 
-    // const res = await fetch("/api/jobs", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     jobTitle: values.jobTitle,
-    //     companyName: values.companyName,
-    //     salary: values.salary,
-    //     salaryType: values.salaryType,
-    //     jobLocation: values.jobLocation,
-    //     experienceLevel: values.experienceLevel,
-    //     skillset: values.skillset,
-    //     employmentType: values.employmentType,
-    //     description: values.description,
-    //     companyLogo: values.companyLogo,
-    //     email: values.email,
-    //   }),
-    // });
-
-    // const res = await fetch("/api/jobs", {
-    //   method: "POST",
-    //   body: JSON.stringify(
-    //   values)
-    // });
-    // // const data = await res.json();
-    // console.log(res);
-
-    // postdata();
+    alert("Form Submitted");
+    reset();
+    console.log(values);
+    SetFormdata(values);
   }
 
   return (

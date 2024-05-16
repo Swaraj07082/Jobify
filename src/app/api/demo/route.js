@@ -1,5 +1,7 @@
+'use server'
 import db from "../../../lib/db";
 import { NextResponse } from "next/server";
+
 
 export const GET = async ()=>{
     try{
@@ -15,10 +17,11 @@ export const GET = async ()=>{
 }
 
 export const POST = async() => {
+  // console.log(searchParams.formdata)
   try {
     const demo = await db.job.create({
       data: {
-        jobTitle: "ergrew",
+        jobTitle: "dkdkdkdkd",
         companyName: "effdf",
         salary: "eegeeererw",
         salaryType: "dfbbewd",
