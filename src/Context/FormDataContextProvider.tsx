@@ -18,6 +18,7 @@ export interface FormDataType {
   description: string;
   companyLogo: string;
   email: string;
+  values?:Array<Object>
 }
 export interface FormDataContextType {
   Formdata: FormDataType;

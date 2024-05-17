@@ -7,6 +7,8 @@ import {
   SelectValue,
 } from "../Components/ui/select";
 
+
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -50,10 +52,11 @@ import db from "@/lib/db";
 import { Sub } from "@radix-ui/react-menubar";
 import { error } from "console";
 import { useRouter } from "next/navigation";
+import { POST } from "@/app/api/demo/route";
 
 // in client components u can use the hooke useSearchParams , but for server components u get it as a prop as searchParams
 
-const formSchema = z.object({
+export const formSchema = z.object({
   // username: z.string().min(2, {
   //   message: "Username must be at least 2 characters.",
   // }),
@@ -154,24 +157,29 @@ export function ProfileForm() {
   //   });
   // };
 
-  // console.log(Formdata.companyName)
-  // const data = await fetch("/api/demo", {
-  //   method: "POST",
-  //   body: JSON.stringify({
-  //     jobTitle: Formdata.jobTitle,
-  //     companyName: Formdata.companyName,
-  //     salary: Formdata.salary,
-  //     salaryType: Formdata.salaryType,
-  //     jobLocation: Formdata.jobLocation,
-  //     experienceLevel: Formdata.experienceLevel,
-  //     skillset: Formdata.skillset,
-  //     employmentType: Formdata.employmentType,
-  //     description: Formdata.description,
-  //     companyLogo: Formdata.companyLogo,
-  //     email: Formdata.email,
-  //   }),
-  // });
 
+
+  // console.log(Formdata.companyName)
+  const postdata = async()=>{
+
+  
+  const data = await fetch("/api/demo", {
+    method: "POST",
+    body: JSON.stringify({
+      jobTitle: Formdata.jobTitle,
+      companyName: Formdata.companyName,
+      salary: Formdata.salary,
+      salaryType: Formdata.salaryType,
+      jobLocation: Formdata.jobLocation,
+      experienceLevel: Formdata.experienceLevel,
+      skillset: Formdata.skillset,
+      employmentType: Formdata.employmentType,
+      description: Formdata.description,
+      companyLogo: Formdata.companyLogo,
+      email: Formdata.email,
+    }),
+  });
+  }
   // console.log(data)
   // console.log(Formdata.companyName)
   // const parsedata = await data.json();
@@ -181,11 +189,11 @@ export function ProfileForm() {
   useEffect(() => {
     // window.history.pushState(null, " ", `?formdata=${Formdata}`);
 
-    router.push(`?formdata=${Formdata.jobTitle}`),
+    router.push(`?formdata=random`),
       {
         scroll: false,
       };
-  }, [Formdata, router]);
+  }, [ router]);
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -197,6 +205,7 @@ export function ProfileForm() {
     reset();
     console.log(values);
     SetFormdata(values);
+    postdata()
   }
 
   return (

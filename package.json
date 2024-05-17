@@ -31,7 +31,7 @@
     "embla-carousel-react": "^8.0.0",
     "lucide-react": "^0.363.0",
     "mongodb": "^6.6.1",
-    "next": "14.1.4",
+    "next": "^14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
