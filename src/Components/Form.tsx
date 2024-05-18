@@ -7,8 +7,6 @@ import {
   SelectValue,
 } from "../Components/ui/select";
 
-
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -157,46 +155,42 @@ export function ProfileForm() {
   //   });
   // };
 
-
-
   // console.log(Formdata.companyName)
-  const postdata = async()=>{
-
-  
-  const data = await fetch("/api/demo", {
-    method: "POST",
-    body: JSON.stringify({
-      jobTitle: Formdata.jobTitle,
-      companyName: Formdata.companyName,
-      salary: Formdata.salary,
-      salaryType: Formdata.salaryType,
-      jobLocation: Formdata.jobLocation,
-      experienceLevel: Formdata.experienceLevel,
-      skillset: Formdata.skillset,
-      employmentType: Formdata.employmentType,
-      description: Formdata.description,
-      companyLogo: Formdata.companyLogo,
-      email: Formdata.email,
-    }),
-  });
-  }
+  const postdata = async () => {
+    const data = await fetch("/api/demo", {
+      method: "POST",
+      body: JSON.stringify({
+        jobTitle: Formdata.jobTitle,
+        companyName: Formdata.companyName,
+        salary: Formdata.salary,
+        salaryType: Formdata.salaryType,
+        jobLocation: Formdata.jobLocation,
+        experienceLevel: Formdata.experienceLevel,
+        skillset: Formdata.skillset,
+        employmentType: Formdata.employmentType,
+        description: Formdata.description,
+        companyLogo: Formdata.companyLogo,
+        email: Formdata.email,
+      }),
+    });
+  };
   // console.log(data)
   // console.log(Formdata.companyName)
   // const parsedata = await data.json();
 
   // console.log(parsedata);
   const router = useRouter();
-  useEffect(() => {
-    // window.history.pushState(null, " ", `?formdata=${Formdata}`);
+  // useEffect(() => {
+  //   // window.history.pushState(null, " ", `?formdata=${Formdata}`);
 
-    router.push(`?formdata=random`),
-      {
-        scroll: false,
-      };
-  }, [ router]);
+  //   router.push(`?jobTitle=${Formdata.jobTitle}`),
+  //     {
+  //       scroll: false,
+  //     };
+  // }, [Formdata, router]);
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values.jobTitle);
@@ -205,7 +199,33 @@ export function ProfileForm() {
     reset();
     console.log(values);
     SetFormdata(values);
-    postdata()
+    // let data = (JSON.stringify(values))
+    // POST()
+    // router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
+    // salary=${values.salary}&
+    // salaryType= ${values.salaryType}&
+    // jobLocation= ${values.jobLocation}&
+    // experienceLevel= ${values.experienceLevel}&
+    // skillset=${values.skillset}&
+    // employmentType= ${values.employmentType}&
+    // description=${values.description}&
+    // companyLogo= ${values.companyLogo}&
+    // email=${values.email}`),
+    //   {
+    //     scroll: false,
+    //   };
+
+    router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
+     salary=${values.salary}&
+     salaryType= ${values.salaryType}&
+     jobLocation= ${values.jobLocation}&
+     experienceLevel= ${values.experienceLevel}&
+     skillset=${values.skillset}&
+     employmentType= ${values.employmentType}&
+     description=${values.description}&
+     companyLogo= ${values.companyLogo}&
+    email=${values.email}`);
+    postdata();
   }
 
   return (

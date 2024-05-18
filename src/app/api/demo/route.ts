@@ -1,49 +1,81 @@
-'use server'
+"use server";
 import db from "../../../lib/db";
 import { NextResponse } from "next/server";
 import { FormDataType } from "@/Context/FormDataContextProvider";
 import { z } from "zod";
 import { formSchema } from "@/Components/Form";
-import { NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
+import { ReadonlyURLSearchParams } from "next/navigation";
+import { headers } from "next/headers";
 
+interface QueryObject {
+  [key: string]: string;
+}
 
-
-export const GET = async ()=>{
-    try{
+export const GET = async () => {
+  try {
     const idk = await db.job.findMany();
 
     return new NextResponse(JSON.stringify(idk), { status: 200 });
   } catch (error) {
     return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
-    ;
+      JSON.stringify({ message: "Something went wrong!" }),
+      { status: 500 }
+    );
   }
+};
 
-}
+export const POST = async (req: Request, res: NextApiResponse) => {
+  const headerList = headers();
+  const referer = headerList.get("referer");
+  console.log(referer);
+  // console.log(req.headers.entries())
 
-export const POST = async(searchParams:{ [key: string]: string | string[] | undefined }
-) => {
-  console.log(searchParams)
+  // const url = new URL(req.url)
+  // const searchParams = new URLSearchParams(url.search);
+  // console.log(req.nextURL.searchParams)
+  // console.log(searchParams)
+
+  const queryString = referer.split("?")[1];
+
+  const queryParams = new URLSearchParams(queryString);
+  const queryObject: QueryObject = {};
+
+  queryParams.forEach((value, key) => {
+    const trimmedKey = key.trim(); // Trim whitespace from the key
+    queryObject[trimmedKey] = value;
+  });
+
+  console.log(queryObject);
+  // const page = new URLSearchParams(queryString)
+  // const limit = Number(new URLSearchParams(queryString))
+
+  // console.log(page)
+  // console.log(queryObject.formdata)
+
+  console.log(queryObject.jobLocation);
+  // console.log(req)
   try {
     const demo = await db.job.create({
       data: {
-        jobTitle: "dkdkdkdkd",
-        companyName: "effdf",
-        salary: "eegeeererw",
-        salaryType: "dfbbewd",
-        jobLocation: "vbrebefe",
-        experienceLevel: "bbrfewd",
-        skillset: "ebfewwww",
-        employmentType: "bbfeee",
-        description: "bgwwww",
-        companyLogo: "https://dfger",
-        email: "cwefreg@gmail.com",
+        jobTitle: queryObject.jobTitle,
+        companyName: queryObject.companyName,
+        salary: queryObject.salary,
+        salaryType: queryObject.salaryType,
+        jobLocation: queryObject.jobLocation,
+        experienceLevel: queryObject.experienceLevel,
+        skillset: queryObject.skillset,
+        employmentType: queryObject.employmentType,
+        description: queryObject.description,
+        companyLogo: queryObject.companyLogo,
+        email: queryObject.email,
       },
     });
     return new NextResponse(JSON.stringify(demo), { status: 200 });
   } catch (error) {
     return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }), { status: 500 })
-    ;
+      JSON.stringify({ message: "Something went wrong!" }),
+      { status: 500 }
+    );
   }
 };
