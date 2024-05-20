@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Navbar from "@/Components/Navbar";
 import { ReactNode } from "react";
 import { Toaster } from "@/Components/ui/toaster";
+import { FormDataContextProvider } from "@/Context/FormDataContextProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,8 +28,11 @@ export default function RootLayout({ children }: Props) {
       >
         {/* <div className="container"> */}
         {/* <div className="wrapper"> */}
+        <FormDataContextProvider>
+
             <Navbar />
             {children}
+        </FormDataContextProvider>
           {/* </div> */}
         {/* </div> */}
       </body>

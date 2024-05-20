@@ -1,4 +1,5 @@
 "use client";
+import FormDataContext from "@/Context/FormDataContext";
 import {
   Table,
   TableBody,
@@ -12,6 +13,9 @@ import {
 import { Button } from "./ui/button";
 
 import { Input } from "./ui/input";
+import { ReactNode, useContext } from "react";
+import { useSearchParams } from "next/navigation";
+import { FormDataType } from "@/Context/FormDataContextProvider";
 
 const invoices = [
   {
@@ -64,7 +68,31 @@ const invoices = [
   },
 ];
 
-export function MyJobTable() {
+interface FormData {
+  Formdata : {
+    jobTitle: string,
+  companyName: string,
+  salary: string,
+  salaryType: string,
+  jobLocation: string,
+  experienceLevel: string,
+  skillset: string,
+  employmentType: string,
+  description: string,
+  companyLogo: string,
+  email: string,
+  Edit : ReactNode,
+  Delete : ReactNode
+
+  }
+}
+
+export function MyJobTable({Formdata}:FormData) {
+  
+  console.log(Formdata)
+  
+  
+  // console.log(Formdata)
   return (
     <Table className=" w-[850px]">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
@@ -79,16 +107,16 @@ export function MyJobTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {invoices.map((invoice) => (
+        {Formdata.map((invoice) => (
           <TableRow key={invoice.NO}>
             <TableCell className="font-medium text-center">
               {invoice.NO}
             </TableCell>
-            <TableCell className="text-center">{invoice.TITLE}</TableCell>
-            <TableCell className="text-center">{invoice.COMPANYNAME}</TableCell>
-            <TableCell className=" text-center">{invoice.SALARY}</TableCell>
-            <TableCell className=" text-center">{invoice.EDIT}</TableCell>
-            <TableCell className=" text-center">{invoice.DELETE}</TableCell>
+            <TableCell className="text-center">{Formdata.jobTitle}</TableCell>
+            <TableCell className="text-center">{Formdata.companyName}</TableCell>
+            <TableCell className=" text-center">{Formdata.salary}</TableCell>
+            <TableCell className=" text-center">{Formdata.Edit}</TableCell>
+            <TableCell className=" text-center">{Formdata.Delete}</TableCell>
           </TableRow>
         ))}
       </TableBody>
