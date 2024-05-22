@@ -92,7 +92,15 @@ export default function Navbar() {
             </Link>
             </Button>
 
-          <Button className=" max-lg:hidden">Register</Button>
+
+          <Button className=" max-lg:hidden">
+          <Link href={'/register'}>
+
+
+          Register
+
+          </Link>
+          </Button>
           <Image
             onClick={OnSetOpen}
             className=" lg:hidden "

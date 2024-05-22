@@ -30,7 +30,7 @@ export default function LoginForm() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Sign in</Button>
+        <Button className="w-full" type="submit">Sign in</Button>
       </CardFooter>
     </Card>
   )
