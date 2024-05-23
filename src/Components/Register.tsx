@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 import { Button } from "../Components/ui/button";
-import { z } from "zod";
+import { date, z } from "zod";
 import {
   Card,
   CardContent,
@@ -23,6 +24,9 @@ import {
   FormLabel,
   FormMessage,
 } from "../Components/ui/form";
+import { useState } from "react";
+import { PassThrough } from "stream";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z
@@ -55,6 +59,8 @@ const formSchema = z.object({
 });
 
 export function Register() {
+  const router = useRouter();
+  const [ViewPass, SetViewPass] = useState<Boolean>(true);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -65,13 +71,29 @@ export function Register() {
   });
   const { reset } = form;
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
-    alert('Submitted')
-    reset()
 
+    const response = await fetch("/api/user", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+      }),
+    });
+
+    // const data = await response.json()
+    // console.log(data)
+    if (response.ok) {
+      alert("Submitted");
+      reset();
+      router.push("/login");
+    } else {
+      alert("Error");
+    }
   }
 
   return (
@@ -147,9 +169,32 @@ export function Register() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Password</FormLabel>
-                        <FormControl>
-                          <Input placeholder="password..." {...field} type="password"/>
-                        </FormControl>
+                        <div className="flex items-center ">
+                          {ViewPass ? (
+                            <FaEye
+                              onClick={() => {
+                                SetViewPass(!ViewPass);
+                              }}
+                              className=" absolute right-[39%] "
+                            />
+                          ) : (
+                            <FaEyeSlash
+                              onClick={() => {
+                                SetViewPass(!ViewPass);
+                              }}
+                              className=" absolute right-[39%] "
+                            />
+                          )}
+
+                          <FormControl>
+                            <Input
+                              placeholder="password..."
+                              {...field}
+                              type={ViewPass ? "password" : "text"}
+                            />
+                          </FormControl>
+                        </div>
+
                         {/* <FormDescription>
                           This is your public  name.
                         </FormDescription> */}
