@@ -7,6 +7,8 @@ import { formSchema } from "@/Components/Form";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ReadonlyURLSearchParams } from "next/navigation";
 import { headers } from "next/headers";
+import { connect } from "http2";
+import { getServerSession } from "next-auth";
 
 interface QueryObject {
   [key: string]: string;
@@ -26,6 +28,10 @@ export const GET = async () => {
 };
 
 export const POST = async (req: Request, res: NextApiResponse) => {
+  const session = await getServerSession();
+  console.log(session?.user?.email);
+
+  const UserEmail = session?.user?.email as string;
   const headerList = headers();
   const referer = headerList.get("referer");
   console.log(referer);
@@ -36,7 +42,7 @@ export const POST = async (req: Request, res: NextApiResponse) => {
   // console.log(req.nextURL.searchParams)
   // console.log(searchParams)
 
-  const queryString = referer.split("?")[1];
+  const queryString = referer?.split("?")[1];
 
   const queryParams = new URLSearchParams(queryString);
   const queryObject: QueryObject = {};
@@ -68,7 +74,7 @@ export const POST = async (req: Request, res: NextApiResponse) => {
         employmentType: queryObject.employmentType,
         description: queryObject.description,
         companyLogo: queryObject.companyLogo,
-        email: queryObject.email,
+        UserEmail: UserEmail,
       },
     });
     return new NextResponse(JSON.stringify(demo), { status: 200 });

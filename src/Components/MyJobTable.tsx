@@ -16,6 +16,8 @@ import { Input } from "./ui/input";
 import { ReactNode, useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import { FormDataType } from "@/Context/FormDataContextProvider";
+import { useSession } from "next-auth/react";
+import db from "@/lib/db";
 
 const invoices = [
   {
@@ -69,30 +71,68 @@ const invoices = [
 ];
 
 interface FormData {
-  Formdata : {
-    jobTitle: string,
-  companyName: string,
-  salary: string,
-  salaryType: string,
-  jobLocation: string,
-  experienceLevel: string,
-  skillset: string,
-  employmentType: string,
-  description: string,
-  companyLogo: string,
-  email: string,
-  Edit : ReactNode,
-  Delete : ReactNode
-
-  }
+  Formdata: {
+    jobTitle: string;
+    companyName: string;
+    salary: string;
+    salaryType: string;
+    jobLocation: string;
+    experienceLevel: string;
+    skillset: string;
+    employmentType: string;
+    description: string;
+    companyLogo: string;
+    email: string;
+    Edit: ReactNode;
+    Delete: ReactNode;
+  };
 }
 
-export function MyJobTable({Formdata}:FormData) {
-  
-  console.log(Formdata)
-  
-  
+// export function MyJobTable({Formdata}:FormData) {
+export function MyJobTable() {
   // console.log(Formdata)
+
+  // console.log(Formdata)
+
+  const session = useSession();
+  // console.log(session.data?.user?.email)
+  const UserEmail = session.data?.user?.email;
+
+console.log(UserEmail)
+
+  const GetJobs = async () => {
+    if (!UserEmail) {
+      console.error("User email is null or undefined");
+      return; // Return undefined if UserEmail is not defined
+    }
+
+    try {
+      const myjobs = await db.job.findMany({
+        where: {
+          UserEmail: UserEmail,
+        },
+      });
+
+      return myjobs; // Return the jobs found
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      throw error; // Throw the error for handling elsewhere if needed
+    }
+  };
+
+  // Call GetJobs and handle the returned promise
+  GetJobs()
+    .then((jobs) => {
+      console.log("Jobs:", jobs); // Output the jobs retrieved
+    })
+    .catch((error) => {
+      console.error("Error:", error); // Handle any errors that occur
+    });
+
+
+
+
+
   return (
     <Table className=" w-[850px]">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
@@ -107,16 +147,16 @@ export function MyJobTable({Formdata}:FormData) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Formdata.map((invoice) => (
+        {invoices.map((invoice) => (
           <TableRow key={invoice.NO}>
             <TableCell className="font-medium text-center">
               {invoice.NO}
             </TableCell>
-            <TableCell className="text-center">{Formdata.jobTitle}</TableCell>
-            <TableCell className="text-center">{Formdata.companyName}</TableCell>
-            <TableCell className=" text-center">{Formdata.salary}</TableCell>
-            <TableCell className=" text-center">{Formdata.Edit}</TableCell>
-            <TableCell className=" text-center">{Formdata.Delete}</TableCell>
+            <TableCell className="text-center">{invoice.TITLE}</TableCell>
+            <TableCell className="text-center">{invoice.COMPANYNAME}</TableCell>
+            <TableCell className=" text-center">{invoice.SALARY}</TableCell>
+            <TableCell className=" text-center">{invoice.EDIT}</TableCell>
+            <TableCell className=" text-center">{invoice.DELETE}</TableCell>
           </TableRow>
         ))}
       </TableBody>

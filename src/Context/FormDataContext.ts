@@ -14,7 +14,7 @@ const FormDataContext = createContext<FormDataContextType>({
         employmentType: '',
         description: '',
         companyLogo: '',
-        email: '',
+        UserEmail: '',
     },
     SetFormdata : ()=>{}
 })

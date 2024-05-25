@@ -18,7 +18,7 @@ export interface FormDataType {
   employmentType: string;
   description: string;
   companyLogo: string;
-  email: string;
+  UserEmail: string | null | undefined;
   values?:Array<Object>
 }
 export interface FormDataContextType {
@@ -40,7 +40,7 @@ export const FormDataContextProvider = ({
     employmentType: "",
     description: "",
     companyLogo: "",
-    email: "",
+    UserEmail: "",
   });
 
   return (

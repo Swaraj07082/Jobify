@@ -52,6 +52,7 @@ import { error } from "console";
 import { useRouter } from "next/navigation";
 import { POST } from "@/app/api/demo/route";
 import { getSession, useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 
 // in client components u can use the hooke useSearchParams , but for server components u get it as a prop as searchParams
 
@@ -95,9 +96,9 @@ export const formSchema = z.object({
     .refine((value) => !/\d/.test(value), {
       message: "URL must not contain numbers",
     }),
-  email: z.string().email().min(1, {
-    message: "This field has to be filled.",
-  }),
+  // email: z.string().email().min(1, {
+  //   message: "This field has to be filled.",
+  // }),
 });
 
 // const jobLocation = [{
@@ -115,7 +116,7 @@ export function ProfileForm() {
       experienceLevel: "",
       description: "",
       companyLogo: "",
-      email: "",
+      // email: "",
       salary: "",
       salaryType: "",
       skillset: "",
@@ -174,7 +175,7 @@ export function ProfileForm() {
         employmentType: Formdata.employmentType,
         description: Formdata.description,
         companyLogo: Formdata.companyLogo,
-        email: Formdata.email,
+        UserEmail: Formdata.UserEmail,
       }),
     });
   };
@@ -194,6 +195,10 @@ export function ProfileForm() {
   // }, [Formdata, router]);
 
   // 2. Define a submit handler.
+
+  const {data}= useSession()
+
+  // console.log(data?.user?.email)
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -230,8 +235,7 @@ export function ProfileForm() {
      skillset=${values.skillset}&
      employmentType= ${values.employmentType}&
      description=${values.description}&
-     companyLogo= ${values.companyLogo}&
-    email=${values.email}`);
+     companyLogo= ${values.companyLogo}`);
     postdata();
   }
 
@@ -549,7 +553,7 @@ export function ProfileForm() {
                 )}
               />
 
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
@@ -566,9 +570,9 @@ export function ProfileForm() {
                       <FormDescription>This is your email.</FormDescription>
                       <FormMessage />
                     </FormItem>
-                  </>
-                )}
-              />
+                  </> */}
+                {/* )}
+              /> */}
 
               <Button
                 type="submit"
