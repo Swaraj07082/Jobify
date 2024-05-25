@@ -1,5 +1,5 @@
 import React from "react";
-import StateContext from "./StateContext";
+import StateContext from "../Context/StateContext";
 
 type StateContextProviderProps = {
   children: JSX.Element | JSX.Element[] | React.ReactNode | React.ReactElement;

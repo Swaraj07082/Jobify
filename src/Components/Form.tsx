@@ -51,6 +51,7 @@ import { Sub } from "@radix-ui/react-menubar";
 import { error } from "console";
 import { useRouter } from "next/navigation";
 import { POST } from "@/app/api/demo/route";
+import { getSession, useSession } from "next-auth/react";
 
 // in client components u can use the hooke useSearchParams , but for server components u get it as a prop as searchParams
 
@@ -90,6 +91,9 @@ export const formSchema = z.object({
     .url({ message: "Please enter a valid URL in https:// format " })
     .refine((value) => value.startsWith("https://"), {
       message: "URL must start with 'https://'.",
+    })
+    .refine((value) => !/\d/.test(value), {
+      message: "URL must not contain numbers",
     }),
   email: z.string().email().min(1, {
     message: "This field has to be filled.",
@@ -195,7 +199,10 @@ export function ProfileForm() {
     // ✅ This will be type-safe and validated.
     console.log(values.jobTitle);
 
-    alert("Form Submitted");
+    toast({
+      duration: 2100,
+      title: "Form Submitted",
+    });
     reset();
     console.log(values);
     SetFormdata(values);
@@ -228,6 +235,8 @@ export function ProfileForm() {
     postdata();
   }
 
+  const { status } = useSession();
+  console.log(status);
   return (
     <>
       <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>

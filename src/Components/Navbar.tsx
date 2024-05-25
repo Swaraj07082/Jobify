@@ -32,6 +32,8 @@ import jobify from "../../public/Jobify.jpg";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import ToggleMenu from "./ToggleMenu";
 import { redirect } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
+import { useToast } from "./ui/use-toast";
 
 export default function Navbar() {
   const [Open, SetOpen] = useState<boolean>(false);
@@ -42,6 +44,8 @@ export default function Navbar() {
 
   // console.log(Open);
 
+  const { status } = useSession();
+  const { toast } = useToast();
   return (
     <>
       <Menubar
@@ -56,51 +60,94 @@ export default function Navbar() {
 
           <MenubarMenu>
             <MenubarTrigger className=" max-lg:hidden">
-              Start a search
+              <Link href={"/"}>Start a search</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
             <MenubarTrigger className=" max-lg:hidden">
-              <Link href={'my-jobs'}>
-              
-              My Jobs
+              <Link
+                href={status === "authenticated" ? "my-jobs" : "register"}
+                onClick={() => {
+                  status === "unauthenticated" ? (
+                    toast({
+                      duration: 2100,
+                      title: "You need to Register first",
+                    })
+                  ) : (
+                    <></>
+                  );
+                }}
+              >
+                My Jobs
               </Link>
-              </MenubarTrigger>
+            </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">
+            <MenubarTrigger
+              className=" max-lg:hidden"
+              onClick={() => {
+                status === "unauthenticated" ? (
+                  toast({
+                    duration: 2100,
+                    title: "You need to Register first",
+                  })
+                ) : (
+                  <></>
+                );
+              }}
+            >
               Salary Estimate
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">
-            <Link href={'post-job'}>
-              Post A Job
-            </Link>
+            <MenubarTrigger
+              className=" max-lg:hidden"
+              onClick={() => {
+                status === "unauthenticated" ? (
+                  toast({
+                    duration: 2100,
+                    title: "You need to Register first",
+                  })
+                ) : (
+                  <></>
+                );
+              }}
+            >
+              <Link href={status === "authenticated" ? "post-job" : "register"}>
+                Post A Job
+              </Link>
             </MenubarTrigger>
           </MenubarMenu>
         </div>
 
         <div className={cn("flex gap-x-2")}>
-          <Button className=" max-lg:hidden">
-            <Link href={'/login'}>
-            
-            Login
-            </Link>
+          {status === "unauthenticated" ? (
+            <>
+              <Button className=" max-lg:hidden">
+                <Link href={"/login"}>Login</Link>
+              </Button>
+              <Button className=" max-lg:hidden">
+                <Link href={"/register"}>Register</Link>
+              </Button>
+            </>
+          ) : (
+            <Button
+              className=" max-lg:hidden"
+              onClick={() => {
+                signOut();
+                toast({
+                  duration: 2500,
+                  title: "Logged Out",
+                });
+              }}
+            >
+              LogOut
             </Button>
+          )}
 
-
-          <Button className=" max-lg:hidden">
-          <Link href={'/register'}>
-
-
-          Register
-
-          </Link>
-          </Button>
           <Image
             onClick={OnSetOpen}
             className=" lg:hidden "
@@ -111,7 +158,7 @@ export default function Navbar() {
           />
         </div>
       </Menubar>
-      {Open && <ToggleMenu/>}
+      {Open && <ToggleMenu />}
     </>
   );
 }

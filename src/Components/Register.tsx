@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Button } from "../Components/ui/button";
+import { useToast } from "./ui/use-toast";
 import { date, z } from "zod";
 import {
   Card,
@@ -25,8 +26,32 @@ import {
   FormMessage,
 } from "../Components/ui/form";
 import { useState } from "react";
-import { PassThrough } from "stream";
 import { useRouter } from "next/navigation";
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
 
 const formSchema = z.object({
   username: z
@@ -70,7 +95,44 @@ export function Register() {
     },
   });
   const { reset } = form;
+  const d = new Date();
+  function getOrdinalNum(n: number) {
+    return (
+      n +
+      (n > 0
+        ? ["th", "st", "nd", "rd"][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10]
+        : "")
+    );
+  }
+  function convertMillisecondsToIST(milliseconds: number): string {
+    // Create a Date object from milliseconds
+    const date = new Date(milliseconds);
 
+    // Set timezone to IST (Indian Standard Time)
+    const ISTOptions: Intl.DateTimeFormatOptions = {
+      timeZone: "Asia/Kolkata",
+      hour12: true, // Use 12-hour format
+      hour: "numeric", // Display hours
+      minute: "numeric", // Display minutes
+      second: "numeric", // Display seconds
+    };
+
+    // Format the time in IST with am/pm
+    const ISTTime: string = date.toLocaleTimeString("en-IN", ISTOptions);
+
+    return ISTTime;
+  }
+
+  // console.log(convertMillisecondsToIST(1716626085488))
+
+  // console.log(
+  //   `${days[d.getDay()]} , ${getOrdinalNum(d.getDate())} ${
+  //     months[d.getMonth()]
+  //   } at ${convertMillisecondsToIST(d.getTime())}`
+  // );
+
+  
+  const { toast } = useToast();
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -88,11 +150,22 @@ export function Register() {
     // const data = await response.json()
     // console.log(data)
     if (response.ok) {
-      alert("Submitted");
+      // alert("Submitted");
+      toast({
+        title: "Registered",
+        description:  `${days[d.getDay()]} , ${getOrdinalNum(d.getDate())} ${
+          months[d.getMonth()]
+        } at ${convertMillisecondsToIST(d.getTime())}`,
+      });
       reset();
       router.push("/login");
     } else {
-      alert("Error");
+      // alert("Error");
+      toast({
+        duration:2100,
+        variant : 'destructive',
+        title: "Either the email or username you are trying to register with are already taken."
+      });
     }
   }
 

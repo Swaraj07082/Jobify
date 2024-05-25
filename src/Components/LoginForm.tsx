@@ -28,7 +28,10 @@ import {
 } from "../Components/ui/form";
 import { useState } from "react";
 
-import {signIn} from 'next-auth/react'
+import { signIn } from "next-auth/react";
+import { useToast  } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
+import { ToastAction } from "../components/ui/toast";
 
 const formSchema = z.object({
   email: z.string().email().min(1, {
@@ -50,17 +53,36 @@ export default function LoginForm() {
   });
   const { reset } = form;
 
+  const { toast } = useToast();
+  const router = useRouter();
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const LoginData = await signIn('credentials' ,{
-      email : values.email ,
-      password : values.password,
-      redirect : false
-    })
+    const LoginData = await signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    });
 
-    console.log(LoginData)
+    // console.log(LoginData)
+
+    if (LoginData?.error) {
+      // console.log(LoginData.error);
+      toast({
+        duration : 2100 ,
+        variant : 'destructive',
+        title:
+          "Either the email or password you are trying to log in with are incorrect.",
+      });
+    } else {
+      router.push("/");
+      toast({
+        duration : 2100 ,
+        title: "Logged In successfully",
+      });
+    }
   }
 
   return (

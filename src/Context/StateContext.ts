@@ -1,5 +1,5 @@
 import { createContext } from  "react";
-import { StateContextType } from  "./StateContextProvider";
+import { StateContextType } from  "../Providers/StateContextProvider";
 
 const StateContext = createContext<StateContextType>({
     value : '',
