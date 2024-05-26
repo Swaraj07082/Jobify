@@ -4,6 +4,7 @@ import { FormDataContextType } from "./FormDataContextProvider";
 
 const FormDataContext = createContext<FormDataContextType>({
     Formdata : {
+        id:'',
         jobTitle:'',
         companyName: '',
         salary: '',

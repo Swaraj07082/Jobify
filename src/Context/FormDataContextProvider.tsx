@@ -8,6 +8,7 @@ type FormDataContextProviderProps = {
 };
 
 export interface FormDataType {
+  id : string;
   jobTitle: string;
   companyName: string;
   salary: string;
@@ -30,6 +31,7 @@ export const FormDataContextProvider = ({
   children,
 }: FormDataContextProviderProps) => {
   const [Formdata, SetFormdata] = useState<FormDataType>({
+    id:"",
     jobTitle: "",
     companyName: "",
     salary: "",

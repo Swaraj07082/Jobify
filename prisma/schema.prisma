@@ -33,6 +33,6 @@ model Job {
   employmentType  String
   description     String
   companyLogo     String
-  UserEmail       String 
+  UserEmail       String
   user User @relation(fields: [UserEmail] , references: [email])
 }
