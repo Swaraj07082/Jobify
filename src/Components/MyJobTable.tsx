@@ -139,7 +139,7 @@ export function MyJobTable() {
   //     console.error("Error:", error); // Handle any errors that occur
   //   });
   const [Myjobs, setMyjobs] = useState<Array<FormDataType>>([]);
-  const [open, setopen] = useState<Boolean>(false);
+  const [id, setid] = useState<string>("");
   // const data = await GetJobs()
   // console.log(data)
 
@@ -184,11 +184,12 @@ export function MyJobTable() {
             <TableCell className=" text-center"><Edit/></TableCell>
             <TableCell
               className=" text-center"
-              // onClick={(e) => {
-              //   console.log(invoice.id)
-              //   console.log(e.currentTarget.parentElement?.innerHTML.slice(129,153))
-              // }}
-            ><Delete/></TableCell>
+              onClick={(e) => {
+                console.log(invoice.id)
+                console.log(e.currentTarget.parentElement?.innerHTML.slice(129,153))
+                invoice.id === e.currentTarget.parentElement?.innerHTML.slice(129,153)? setid(invoice.id) : (<></>)
+              }}
+            ><Delete id={id}/></TableCell>
           </TableRow>
         ))}
       </TableBody>

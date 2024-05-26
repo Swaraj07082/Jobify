@@ -1,64 +1,76 @@
-import { Button } from "@/Components/ui/button"
-import { Input} from "@/Components/ui/input"
-import { Label } from "@/Components/ui/label"
+import { Button } from "@/Components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/Components/ui/popover"
+} from "@/Components/ui/popover";
+import db from "@/lib/db";
+import { useRouter } from "next/navigation";
+
+interface DeleteProps {
+  id: string;
+}
+export  function  Delete({ id }: DeleteProps) {
+  console.log(id);
 
 
 
-export function Delete() {
+  async function deleteContent() {
+    // const deleteJob = await db.job.delete({
+    //   where: {
+    //     id: id,
+    //   },
+    // });
+    console.log(id)
+    try {
+      const response = await fetch(`api/demo?id=${id}`, {
+        method: "DELETE"
+      });
+
+      console.log("working")
+
+      if (response.ok) {
+        console.log("Job deleted successfully");
+ 
+
+      } else {
+        console.error("Failed to delete job");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline">Delete</Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
-        <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="font-medium leading-none">Dimensions</h4>
-            <p className="text-sm text-muted-foreground">
-              Set the dimensions for the layer.
-            </p>
+      <PopoverContent className=" w-fit">
+        <div className="flex flex-col gap-y-5 items-center justify-center">
+          <div className="">
+            <h4 className="font-medium leading-none"> Are you sure?</h4>
           </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">Width</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxWidth">Max. width</Label>
-              <Input
-                id="maxWidth"
-                defaultValue="300px"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="height">Height</Label>
-              <Input
-                id="height"
-                defaultValue="25px"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="maxHeight">Max. height</Label>
-              <Input
-                id="maxHeight"
-                defaultValue="none"
-                className="col-span-2 h-8"
-              />
-            </div>
+
+          <div className="flex gap-x-4">
+            <Button>Cancel</Button>
+            <Button
+              variant={"destructive"}
+              onClick={(e) => {
+                // console.log(
+                //   e.currentTarget.parentElement?.parentElement?.innerHTML
+                // );
+                deleteContent();
+                console.log("clicked")
+              }}
+            >
+              Delete
+            </Button>
           </div>
         </div>
       </PopoverContent>
     </Popover>
-  )
+  );
 }
