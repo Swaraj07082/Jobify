@@ -13,7 +13,7 @@ import { StateContextProvider } from "@/Context/StateContextProvider";
 export default function Home() {
   useEffect(() => {
     const getdata = async () => {
-      const data = await fetch("/api/jobs");
+      const data = await fetch("/api/demo");
       const parsedata = await data.json();
       console.log(parsedata);
       SetJobs(parsedata);
@@ -40,7 +40,7 @@ export default function Home() {
           query={query}
           setquery={setquery}
           location={location}
-          setlocation={setlocation}
+        setlocation={setlocation}
         />
         <Main Jobs={Jobs} query={query} setquery={setquery}  location={location}
           setlocation={setlocation} />

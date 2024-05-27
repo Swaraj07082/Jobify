@@ -12,10 +12,8 @@ import { useRouter } from "next/navigation";
 interface DeleteProps {
   id: string;
 }
-export  function  Delete({ id }: DeleteProps) {
+export function Delete({ id }: DeleteProps) {
   console.log(id);
-
-
 
   async function deleteContent() {
     // const deleteJob = await db.job.delete({
@@ -23,18 +21,16 @@ export  function  Delete({ id }: DeleteProps) {
     //     id: id,
     //   },
     // });
-    console.log(id)
+    console.log(id);
     try {
       const response = await fetch(`api/demo?id=${id}`, {
-        method: "DELETE"
+        method: "DELETE",
       });
 
-      console.log("working")
+      console.log("working");
 
       if (response.ok) {
         console.log("Job deleted successfully");
- 
-
       } else {
         console.error("Failed to delete job");
       }
@@ -63,7 +59,7 @@ export  function  Delete({ id }: DeleteProps) {
                 //   e.currentTarget.parentElement?.parentElement?.innerHTML
                 // );
                 deleteContent();
-                console.log("clicked")
+                console.log("clicked");
               }}
             >
               Delete

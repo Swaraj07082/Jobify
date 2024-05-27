@@ -174,9 +174,9 @@ export function MyJobTable() {
       </TableHeader>
       <TableBody>
         {Myjobs.map((invoice, index) => (
-          <TableRow key={index}>
+          <TableRow key={invoice.id}>
             <TableCell className="font-medium text-center">
-              {invoice.id}
+              {index + 1}
             </TableCell>
             <TableCell className="text-center">{invoice.companyName}</TableCell>
             <TableCell className="text-center">{invoice.jobTitle}</TableCell>
