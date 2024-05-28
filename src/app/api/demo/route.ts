@@ -91,7 +91,6 @@ export const POST = async (req: Request, res: NextApiResponse) => {
   const { ...data } = body;
   console.log(data);
 
-
   const newJob = await db.job.create({
     data: {
       jobTitle: data.jobTitle,
@@ -135,19 +134,23 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
+export const PUT = async (req: Request, res: NextApiResponse) => {
+  const body = await req.json();
 
-export const PUT= async(req:Request , res:NextApiResponse) =>{
+  const { ...data } = body;
 
-  const body = await req.json()
-
-  const {...data} = body
+  console.log(data.id);
 
   const updatedData = db.job.update({
-    where : {
-      id: id
-    }
-  })
+    where: {
+      id: String(data.id),
+    },
+    data: {
+      jobTitle: data.jobTitle,
+      salary: data.salary,
+      companyName: data.companyName,
+    },
+  });
 
-  return new NextResponse(JSON.stringify(data))
-
-}
+  return new NextResponse(JSON.stringify(updatedData));
+};

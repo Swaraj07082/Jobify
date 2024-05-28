@@ -92,6 +92,7 @@ console.log(id)
         jobTitle: data.jobTitle,
         salary: data.salary,
         companyName: data.companyName,
+        id:id
       })
     });
 

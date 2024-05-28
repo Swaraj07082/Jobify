@@ -178,10 +178,14 @@ export function MyJobTable() {
             <TableCell className="font-medium text-center">
               {invoice.id}
             </TableCell>
-            <TableCell className="text-center">{invoice.companyName}</TableCell>
             <TableCell className="text-center">{invoice.jobTitle}</TableCell>
+            <TableCell className="text-center">{invoice.companyName}</TableCell>
             <TableCell className=" text-center">{invoice.salary}</TableCell>
-            <TableCell className=" text-center"><Edit id = {id}/></TableCell>
+            <TableCell className=" text-center"   onClick={(e) => {
+                console.log(invoice.id)
+                console.log(e.currentTarget.parentElement?.innerHTML.slice(129,153))
+                invoice.id === e.currentTarget.parentElement?.innerHTML.slice(129,153)? setid(invoice.id) : (<></>)
+              }}><Edit id = {id}/></TableCell>
             <TableCell
               className=" text-center"
               onClick={(e) => {
