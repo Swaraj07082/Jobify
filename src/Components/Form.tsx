@@ -196,11 +196,11 @@ export function ProfileForm() {
 
   // 2. Define a submit handler.
 
-  const {data}= useSession()
+  const { data } = useSession();
 
-  console.log(data?.user?.email)
-  const UserEmail = data?.user?.email
-  console.log(UserEmail)
+  console.log(data?.user?.email);
+  const UserEmail = data?.user?.email;
+  console.log(UserEmail);
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -213,8 +213,8 @@ export function ProfileForm() {
     // reset();
     // console.log(values);
     // SetFormdata(values);
-    
-    const data = await fetch("/api/demo", {
+
+    const respone = await fetch("/api/demo", {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -228,9 +228,26 @@ export function ProfileForm() {
         employmentType: values.employmentType,
         description: values.description,
         companyLogo: values.companyName,
-        UserEmail: UserEmail
+        UserEmail: UserEmail,
       }),
     });
+
+    if(respone.ok){
+      toast({
+        title: "You submitted the following values:",
+        duration : 2100,
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+          </pre>
+        ),
+      });
+    }
+    else{
+      toast({
+        title: "Error"
+      })
+    }
 
     // let data = (JSON.stringify(values))
     // POST()
@@ -247,8 +264,6 @@ export function ProfileForm() {
     //   {
     //     scroll: false,
     //   };
-
-
 
     // router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
     //  salary=${values.salary}&
@@ -594,7 +609,7 @@ export function ProfileForm() {
                       <FormMessage />
                     </FormItem>
                   </> */}
-                {/* )}
+              {/* )}
               /> */}
 
               <Button

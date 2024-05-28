@@ -176,12 +176,12 @@ export function MyJobTable() {
         {Myjobs.map((invoice, index) => (
           <TableRow key={invoice.id}>
             <TableCell className="font-medium text-center">
-              {index + 1}
+              {invoice.id}
             </TableCell>
             <TableCell className="text-center">{invoice.companyName}</TableCell>
             <TableCell className="text-center">{invoice.jobTitle}</TableCell>
             <TableCell className=" text-center">{invoice.salary}</TableCell>
-            <TableCell className=" text-center"><Edit/></TableCell>
+            <TableCell className=" text-center"><Edit id = {id}/></TableCell>
             <TableCell
               className=" text-center"
               onClick={(e) => {

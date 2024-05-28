@@ -134,3 +134,20 @@ export async function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
+
+
+export const PUT= async(req:Request , res:NextApiResponse) =>{
+
+  const body = await req.json()
+
+  const {...data} = body
+
+  const updatedData = db.job.update({
+    where : {
+      id: id
+    }
+  })
+
+  return new NextResponse(JSON.stringify(data))
+
+}
