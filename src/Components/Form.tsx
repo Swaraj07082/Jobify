@@ -161,24 +161,24 @@ export function ProfileForm() {
   // };
 
   // console.log(Formdata.companyName)
-  const postdata = async () => {
-    const data = await fetch("/api/demo", {
-      method: "POST",
-      body: JSON.stringify({
-        jobTitle: Formdata.jobTitle,
-        companyName: Formdata.companyName,
-        salary: Formdata.salary,
-        salaryType: Formdata.salaryType,
-        jobLocation: Formdata.jobLocation,
-        experienceLevel: Formdata.experienceLevel,
-        skillset: Formdata.skillset,
-        employmentType: Formdata.employmentType,
-        description: Formdata.description,
-        companyLogo: Formdata.companyLogo,
-        UserEmail: Formdata.UserEmail,
-      }),
-    });
-  };
+  // const postdata = async () => {
+  //   const data = await fetch("/api/demo", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       jobTitle: Formdata.jobTitle,
+  //       companyName: Formdata.companyName,
+  //       salary: Formdata.salary,
+  //       salaryType: Formdata.salaryType,
+  //       jobLocation: Formdata.jobLocation,
+  //       experienceLevel: Formdata.experienceLevel,
+  //       skillset: Formdata.skillset,
+  //       employmentType: Formdata.employmentType,
+  //       description: Formdata.description,
+  //       companyLogo: Formdata.companyLogo,
+  //       UserEmail: Formdata.UserEmail,
+  //     }),
+  //   });
+  // };
   // console.log(data)
   // console.log(Formdata.companyName)
   // const parsedata = await data.json();
@@ -198,19 +198,40 @@ export function ProfileForm() {
 
   const {data}= useSession()
 
-  // console.log(data?.user?.email)
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  console.log(data?.user?.email)
+  const UserEmail = data?.user?.email
+  console.log(UserEmail)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values.jobTitle);
+    // console.log(values.jobTitle);
 
-    toast({
-      duration: 2100,
-      title: "Form Submitted",
+    // toast({
+    //   duration: 2100,
+    //   title: "Form Submitted",
+    // });
+    // reset();
+    // console.log(values);
+    // SetFormdata(values);
+    
+    const data = await fetch("/api/demo", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        jobTitle: values.jobTitle,
+        companyName: values.companyName,
+        salary: values.salary,
+        salaryType: values.salaryType,
+        jobLocation: values.jobLocation,
+        experienceLevel: values.experienceLevel,
+        skillset: values.skillset,
+        employmentType: values.employmentType,
+        description: values.description,
+        companyLogo: values.companyName,
+        UserEmail: UserEmail
+      }),
     });
-    reset();
-    console.log(values);
-    SetFormdata(values);
+
     // let data = (JSON.stringify(values))
     // POST()
     // router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
@@ -227,16 +248,18 @@ export function ProfileForm() {
     //     scroll: false,
     //   };
 
-    router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
-     salary=${values.salary}&
-     salaryType= ${values.salaryType}&
-     jobLocation= ${values.jobLocation}&
-     experienceLevel= ${values.experienceLevel}&
-     skillset=${values.skillset}&
-     employmentType= ${values.employmentType}&
-     description=${values.description}&
-     companyLogo= ${values.companyLogo}`);
-    postdata();
+
+
+    // router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
+    //  salary=${values.salary}&
+    //  salaryType= ${values.salaryType}&
+    //  jobLocation= ${values.jobLocation}&
+    //  experienceLevel= ${values.experienceLevel}&
+    //  skillset=${values.skillset}&
+    //  employmentType= ${values.employmentType}&
+    //  description=${values.description}&
+    //  companyLogo= ${values.companyLogo}`);
+    // postdata();
   }
 
   const { status } = useSession();

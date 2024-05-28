@@ -19,7 +19,7 @@ export interface FormDataType {
   employmentType: string;
   description: string;
   companyLogo: string;
-  UserEmail: string | null | undefined;
+  UserEmail?: string | null | undefined;
   values?:Array<Object>
 }
 export interface FormDataContextType {

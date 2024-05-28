@@ -9,6 +9,7 @@ import { ReadonlyURLSearchParams } from "next/navigation";
 import { headers } from "next/headers";
 import { connect } from "http2";
 import { getServerSession } from "next-auth";
+import { get } from "http";
 
 interface QueryObject {
   [key: string]: string;
@@ -28,13 +29,13 @@ export const GET = async () => {
 };
 
 export const POST = async (req: Request, res: NextApiResponse) => {
-  const session = await getServerSession();
-  console.log(session?.user?.email);
+  // const session = await getServerSession();
+  // console.log(session?.user?.email);
 
-  const UserEmail = session?.user?.email as string;
-  const headerList = headers();
-  const referer = headerList.get("referer");
-  console.log(referer);
+  // const UserEmail = session?.user?.email as string;
+  // const headerList = headers();
+  // const referer = headerList.get("referer");
+  // console.log(referer);
   // console.log(req.headers.entries())
 
   // const url = new URL(req.url)
@@ -42,58 +43,77 @@ export const POST = async (req: Request, res: NextApiResponse) => {
   // console.log(req.nextURL.searchParams)
   // console.log(searchParams)
 
-  const queryString = referer?.split("?")[1];
+  // const queryString = referer?.split("?")[1];
 
-  const queryParams = new URLSearchParams(queryString);
-  const queryObject: QueryObject = {};
+  // const queryParams = new URLSearchParams(queryString);
+  // const queryObject: QueryObject = {};
 
-  queryParams.forEach((value, key) => {
-    const trimmedKey = key.trim(); // Trim whitespace from the key
-    queryObject[trimmedKey] = value;
-  });
+  // queryParams.forEach((value, key) => {
+  //   const trimmedKey = key.trim(); // Trim whitespace from the key
+  //   queryObject[trimmedKey] = value;
+  // });
 
-  console.log(queryObject);
+  // console.log(queryObject);
   // const page = new URLSearchParams(queryString)
   // const limit = Number(new URLSearchParams(queryString))
 
   // console.log(page)
   // console.log(queryObject.formdata)
 
-  console.log(queryObject.jobLocation);
-  // console.log(req)
-  try {
-    const demo = await db.job.create({
-      data: {
-        jobTitle: queryObject.jobTitle,
-        companyName: queryObject.companyName,
-        salary: queryObject.salary,
-        salaryType: queryObject.salaryType,
-        jobLocation: queryObject.jobLocation,
-        experienceLevel: queryObject.experienceLevel,
-        skillset: queryObject.skillset,
-        employmentType: queryObject.employmentType,
-        description: queryObject.description,
-        companyLogo: queryObject.companyLogo,
-        UserEmail: UserEmail,
-      },
-    });
-    return new NextResponse(JSON.stringify(demo), { status: 200 });
-  } catch (error) {
-    return new NextResponse(
-      JSON.stringify({ message: "Something went wrong!" }),
-      { status: 500 }
-    );
-  }
+  // console.log(queryObject.jobLocation);
+  // // console.log(req)
+  // try {
+  //   const demo = await db.job.create({
+  //     data: {
+  //       jobTitle: queryObject.jobTitle,
+  //       companyName: queryObject.companyName,
+  //       salary: queryObject.salary,
+  //       salaryType: queryObject.salaryType,
+  //       jobLocation: queryObject.jobLocation,
+  //       experienceLevel: queryObject.experienceLevel,
+  //       skillset: queryObject.skillset,
+  //       employmentType: queryObject.employmentType,
+  //       description: queryObject.description,
+  //       companyLogo: queryObject.companyLogo,
+  //       UserEmail: UserEmail,
+  //     },
+  //   });
+  //   return new NextResponse(JSON.stringify(demo), { status: 200 });
+  // } catch (error) {
+  //   return new NextResponse(
+  //     JSON.stringify({ message: "Something went wrong!" }),
+  //     { status: 500 }
+  //   );
+  // }
+
+  const body = await req.json();
+
+  const { ...data } = body;
+  console.log(data);
+
+
+  const newJob = await db.job.create({
+    data: {
+      jobTitle: data.jobTitle,
+      companyName: data.companyName,
+      salary: data.salary,
+      salaryType: data.salaryType,
+      jobLocation: data.jobLocation,
+      experienceLevel: data.experienceLevel,
+      skillset: data.skillset,
+      employmentType: data.employmentType,
+      description: data.description,
+      companyLogo: data.companyLogo,
+      UserEmail: data.UserEmail,
+    },
+  });
+
+  return new NextResponse(JSON.stringify(newJob));
 };
 
-
-
- export async function handler (
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "DELETE") {
-    const {id} = req.query
+    const { id } = req.query;
     console.log(id);
     try {
       // Delete the job from the database
@@ -109,11 +129,8 @@ export const POST = async (req: Request, res: NextApiResponse) => {
         status: 500,
       });
     }
-   } else {
-     res.setHeader("Allow", ["DELETE"]);
-     res.status(405).end(`Method ${req.method} Not Allowed`);
+  } else {
+    res.setHeader("Allow", ["DELETE"]);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-};
-
-
-
+}

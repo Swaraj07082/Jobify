@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { z } from "zod"
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
 
 import { cn } from "@/lib/utils"
@@ -21,6 +22,8 @@ import {
 
 import JobTitles from "../../public/JobTitles.json"
 import { location } from "./types/GenericComboBoxProps"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 // const frameworks = [
 //   {
@@ -51,10 +54,30 @@ interface ComboBoxProps{
 }
 
 
-JobTitles.map((v)=>console.log(v.value))
+// JobTitles.map((v)=>console.log(v.value))
+
+
+ 
+const formSchema = z.object({
+  salary: z.string({
+    required_error: "Please select Salary",
+  }),
+ 
+  username: z.string().min(2).max(50),
+
+})
+
+
+
 
 
 export function Combobox({data , title} :ComboBoxProps) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+    },
+  })
   
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
