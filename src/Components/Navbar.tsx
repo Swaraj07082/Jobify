@@ -99,7 +99,9 @@ export default function Navbar() {
                 );
               }}
             >
+              <Link href={'/salary-est'}>
               Salary Estimate
+              </Link>
             </MenubarTrigger>
           </MenubarMenu>
 
