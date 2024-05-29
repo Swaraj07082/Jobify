@@ -7,6 +7,7 @@ import { ReactNode } from "react";
 import { Toaster } from "@/Components/ui/toaster";
 import { FormDataContextProvider } from "@/Context/FormDataContextProvider";
 import Provider from "@/Context/ClientSessionProvider";
+import { ThemeProvider } from "@/Components/theme-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,18 +28,20 @@ export default function RootLayout({ children }: Props) {
           fontSans.variable
         )}
       >
-        <Provider>
-
-        {/* <div className="container"> */}
-        {/* <div className="wrapper"> */}
-        <FormDataContextProvider>
-          <Navbar />
-          {children}
-          <Toaster />
-        </FormDataContextProvider>
-        {/* </div> */}
-        {/* </div> */}
-        </Provider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Provider>
+            <FormDataContextProvider>
+              <Navbar />
+              {children}
+              <Toaster />
+            </FormDataContextProvider>
+          </Provider>
+        </ThemeProvider>
       </body>
     </html>
   );

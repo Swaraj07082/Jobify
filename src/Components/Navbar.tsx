@@ -34,6 +34,7 @@ import ToggleMenu from "./ToggleMenu";
 import { redirect } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useToast } from "./ui/use-toast";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Navbar() {
   const [Open, SetOpen] = useState<boolean>(false);
@@ -147,7 +148,7 @@ export default function Navbar() {
               LogOut
             </Button>
           )}
-
+<ThemeToggle/>
           <Image
             onClick={OnSetOpen}
             className=" lg:hidden "
