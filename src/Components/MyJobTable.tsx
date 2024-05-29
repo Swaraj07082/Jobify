@@ -98,7 +98,12 @@ const GetJobs = async () => {
 };
 
 // export function MyJobTable({Formdata}:FormData) {
-export function MyJobTable() {
+
+interface MyJobTableProps {
+  query: string;
+}
+
+export function MyJobTable({ query }: MyJobTableProps) {
   // console.log(Formdata)
   // prisma methods findmany and stuff works in routes only
   // Prisma methods cannot be used directly in client components. Prisma is designed to be used in a server-side environment due to the need to securely connect to your database. Client-side code runs in the user's browser, and exposing your database credentials and direct database access in the client is a significant security risk.
@@ -159,6 +164,21 @@ export function MyJobTable() {
 
   // console.log will be infinite times cause GetJobs function called inside the component , call it inside useEffect
 
+  const filtereddata = (Myjobs: Array<FormDataType>) => {
+    console.log(Myjobs);
+
+   return Myjobs.filter((item) =>
+      item.companyName
+        .toLowerCase()
+        .split(" ")
+        .join("")
+        .includes(query.toLowerCase().split(" ").join(""))
+    );
+  };
+
+  
+
+  
   return (
     <Table className=" w-[850px]">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
@@ -173,7 +193,7 @@ export function MyJobTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Myjobs.map((invoice, index) => (
+        {filtereddata(Myjobs)?.map((invoice, index) => (
           <TableRow key={invoice.id}>
             <TableCell className="font-medium text-center">
               {invoice.id}
@@ -181,19 +201,40 @@ export function MyJobTable() {
             <TableCell className="text-center">{invoice.jobTitle}</TableCell>
             <TableCell className="text-center">{invoice.companyName}</TableCell>
             <TableCell className=" text-center">{invoice.salary}</TableCell>
-            <TableCell className=" text-center"   onClick={(e) => {
-                console.log(invoice.id)
-                console.log(e.currentTarget.parentElement?.innerHTML.slice(129,153))
-                invoice.id === e.currentTarget.parentElement?.innerHTML.slice(129,153)? setid(invoice.id) : (<></>)
-              }}><Edit id = {id}/></TableCell>
             <TableCell
               className=" text-center"
               onClick={(e) => {
-                console.log(invoice.id)
-                console.log(e.currentTarget.parentElement?.innerHTML.slice(129,153))
-                invoice.id === e.currentTarget.parentElement?.innerHTML.slice(129,153)? setid(invoice.id) : (<></>)
+                console.log(invoice.id);
+                console.log(
+                  e.currentTarget.parentElement?.innerHTML.slice(129, 153)
+                );
+                invoice.id ===
+                e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
+                  setid(invoice.id)
+                ) : (
+                  <></>
+                );
               }}
-            ><Delete id={id}/></TableCell>
+            >
+              <Edit id={id} />
+            </TableCell>
+            <TableCell
+              className=" text-center"
+              onClick={(e) => {
+                console.log(invoice.id);
+                console.log(
+                  e.currentTarget.parentElement?.innerHTML.slice(129, 153)
+                );
+                invoice.id ===
+                e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
+                  setid(invoice.id)
+                ) : (
+                  <></>
+                );
+              }}
+            >
+              <Delete id={id} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
