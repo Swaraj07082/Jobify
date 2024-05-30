@@ -9,6 +9,8 @@ import { Jobs } from "@/Components/types/BannerProps";
 
 import Main from "@/Components/Main";
 import { StateContextProvider } from "@/Context/StateContextProvider";
+import { Pagination } from "@/Components/ui/pagination";
+import { PaginationDemo } from "@/Components/Pagination";
 
 export default function Home() {
   useEffect(() => {
@@ -24,12 +26,13 @@ export default function Home() {
   const [Jobs, SetJobs] = useState<Jobs[]>([]);
   const [query, setquery] = useState<string>("");
   const [location, setlocation] = useState<string>("");
+  const [Page, setPage] = useState<number>(1)
 
   console.log(location);
 
   // console.log(Jobs);
 
- 
+
 
   return (
     <>
@@ -44,6 +47,8 @@ export default function Home() {
         />
         <Main Jobs={Jobs} query={query} setquery={setquery}  location={location}
           setlocation={setlocation} />
+          <PaginationDemo Page={Page} setPage={setPage} NO_OF_JOBS ={Jobs.length}/>
+
       </StateContextProvider>
     </>
   );

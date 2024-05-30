@@ -77,7 +77,7 @@ export default function Main({
       <div className={cn(" flex ml-48 mr-48 gap-x-5 mt-12 ")}>
         
           {/* <GenericSelect placeholder='Location' data={Location}/> */}
-          <div className={cn(" flex flex-col flex-[1] w-2 h-64 ")}>
+          <div className={cn(" flex flex-[1]  w-2 h-64 ")}>
             <GenericComboBox
               data={Location}
               title={[
@@ -179,7 +179,7 @@ export default function Main({
     
 
         <div className={cn("   flex flex-col w-[72%] flex-[3] ")}>
-          {filtereddata.map((item) => (
+          {filtereddata.map((item , index) => (
             <Card key={item.id} className={cn(" mb-5")}>
               <div className={cn("flex h-56 w-auto pl-5 ")}>
                 <div className={cn("flex-[1]   self-center ")}>
@@ -195,6 +195,7 @@ export default function Main({
                   <div className={cn("  text-[15px] mt-7 ")}>
                     {" "}
                     {item.companyName}
+                    {index}
                   </div>
 
                   <div className={cn("  text-[20px] mt-2 mb-2 ")}>

@@ -227,7 +227,7 @@ export function ProfileForm() {
         skillset: values.skillset,
         employmentType: values.employmentType,
         description: values.description,
-        companyLogo: values.companyName,
+        companyLogo: values.companyLogo,
         UserEmail: UserEmail,
       }),
     });

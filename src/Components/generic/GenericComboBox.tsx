@@ -59,7 +59,9 @@ export function GenericComboBox({
 
   return (
     <>
-      <div className={cn("flex flex-col justify-center items-center gap-y-6")}>
+      <div
+        className={cn("flex flex-col justify-center items-center gap-y-6 gap-x-6")}
+      >
         {/* <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -107,97 +109,105 @@ export function GenericComboBox({
         </PopoverContent>
       </Popover> */}
 
-        <Popover open={open2} onOpenChange={setOpen2}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open2}
-              className="w-[200px] justify-between"
-            >
-              {durations
-                ? duration.find((item) => item.value === durations)?.label
-                : title[1]}
-              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[200px] h-48 p-0">
-            <Command>
-              {/* <CommandInput placeholder={`Search ${title[1]}...`} className="h-9" /> */}
-              <CommandEmpty>No framework found.</CommandEmpty>
-              <CommandGroup>
-                <CommandList>
-                  {duration.map((item) => (
-                    <CommandItem
-                      key={item.value}
-                      value={item.value}
-                      onSelect={(currentValue) => {
-                        setdurations(
-                          currentValue === durations ? "" : currentValue
-                        );
-                        setOpen2(false);
-                      }}
-                    >
-                      {item.label}
-                      <CheckIcon
-                        className={cn(
-                          "ml-auto h-4 w-4",
-                          durations === item.value ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandList>
-              </CommandGroup>
-            </Command>
-          </PopoverContent>
-        </Popover>
+        <div>
+          <Popover open={open2} onOpenChange={setOpen2}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open2}
+                className="w-[200px] justify-between"
+              >
+                {durations
+                  ? duration.find((item) => item.value === durations)?.label
+                  : title[1]}
+                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] h-48 p-0">
+              <Command>
+                {/* <CommandInput placeholder={`Search ${title[1]}...`} className="h-9" /> */}
+                <CommandEmpty>No framework found.</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {duration.map((item) => (
+                      <CommandItem
+                        key={item.value}
+                        value={item.value}
+                        onSelect={(currentValue) => {
+                          setdurations(
+                            currentValue === durations ? "" : currentValue
+                          );
+                          setOpen2(false);
+                        }}
+                      >
+                        {item.label}
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            durations === item.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
 
-        <Popover open={open3} onOpenChange={setOpen3}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open3}
-              className="w-[200px] justify-between"
-            >
-              {salaries
-                ? salary.find((item) => item.value === salaries)?.label
-                : title[2]}
-              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[200px] h-48 p-0">
-            <Command>
-              {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
-              <CommandEmpty>No framework found.</CommandEmpty>
-              <CommandGroup>
-                <CommandList>
-                  {salary.map((item) => (
-                    <CommandItem
-                      key={item.value}
-                      value={item.value}
-                      onSelect={(currentValue) => {
-                        setsalaries(
-                          currentValue === salaries ? "" : currentValue
-                        );
-                        setOpen3(false);
-                      }}
-                    >
-                      {item.label}
-                      <CheckIcon
-                        className={cn(
-                          "ml-auto h-4 w-4",
-                          salaries === item.value ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandList>
-              </CommandGroup>
-            </Command>
-          </PopoverContent>
-        </Popover>
+        <div>
+          <Popover open={open3} onOpenChange={setOpen3}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open3}
+                className="w-[200px] justify-between"
+              >
+                {salaries
+                  ? salary.find((item) => item.value === salaries)?.label
+                  : title[2]}
+                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] h-48 p-0">
+              <Command>
+                {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
+                <CommandEmpty>No framework found.</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {salary.map((item) => (
+                      <CommandItem
+                        key={item.value}
+                        value={item.value}
+                        onSelect={(currentValue) => {
+                          setsalaries(
+                            currentValue === salaries ? "" : currentValue
+                          );
+                          setOpen3(false);
+                        }}
+                      >
+                        {item.label}
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            salaries === item.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
         {/* 
       <Popover open={open4} onOpenChange={setOpen4}>
       <PopoverTrigger asChild>
@@ -246,96 +256,101 @@ export function GenericComboBox({
                         </Command>
                         </PopoverContent>
                       </Popover> */}
+        <div>
+          <Popover open={open5} onOpenChange={setOpen5}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open5}
+                className="w-[200px] justify-between"
+              >
+                {workExps
+                  ? workExp.find((item) => item.value === workExps)?.label
+                  : title[4]}
+                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] h-48 p-0">
+              <Command>
+                {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
+                <CommandEmpty>No framework found.</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {workExp.map((item) => (
+                      <CommandItem
+                        key={item.value}
+                        value={item.value}
+                        onSelect={(currentValue) => {
+                          setworkexps(
+                            currentValue === workExps ? "" : currentValue
+                          );
+                          setOpen5(false);
+                        }}
+                      >
+                        {item.label}
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            workExps === item.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
 
-        <Popover open={open5} onOpenChange={setOpen5}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open5}
-              className="w-[200px] justify-between"
-            >
-              {workExps
-                ? workExp.find((item) => item.value === workExps)?.label
-                : title[4]}
-              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[200px] h-48 p-0">
-            <Command>
-              {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
-              <CommandEmpty>No framework found.</CommandEmpty>
-              <CommandGroup>
-                <CommandList>
-                  {workExp.map((item) => (
-                    <CommandItem
-                      key={item.value}
-                      value={item.value}
-                      onSelect={(currentValue) => {
-                        setworkexps(
-                          currentValue === workExps ? "" : currentValue
-                        );
-                        setOpen5(false);
-                      }}
-                    >
-                      {item.label}
-                      <CheckIcon
-                        className={cn(
-                          "ml-auto h-4 w-4",
-                          workExps === item.value ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandList>
-              </CommandGroup>
-            </Command>
-          </PopoverContent>
-        </Popover>
-
-        <Popover open={open6} onOpenChange={setOpen6}>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              role="combobox"
-              aria-expanded={open6}
-              className="w-[200px] justify-between"
-            >
-              {emps
-                ? employement.find((item) => item.value === emps)?.label
-                : title[5]}
-              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[200px] h-48 p-0">
-            <Command>
-              {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
-              <CommandEmpty>No framework found.</CommandEmpty>
-              <CommandGroup>
-                <CommandList>
-                  {employement.map((item) => (
-                    <CommandItem
-                      key={item.value}
-                      value={item.value}
-                      onSelect={(currentValue) => {
-                        setemps(currentValue === emps ? "" : currentValue);
-                        setOpen6(false);
-                      }}
-                    >
-                      {item.label}
-                      <CheckIcon
-                        className={cn(
-                          "ml-auto h-4 w-4",
-                          emps === item.value ? "opacity-100" : "opacity-0"
-                        )}
-                      />
-                    </CommandItem>
-                  ))}
-                </CommandList>
-              </CommandGroup>
-            </Command>
-          </PopoverContent>
-        </Popover>
+        <div>
+          <Popover open={open6} onOpenChange={setOpen6}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={open6}
+                className="w-[200px] justify-between"
+              >
+                {emps
+                  ? employement.find((item) => item.value === emps)?.label
+                  : title[5]}
+                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] h-48 p-0">
+              <Command>
+                {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
+                <CommandEmpty>No framework found.</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {employement.map((item) => (
+                      <CommandItem
+                        key={item.value}
+                        value={item.value}
+                        onSelect={(currentValue) => {
+                          setemps(currentValue === emps ? "" : currentValue);
+                          setOpen6(false);
+                        }}
+                      >
+                        {item.label}
+                        <CheckIcon
+                          className={cn(
+                            "ml-auto h-4 w-4",
+                            emps === item.value ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
     </>
   );
