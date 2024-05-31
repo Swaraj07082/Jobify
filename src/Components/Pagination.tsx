@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   Pagination,
   PaginationContent,
@@ -7,76 +6,57 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../Components/ui/pagination";
+} from "@/Components/ui/pagination";
+import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
-import { redirect } from "next/navigation";
 
 interface PaginationProps {
-  Page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  NO_OF_JOBS: number;
+  page: number;
+  no_of_jobs: number;
 }
 
-export function PaginationDemo({ Page, setPage, NO_OF_JOBS }: PaginationProps) {
-  console.log(Page);
+export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
+  const job_per_page = 5;
+  const hasNext = job_per_page * (page - 1) + job_per_page < no_of_jobs;
+  const hasPrev = job_per_page * (page - 1) > 0;
 
-  const JOB_PER_PAGE = 2;
-  
-  let NO_OF_PAGES: number;
-
-  if (NO_OF_JOBS % JOB_PER_PAGE === 0) {
-    NO_OF_PAGES = NO_OF_JOBS / JOB_PER_PAGE;
-  } else {
-    NO_OF_PAGES = Math.floor(NO_OF_JOBS / JOB_PER_PAGE) + 1;
-  }
-
-  console.log(NO_OF_JOBS);
-  console.log(NO_OF_PAGES);
-
-  const [Prevdisable, setPrevdisable] = useState<boolean>(Page <= 1);
-  const [Nextdisable, setNextdisable] = useState<boolean>(Page >= NO_OF_PAGES);
-
-  useEffect(() => {
-    setPrevdisable(Page <= 1);
-    setNextdisable(Page >= NO_OF_PAGES);
-  }, [Page, NO_OF_PAGES]);
+  const router = useRouter();
 
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
           <Button
-            variant={"ghost"}
             onClick={() => {
-              if (Page > 1) setPage(Page - 1);
+              router.push(`?page=${page - 1}`);
             }}
-            disabled={Prevdisable}
+            disabled={!hasPrev}
           >
-            <PaginationPrevious href={`?page=${Page}`} />
+            <PaginationPrevious />
           </Button>
         </PaginationItem>
-        {/* {Array.from({ length: NO_OF_PAGES }, (_, index) => (
-          <PaginationItem key={index}>
-            <PaginationLink
-              isActive={Page === index + 1}
-              onClick={() => setPage(index + 1)}
-            >
-              {index + 1}
-            </PaginationLink>
-          </PaginationItem>
-        ))} */}
         {/* <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem> */}
         <PaginationItem>
           <Button
-            variant={"ghost"}
             onClick={() => {
-              if (Page < NO_OF_PAGES) setPage(Page + 1);
+              router.push(`?page=${page + 1}`);
             }}
-            disabled={Nextdisable}
+            disabled={!hasNext}
           >
-            <PaginationNext href={`?page=${Page}`}  />
+            <PaginationNext />
           </Button>
         </PaginationItem>
       </PaginationContent>

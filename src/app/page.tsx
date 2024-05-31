@@ -11,22 +11,33 @@ import Main from "@/Components/Main";
 import { StateContextProvider } from "@/Context/StateContextProvider";
 import { Pagination } from "@/Components/ui/pagination";
 import { PaginationDemo } from "@/Components/Pagination";
+import { useSearchParams } from "next/navigation";
+import { number } from "zod";
 
 export default function Home() {
+
+  const searchParams = useSearchParams()
+
+  let page  =  parseInt(searchParams.get('page') || '1')
+
+  
+  // console.log(typeof(page))
+
   useEffect(() => {
-    const getdata = async () => {
-      const data = await fetch("/api/demo");
+    const getdata = async (page : number) => {
+      const data = await fetch(`/api/demo?page=${page}`);
       const parsedata = await data.json();
       console.log(parsedata);
       SetJobs(parsedata);
     };
-    getdata();
-  }, []);
+    getdata(page);
+  }, [page]);
 
+  
   const [Jobs, SetJobs] = useState<Jobs[]>([]);
   const [query, setquery] = useState<string>("");
   const [location, setlocation] = useState<string>("");
-  const [Page, setPage] = useState<number>(1)
+  // const [Page, setPage] = useState<number>(1)
 
   console.log(location);
 
@@ -47,8 +58,8 @@ export default function Home() {
         />
         <Main Jobs={Jobs} query={query} setquery={setquery}  location={location}
           setlocation={setlocation} />
-          <PaginationDemo Page={Page} setPage={setPage} NO_OF_JOBS ={Jobs.length}/>
-
+          {/* <PaginationDemo Page={Page} setPage={setPage} NO_OF_JOBS ={Jobs.length}/> */}
+<PaginationDemo page = {page} no_of_jobs={Jobs.length}/>
       </StateContextProvider>
     </>
   );

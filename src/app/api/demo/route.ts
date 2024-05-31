@@ -15,9 +15,31 @@ interface QueryObject {
   [key: string]: string;
 }
 
-export const GET = async () => {
+export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+  const url = req.url ? new URL(req.url) : null;
+  let searchParams;
+
+  if (url) {
+    searchParams = url.searchParams;
+    // Your logic using searchParams
+  } else {
+    // Handle the case where req.url is undefined
+    console.error("req.url is undefined");
+  }
+
+  const page = searchParams?.get("page") || 1;
+  console.log(page)
+
+  const jobs_per_page = 5;
+
+  const jobsPerPage = Number(jobs_per_page);
+  const currentPage = Number(page);
+
   try {
-    const idk = await db.job.findMany();
+    const idk = await db.job.findMany({
+      take: jobsPerPage,
+      skip: jobsPerPage * (currentPage - 1),
+    });
 
     return new NextResponse(JSON.stringify(idk), { status: 200 });
   } catch (error) {
