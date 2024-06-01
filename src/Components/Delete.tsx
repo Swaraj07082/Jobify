@@ -23,7 +23,7 @@ export function Delete({ id }: DeleteProps) {
     // });
     console.log(id);
     try {
-      const response = await fetch(`api/demo?id=${id}`, {
+      const response = await fetch(`/api/demo?id=${id}`, {
         method: "DELETE",
       });
 

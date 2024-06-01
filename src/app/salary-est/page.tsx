@@ -4,7 +4,8 @@ import { Input } from "@/Components/ui/input";
 import React, { useState } from "react";
 import salaries from "../../../public/salary-est.json";
 import { string } from "zod";
-
+import { useSession } from "next-auth/react";
+import { ThreeDots } from "react-loader-spinner";
 interface Salary {
   id: number;
   title: string;
@@ -28,8 +29,27 @@ export default function Page() {
         .includes(Searchtext.toLowerCase().split(" ").join(""))
     );
   };
+
+  const {status} = useSession()
   return (
     <>
+    {status === "loading" ? (
+          <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center"> 
+
+          <ThreeDots
+          visible={true}
+          height="80"
+          width="150"
+          color="#4fa94d"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          />
+          </div>
+        ) : (
+          <></>
+        )}
       <div className="flex flex-col mx-20 mt-10">
         <Card className=" h-52 rounded-none"></Card>
         <Input

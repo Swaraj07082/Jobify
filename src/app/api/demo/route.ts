@@ -136,27 +136,22 @@ export const POST = async (req: Request, res: NextApiResponse) => {
   return new NextResponse(JSON.stringify(newJob));
 };
 
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "DELETE") {
-    const { id } = req.query;
-    console.log(id);
-    try {
-      // Delete the job from the database
-      const deleteJob = await db.job.delete({
-        where: {
-          id: String(id), // Convert id to string if necessary
-        },
-      });
-      // res.status(200).json({ message: 'Job deleted', deleteJob });
-      return new NextResponse(JSON.stringify(deleteJob), { status: 200 });
-    } catch (error) {
-      return new NextResponse(JSON.stringify({ message: "Error" }), {
-        status: 500,
-      });
-    }
-  } else {
-    res.setHeader("Allow", ["DELETE"]);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+
+export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+  const { id } = req.query;
+  console.log(id)
+
+  try {
+    // Delete the job from the database
+    const deleteJob = await db.job.delete({
+      where: {
+        id: String(id), // Convert id to string if necessary
+      },
+    });
+    return new NextResponse(JSON.stringify(deleteJob), { status: 200 });
+  } catch (error) {
+    console.error('Failed to delete job:', error); // Add error logging
+    return new NextResponse(JSON.stringify({ message: "Error" }), { status: 500 });
   }
 }
 

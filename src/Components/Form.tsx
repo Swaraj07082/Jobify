@@ -53,6 +53,7 @@ import { useRouter } from "next/navigation";
 import { POST } from "@/app/api/demo/route";
 import { getSession, useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
+import { ThreeDots } from "react-loader-spinner";
 
 // in client components u can use the hooke useSearchParams , but for server components u get it as a prop as searchParams
 
@@ -128,7 +129,6 @@ export function ProfileForm() {
 
   // const [Formdata, SetFormdata] = useState({})
   const { Formdata, SetFormdata } = useContext(FormDataContext);
-
   console.log(Formdata);
 
   // const postdata = async () => {
@@ -232,21 +232,22 @@ export function ProfileForm() {
       }),
     });
 
-    if(respone.ok){
+    if (respone.ok) {
       toast({
         title: "You submitted the following values:",
-        duration : 2100,
+        duration: 2100,
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+            <code className="text-white">
+              {JSON.stringify(values, null, 2)}
+            </code>
           </pre>
         ),
       });
-    }
-    else{
+    } else {
       toast({
-        title: "Error"
-      })
+        title: "Error",
+      });
     }
 
     // let data = (JSON.stringify(values))
@@ -281,6 +282,22 @@ export function ProfileForm() {
   console.log(status);
   return (
     <>
+      {status === "loading" ? (
+        <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center">
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="150"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      ) : (
+        <></>
+      )}
       <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">

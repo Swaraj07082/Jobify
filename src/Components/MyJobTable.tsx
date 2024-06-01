@@ -20,6 +20,7 @@ import { useSession } from "next-auth/react";
 import db from "@/lib/db";
 import { Edit } from "./Edit";
 import { Delete } from "./Delete";
+import { ThreeDots } from "react-loader-spinner";
 
 const invoices = [
   {
@@ -89,7 +90,9 @@ interface FormData {
     Delete: ReactNode;
   };
 }
+
 const GetJobs = async () => {
+
   const myjobs = await fetch("/api/myjobs");
   const data = await myjobs.json();
   return data;
@@ -101,9 +104,11 @@ const GetJobs = async () => {
 
 interface MyJobTableProps {
   query: string;
+  isLoading : boolean,
+  setisLoading : React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function MyJobTable({ query }: MyJobTableProps) {
+export function MyJobTable({ query , isLoading , setisLoading }: MyJobTableProps) {
   // console.log(Formdata)
   // prisma methods findmany and stuff works in routes only
   // Prisma methods cannot be used directly in client components. Prisma is designed to be used in a server-side environment due to the need to securely connect to your database. Client-side code runs in the user's browser, and exposing your database credentials and direct database access in the client is a significant security risk.
@@ -149,13 +154,15 @@ export function MyJobTable({ query }: MyJobTableProps) {
   // console.log(data)
 
   useEffect(() => {
+    setisLoading(true)
     const fetchJobs = async () => {
       const jobs = await GetJobs();
       setMyjobs(jobs);
+      setisLoading(false)
     };
 
     fetchJobs();
-  }, []);
+  }, [setisLoading]);
 
   // console.log(Myjobs)
 
@@ -163,6 +170,10 @@ export function MyJobTable({ query }: MyJobTableProps) {
   // Empty dependency array ensures this runs only once on mount
 
   // console.log will be infinite times cause GetJobs function called inside the component , call it inside useEffect
+
+
+
+ 
 
   const filtereddata = (Myjobs: Array<FormDataType>) => {
     console.log(Myjobs);
@@ -180,6 +191,7 @@ export function MyJobTable({ query }: MyJobTableProps) {
 
   
   return (
+    <>
     <Table className=" w-[850px]">
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
       <TableHeader>
@@ -232,7 +244,7 @@ export function MyJobTable({ query }: MyJobTableProps) {
                   <></>
                 );
               }}
-            >
+              >
               <Delete id={id} />
             </TableCell>
           </TableRow>
@@ -240,10 +252,11 @@ export function MyJobTable({ query }: MyJobTableProps) {
       </TableBody>
       {/* <TableFooter>
         <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
+        <TableCell colSpan={3}>Total</TableCell>
+        <TableCell className="text-right">$2,500.00</TableCell>
         </TableRow>
       </TableFooter> */}
     </Table>
+      </>
   );
 }

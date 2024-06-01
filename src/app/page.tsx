@@ -14,6 +14,8 @@ import { PaginationDemo } from "@/Components/Pagination";
 import { useSearchParams } from "next/navigation";
 import { number } from "zod";
 import { count } from "console";
+import { useSession } from "next-auth/react";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -24,14 +26,17 @@ export default function Home() {
   const [query, setquery] = useState<string>("");
   const [location, setlocation] = useState<string>("");
   const [jobCount, setJobCount] = useState<number>(0);
+  const [isLoading, setisLoading] = useState<boolean>(false);
   // console.log(typeof(page))
   useEffect(() => {
+    setisLoading(true);
     const getdata = async (page: number) => {
       const data = await fetch(`/api/demo?page=${page}`);
-      const {idk , count}= await data.json();
-      setJobCount(count)
+      const { idk, count } = await data.json();
+      setJobCount(count);
       console.log(idk);
       SetJobs(idk);
+      setisLoading(false);
     };
     getdata(page);
   }, [page]);
@@ -42,11 +47,28 @@ export default function Home() {
 
   // console.log(Jobs);
 
+  // const { status } = useSession();
 
   return (
     <>
       {/* <LandingPage/> */}
       <StateContextProvider>
+        {isLoading ? (
+          <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center">
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="150"
+              color="#4fa94d"
+              radius="9"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+            />
+          </div>
+        ) : (
+          <></>
+        )}
         <Banner
           Jobs={Jobs}
           query={query}
@@ -62,7 +84,7 @@ export default function Home() {
           setlocation={setlocation}
         />
         {/* <PaginationDemo Page={Page} setPage={setPage} NO_OF_JOBS ={Jobs.length}/> */}
-        <PaginationDemo page={page} no_of_jobs={jobCount}/>
+        <PaginationDemo page={page} no_of_jobs={jobCount} />
       </StateContextProvider>
     </>
   );

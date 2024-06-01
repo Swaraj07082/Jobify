@@ -11,6 +11,7 @@ import FormDataContext from "@/Context/FormDataContext";
 import { FormDataContextProvider } from "@/Context/FormDataContextProvider";
 import { useSession } from "next-auth/react";
 import db from "@/lib/db";
+import { ThreeDots } from "react-loader-spinner";
 
 export default function Page() {
   // console.log(searchParams)
@@ -44,12 +45,30 @@ export default function Page() {
 
   const [query, setquery] = useState<string>("");
 
-  console.log(query)
+  console.log(query);
 
-  
+  const {status} = useSession()
+  const [isLoading, setisLoading] = useState<boolean>(false)
 
   return (
     <>
+       {isLoading ? (
+          <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center"> 
+
+          <ThreeDots
+          visible={true}
+          height="80"
+          width="150"
+          color="#4fa94d"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          />
+          </div>
+        ) : (
+          <></>
+        )}
       <div className=" flex flex-col justify-center items-center">
         <div
           style={{ display: "flex", marginTop: "100px", marginBottom: "20px" }}
@@ -69,7 +88,7 @@ export default function Page() {
           <Card className="w-fit">
             <FormDataContextProvider>
               {/* <MyJobTable Formdata={Formdata} /> */}
-              <MyJobTable query={query}/>
+              <MyJobTable query={query} isLoading={isLoading} setisLoading={setisLoading} />
             </FormDataContextProvider>
           </Card>
         </div>

@@ -60,8 +60,7 @@ export function GenericComboBox({
   return (
     <>
       <div
-        className={cn("flex flex-col justify-center items-center gap-y-6 gap-x-6")}
-      >
+        className={cn(" flex items-center justify-center gap-x-24 ")}     >
         {/* <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button

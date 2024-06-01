@@ -118,3 +118,7 @@
 .loginform{
 margin-top: 8% ;
 }
+
+body {
+  overflow-x:  hidden;
+}

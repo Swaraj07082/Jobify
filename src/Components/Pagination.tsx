@@ -24,7 +24,7 @@ export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
   const router = useRouter();
 
   return (
-    <Pagination>
+    <Pagination className=" my-7">
       <PaginationContent>
         <PaginationItem>
           <Button
@@ -32,6 +32,7 @@ export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
               router.push(`?page=${page - 1}`);
             }}
             disabled={!hasPrev}
+            variant={'ghost'}
           >
             <PaginationPrevious />
           </Button>
@@ -56,6 +57,8 @@ export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
               router.push(`?page=${page + 1}`);
             }}
             disabled={!hasNext}
+            variant={'ghost'}
+
           >
             <PaginationNext />
           </Button>

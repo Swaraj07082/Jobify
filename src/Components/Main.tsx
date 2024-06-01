@@ -74,10 +74,10 @@ export default function Main({
 
   return (
     <>
-      <div className={cn(" flex ml-48 mr-48 gap-x-5 mt-12 ")}>
+      <div className={cn(" flex flex-col justify-center items-center gap-x-5 mt-12 ")}>
         
           {/* <GenericSelect placeholder='Location' data={Location}/> */}
-          <div className={cn(" flex flex-[1]  w-2 h-64 ")}>
+          <div className={cn(" w-[72%] h-24 ")}>
             <GenericComboBox
               data={Location}
               title={[
@@ -178,7 +178,7 @@ export default function Main({
           </div>
     
 
-        <div className={cn("   flex flex-col w-[72%] flex-[3] ")}>
+        <div className={cn("   flex flex-col w-[72%]  ")}>
           {filtereddata.map((item , index) => (
             <Card key={item.id} className={cn(" mb-5")}>
               <div className={cn("flex h-56 w-auto pl-5 ")}>
