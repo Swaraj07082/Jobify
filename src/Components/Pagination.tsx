@@ -19,6 +19,7 @@ export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
   const job_per_page = 5;
   const hasNext = job_per_page * (page - 1) + job_per_page < no_of_jobs;
   const hasPrev = job_per_page * (page - 1) > 0;
+  console.log(hasNext , page , no_of_jobs)
 
   const router = useRouter();
 

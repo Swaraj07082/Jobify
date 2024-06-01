@@ -1,4 +1,3 @@
-"use server";
 import db from "../../../lib/db";
 import { NextResponse } from "next/server";
 import { FormDataType } from "@/Context/FormDataContextProvider";
@@ -28,20 +27,25 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const page = searchParams?.get("page") || 1;
-  console.log(page)
+  console.log(page);
 
   const jobs_per_page = 5;
 
   const jobsPerPage = Number(jobs_per_page);
   const currentPage = Number(page);
 
-  try {
-    const idk = await db.job.findMany({
-      take: jobsPerPage,
-      skip: jobsPerPage * (currentPage - 1),
-    });
+  const query = {
+    take: jobsPerPage,
+    skip: jobsPerPage * (currentPage - 1),
+  };
 
-    return new NextResponse(JSON.stringify(idk), { status: 200 });
+  try {
+    const [idk, count] = await db.$transaction([
+      db.job.findMany(query),
+      db.job.count(),
+    ]);
+
+    return new NextResponse(JSON.stringify({ idk, count }), { status: 200 });
   } catch (error) {
     return new NextResponse(
       JSON.stringify({ message: "Something went wrong!" }),
