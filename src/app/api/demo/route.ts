@@ -40,12 +40,13 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   };
 
   try {
-    const [idk, count] = await db.$transaction([
+    const [jobs , idk, count] = await db.$transaction([
+      db.job.findMany(),
       db.job.findMany(query),
       db.job.count(),
     ]);
 
-    return new NextResponse(JSON.stringify({ idk, count }), { status: 200 });
+    return new NextResponse(JSON.stringify({ jobs ,idk, count }), { status: 200 });
   } catch (error) {
     return new NextResponse(
       JSON.stringify({ message: "Something went wrong!" }),
@@ -137,23 +138,22 @@ export const POST = async (req: Request, res: NextApiResponse) => {
 };
 
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+export const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
-  console.log(id)
+
+  if (!id || typeof id !== 'string') {
+    return res.status(400).json({ message: "ID is required and must be a string" });
+  }
 
   try {
-    // Delete the job from the database
-    const deleteJob = await db.job.delete({
-      where: {
-        id: String(id), // Convert id to string if necessary
-      },
-    });
-    return new NextResponse(JSON.stringify(deleteJob), { status: 200 });
+    const deletedJob = await db.job.delete({ where: { id: String(id) } });
+    return new NextResponse(JSON.stringify(deletedJob), { status: 200 });
   } catch (error) {
-    console.error('Failed to delete job:', error); // Add error logging
-    return new NextResponse(JSON.stringify({ message: "Error" }), { status: 500 });
-  }
+    console.error('Failed to delete job:', error);
+    return new NextResponse(JSON.stringify({ message: "Error deleting job" }), { status: 500 });
+  }      
 }
+
 
 export const PUT = async (req: Request, res: NextApiResponse) => {
   const body = await req.json();

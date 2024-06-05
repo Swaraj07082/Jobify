@@ -99,9 +99,7 @@ export default function Navbar() {
                 );
               }}
             >
-              <Link href={'/salary-est'}>
-              Salary Estimate
-              </Link>
+              <Link href={"/salary-est"}>Salary Estimate</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
@@ -150,7 +148,9 @@ export default function Navbar() {
               LogOut
             </Button>
           )}
-<ThemeToggle/>
+          <div className=" max-lg:mt-2">
+            <ThemeToggle />
+          </div>
           <Image
             onClick={OnSetOpen}
             className=" lg:hidden "

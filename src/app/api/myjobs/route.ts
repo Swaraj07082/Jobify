@@ -1,4 +1,5 @@
 import db from "@/lib/db";
+import { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
@@ -30,3 +31,5 @@ export const GET = async () => {
     );
   }
 };
+
+
