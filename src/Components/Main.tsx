@@ -32,7 +32,7 @@ export default function Main({
 
   const [page, setpage] = useState(0);
 
-  console.log(Jobs)
+  console.log(Jobs);
 
   // console.log(query.toLowerCase().split(" ").join(""))
   const filtereddata = Jobs.filter(
@@ -74,115 +74,117 @@ export default function Main({
 
   return (
     <>
-      <div className={cn(" flex flex-col justify-center items-center gap-x-5 mt-12 ")}>
-        
-          {/* <GenericSelect placeholder='Location' data={Location}/> */}
-          <div className={cn(" w-[72%] h-24 ")}>
-            <GenericComboBox
-              data={Location}
-              title={[
-                "Location",
-                "Duration",
-                "Salary",
-                "Date of Posting",
-                "Work experience",
-                "Type of employment",
-              ]}
-              duration={[
-                {
-                  value: "Hourly",
-                  label: "Hourly",
-                },
-                {
-                  value: "Monthly",
-                  label: "Monthly",
-                },
-                {
-                  value: "Yearly",
-                  label: "Yearly",
-                },
-              ]}
-              salary={[
-                {
-                  value: "Any",
-                  label: "Any",
-                },
-                {
-                  value: "< 30000k",
-                  label: "< 30000k",
-                },
-                {
-                  value: "< 50000k",
-                  label: "< 50000k",
-                },
-                {
-                  value: "< 80000k",
-                  label: "< 80000k",
-                },
-                {
-                  value: "< 100000k",
-                  label: "< 100000k",
-                },
-              ]}
-              postingdate={[
-                {
-                  value: "All time",
-                  label: "All time",
-                },
-                {
-                  value: "Last 24 hours",
-                  label: "Last 24 hours",
-                },
-                {
-                  value: "Last 7 days",
-                  label: "Last 7 days",
-                },
-                {
-                  value: "Last Month",
-                  label: "Last Month",
-                },
-              ]}
-              workExp={[
-                {
-                  value: "Any experience",
-                  label: "Any experience",
-                },
-                {
-                  value: "Internship",
-                  label: "Internship",
-                },
-                {
-                  value: "Work remotely",
-                  label: "Work remotely",
-                },
-              ]}
-              employement={[
-                {
-                  value: "Any",
-                  label: "Any",
-                },
-                {
-                  value: "Full time",
-                  label: "Full time",
-                },
-                {
-                  value: "Temporary",
-                  label: "Temporary",
-                },
-                {
-                  value: "Part time",
-                  label: "Part time",
-                },
-              ]}
-            />
-          </div>
-    
+      <div
+        className={cn(
+          " flex flex-col justify-center items-center gap-x-5 mt-12 "
+        )}
+      >
+        {/* <GenericSelect placeholder='Location' data={Location}/> */}
+        <div className={cn(" w-[72%] h-24 ")}>
+          <GenericComboBox
+            data={Location}
+            title={[
+              "Location",
+              "Duration",
+              "Salary",
+              "Date of Posting",
+              "Work experience",
+              "Type of employment",
+            ]}
+            duration={[
+              {
+                value: "Hourly",
+                label: "Hourly",
+              },
+              {
+                value: "Monthly",
+                label: "Monthly",
+              },
+              {
+                value: "Yearly",
+                label: "Yearly",
+              },
+            ]}
+            salary={[
+              {
+                value: "Any",
+                label: "Any",
+              },
+              {
+                value: "< 30000k",
+                label: "< 30000k",
+              },
+              {
+                value: "< 50000k",
+                label: "< 50000k",
+              },
+              {
+                value: "< 80000k",
+                label: "< 80000k",
+              },
+              {
+                value: "< 100000k",
+                label: "< 100000k",
+              },
+            ]}
+            postingdate={[
+              {
+                value: "All time",
+                label: "All time",
+              },
+              {
+                value: "Last 24 hours",
+                label: "Last 24 hours",
+              },
+              {
+                value: "Last 7 days",
+                label: "Last 7 days",
+              },
+              {
+                value: "Last Month",
+                label: "Last Month",
+              },
+            ]}
+            workExp={[
+              {
+                value: "Any experience",
+                label: "Any experience",
+              },
+              {
+                value: "Internship",
+                label: "Internship",
+              },
+              {
+                value: "Work remotely",
+                label: "Work remotely",
+              },
+            ]}
+            employement={[
+              {
+                value: "Any",
+                label: "Any",
+              },
+              {
+                value: "Full time",
+                label: "Full time",
+              },
+              {
+                value: "Temporary",
+                label: "Temporary",
+              },
+              {
+                value: "Part time",
+                label: "Part time",
+              },
+            ]}
+          />
+        </div>
 
         <div className={cn("   flex flex-col w-[72%]  ")}>
-          {filtereddata.map((item , index) => (
+          {filtereddata.map((item, index) => (
             <Card key={item.id} className={cn(" mb-5")}>
-              <div className={cn("flex h-56 w-auto pl-5 ")}>
-                <div className={cn("flex-[1]   self-center ")}>
+              <div className={cn("flex h-48 w-auto pl-5 max-md:h-40  max-[425px]:h-32 pt-0 ")}>
+                <div className={cn("flex-[1] self-center ")}>
                   <Image
                     src={item.companyLogo}
                     alt="image not found"
@@ -192,29 +194,53 @@ export default function Main({
                 </div>
 
                 <div className={cn(" flex-[4] pl-5 ")}>
-                  <div className={cn("  text-[15px] mt-7 ")}>
+                  <div
+                    className={cn(
+                      "  text-[15px] mt-7 max-[425px]:mt-3  max-md:text-[12px] max-[425px]:text-[8px]  "
+                    )}
+                  >
                     {" "}
                     {item.companyName}
                     {index}
                   </div>
 
-                  <div className={cn("  text-[20px] mt-2 mb-2 ")}>
+                  <div
+                    className={cn(
+                      "  text-[20px] mt-2 max-[425px]:mt-0 max-[425px]:mb-0 mb-2 max-md:mt-1 max-md:mb-1  max-md:text-[17px] max-[425px]:text-[11px]"
+                    )}
+                  >
                     {item.jobTitle}
                   </div>
 
-                  <span className={cn("  text-[15px] mt-2 ")}>
+                  <span
+                    className={cn(
+                      "  text-[15px] mt-2  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px] "
+                    )}
+                  >
                     {" "}
                     📍{item.jobLocation}
                   </span>
-                  <span className={cn("  text-[15px] mt-2")}>
+                  <span
+                    className={cn(
+                      "  text-[15px] mt-2 max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px]"
+                    )}
+                  >
                     {" "}
                     ⌚ {item.employmentType}
                   </span>
-                  <span className={cn("  text-[15px] mt-2 ")}>
+                  <span
+                    className={cn(
+                      "  text-[15px] mt-2  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px]"
+                    )}
+                  >
                     {" "}
                     💲{item.salary}
                   </span>
-                  <div className={cn("  text-[15px]  mt-2")}>
+                  <div
+                    className={cn(
+                      "  text-[15px] max-md:text-[12px] max-[425px]:mt-0 max-[425px]:mb-0  mt-2 max-md:mt-1 max-[425px]:text-[8px]"
+                    )}
+                  >
                     {item.description}
                   </div>
                 </div>
