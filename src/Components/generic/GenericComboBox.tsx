@@ -59,8 +59,15 @@ export function GenericComboBox({
 
   return (
     <>
+      {/* <div
+        className={cn(" flex items-center justify-center gap-x-24  flex-wrap ")}
+      > */}
+
       <div
-        className={cn(" flex items-center justify-center gap-x-24  flex-wrap ")}     >
+        className={cn(
+          " max-[700px]:flex max-[700px]:flex-wrap grid grid-cols-4 gap-x-24 max-lg:flex max-lg:gap-x-2 max-lg:justify-center max-lg:items-center"
+        )}
+      >
         {/* <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -115,7 +122,7 @@ export function GenericComboBox({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open2}
-                className="w-[200px] justify-between"
+                className="w-[200px] max-lg:w-28 justify-between max-sm:text-[13px]"
               >
                 {durations
                   ? duration.find((item) => item.value === durations)?.label
@@ -165,7 +172,7 @@ export function GenericComboBox({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open3}
-                className="w-[200px] justify-between"
+                className="w-[200px] max-lg:w-24 justify-between  max-sm:text-[13px]"
               >
                 {salaries
                   ? salary.find((item) => item.value === salaries)?.label
@@ -255,19 +262,19 @@ export function GenericComboBox({
                         </Command>
                         </PopoverContent>
                       </Popover> */}
-        <div>
+        <div className=" max-[533px]:mt-3">
           <Popover open={open5} onOpenChange={setOpen5}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open5}
-                className="w-[200px] justify-between"
+                className="w-[200px] max-lg:w-40 justify-between max-sm:text-[13px]"
               >
                 {workExps
                   ? workExp.find((item) => item.value === workExps)?.label
                   : title[4]}
-                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                <CaretSortIcon className="ml-2 max-lg:ml-0 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] h-48 p-0">
@@ -305,19 +312,19 @@ export function GenericComboBox({
           </Popover>
         </div>
 
-        <div className=" my-5">
+        <div className=" max-[700px]:mt-3">
           <Popover open={open6} onOpenChange={setOpen6}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
                 aria-expanded={open6}
-                className="w-[200px] justify-between"
+                className="w-[200px] max-lg:w-44 justify-between  max-sm:text-[13px]"
               >
                 {emps
                   ? employement.find((item) => item.value === emps)?.label
                   : title[5]}
-                <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                <CaretSortIcon className="ml-2 max-lg:ml-0 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] h-48 p-0">

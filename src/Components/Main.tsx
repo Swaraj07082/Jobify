@@ -76,7 +76,7 @@ export default function Main({
     <>
       <div
         className={cn(
-          " flex flex-col justify-center items-center gap-x-5 mt-12 "
+          " flex flex-col justify-center items-center gap-x-5 mt-12 max-sm:mt-5 "
         )}
       >
         {/* <GenericSelect placeholder='Location' data={Location}/> */}
@@ -180,7 +180,7 @@ export default function Main({
           />
         </div>
 
-        <div className={cn("   flex flex-col w-[72%]  ")}>
+        <div className={cn("   flex flex-col w-[72%] max-lg:mt-5 max-[478px]:mt-14  ")}>
           {filtereddata.map((item, index) => (
             <Card key={item.id} className={cn(" mb-5")}>
               <div className={cn("flex h-48 w-auto pl-5 max-md:h-40  max-[425px]:h-32 pt-0 ")}>
@@ -196,7 +196,7 @@ export default function Main({
                 <div className={cn(" flex-[4] pl-5 ")}>
                   <div
                     className={cn(
-                      "  text-[15px] mt-7 max-[425px]:mt-3  max-md:text-[12px] max-[425px]:text-[8px]  "
+                      "  text-[15px] mt-7  max-sm:mt-6 max-md:text-[12px] max-[425px]:text-[8px]  "
                     )}
                   >
                     {" "}
@@ -206,7 +206,7 @@ export default function Main({
 
                   <div
                     className={cn(
-                      "  text-[20px] mt-2 max-[425px]:mt-0 max-[425px]:mb-0 mb-2 max-md:mt-1 max-md:mb-1  max-md:text-[17px] max-[425px]:text-[11px]"
+                      "  text-[20px] mt-2 max-[425px]:mt-0 max-[425px]:mb-0 mb-2 max-md:mt-1 max-md:mb-1  max-md:text-[14px] max-[425px]:text-[11px] max-[425px]:font-semibold"
                     )}
                   >
                     {item.jobTitle}
@@ -214,7 +214,7 @@ export default function Main({
 
                   <span
                     className={cn(
-                      "  text-[15px] mt-2  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px] "
+                      "  text-[15px] mt-2 max-sm:mt-0  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px] "
                     )}
                   >
                     {" "}
@@ -222,7 +222,7 @@ export default function Main({
                   </span>
                   <span
                     className={cn(
-                      "  text-[15px] mt-2 max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px]"
+                      "  text-[15px] mt-2 max-sm:mt-0  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px]"
                     )}
                   >
                     {" "}
@@ -230,7 +230,7 @@ export default function Main({
                   </span>
                   <span
                     className={cn(
-                      "  text-[15px] mt-2  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px]"
+                      "  text-[15px] mt-2 max-sm:mt-0  max-[425px]:mt-0 max-[425px]:mb-0 max-md:mt-1 max-md:text-[12px] max-[425px]:text-[8px]"
                     )}
                   >
                     {" "}
