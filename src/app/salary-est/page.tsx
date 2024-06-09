@@ -62,14 +62,14 @@ export default function Page() {
         />
       </div>
 
-      <div className="grid grid-cols-4 mx-20 gap-x-10">
+      <div className="grid grid-cols-4 mx-20 gap-x-10 max-[1100px]:grid-cols-3  max-md:grid-cols-2 max-sm:grid-cols-1" >
         {filtereddata(salaries).map((item) => (
           <Card
             key={item.id}
-            className=" h-32 flex flex-col pl-5 pt-5 rounded-none mt-8"
+            className=" h-32 flex flex-col pl-5 pt-5 rounded-none mt-8 max-[321px]:h-fit max-[321px]:pt-1 max-md:pt-3 max-md:h-24 max-sm:h-20 max-sm:pt-3 max-sm:pl-3 "
           >
-            <h1 className=" font-semibold">{item.title}</h1>
-            <div className=" mt-2 text-blue-600">{item.salary}</div>
+            <h1 className=" font-semibold max-md:text-[14px]">{item.title}</h1>
+            <div className=" mt-2 text-blue-600 max-md:text-[14px] max-sm:mt-0">{item.salary}</div>
           </Card>
         ))}
         {/* 
