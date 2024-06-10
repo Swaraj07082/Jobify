@@ -298,271 +298,264 @@ export function ProfileForm() {
       ) : (
         <></>
       )}
-      <Card className={cn(" mt-16  ml-28 mr-28 mb-12 ")}>
+      <Card className={cn(" mt-16  mx-28 max-md:mx-16 max-sm:mx-10 mb-12 ")}>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
-            <div className={cn("flex justify-around mt-8 ")}>
-              <div
+            <div
+              className={cn(
+                "grid grid-cols-2 mx-5 gap-x-5 gap-y-5 justify-around mt-8 max-md:grid-cols-1 "
+              )}
+            >
+              {/* <div
                 className={cn(
-                  " w-[570px] ml-6 mt-[10px] flex flex-col gap-y-7 "
+                  " w-[570px] ml-6 mt-[10px]  flex flex-col gap-y-7 "
                 )}
-              >
-                <FormField
-                  control={form.control}
-                  name="jobTitle"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Job Title</FormLabel>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              role="combobox"
-                              className={cn(
-                                " justify-between w-full",
-                                !field.value && "text-muted-foreground"
-                              )}
-                            >
-                              {field.value
-                                ? JobTitles.find(
-                                    (JobTitle) => JobTitle.value === field.value
-                                  )?.label
-                                : "Select a Job Title"}
-                              <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-[200px] p-0">
-                          <Command className={cn(" h-[228px]")}>
-                            <CommandInput
-                              placeholder="Search Job Title..."
-                              className="h-9"
-                            />
-                            <CommandEmpty>No Job Title found.</CommandEmpty>
-                            <CommandGroup>
-                              <CommandList>
-                                {JobTitles.map((JobTitle) => (
-                                  <CommandItem
-                                    value={JobTitle.label}
-                                    key={JobTitle.value}
-                                    onSelect={() => {
-                                      form.setValue("jobTitle", JobTitle.value);
-                                    }}
-                                  >
-                                    {JobTitle.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        "ml-auto h-4 w-4",
-                                        JobTitle.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandList>
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
+              > */}
+              <FormField
+                control={form.control}
+                name="jobTitle"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Job Title</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              " justify-between w-full",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value
+                              ? JobTitles.find(
+                                  (JobTitle) => JobTitle.value === field.value
+                                )?.label
+                              : "Select a Job Title"}
+                            <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[200px] p-0">
+                        <Command className={cn(" h-[228px]")}>
+                          <CommandInput
+                            placeholder="Search Job Title..."
+                            className="h-9"
+                          />
+                          <CommandEmpty>No Job Title found.</CommandEmpty>
+                          <CommandGroup>
+                            <CommandList>
+                              {JobTitles.map((JobTitle) => (
+                                <CommandItem
+                                  value={JobTitle.label}
+                                  key={JobTitle.value}
+                                  onSelect={() => {
+                                    form.setValue("jobTitle", JobTitle.value);
+                                  }}
+                                >
+                                  {JobTitle.label}
+                                  <CheckIcon
+                                    className={cn(
+                                      "ml-auto h-4 w-4",
+                                      JobTitle.value === field.value
+                                        ? "opacity-100"
+                                        : "opacity-0"
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandList>
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormDescription>
+                      This is the Job Title that will be used in the dashboard.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="experienceLevel"
+                render={({ field }) => (
+                  <FormItem className="">
+                    <FormLabel>Experience Level</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value} >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select experience level..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {experienceLevel.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="companyName"
+                render={({ field }) => (
+                  <>
+                    <FormItem>
+                      <FormLabel>Company Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter your company name"
+                          {...field}
+                          className={cn("w-full")}
+                        />
+                      </FormControl>
                       <FormDescription>
-                        This is the Job Title that will be used in the
-                        dashboard.
+                        This is your company name.
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="jobLocation"
-                  render={({ field }) => (
-                    <>
-                      <FormItem>
-                        <FormLabel>Job Location</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter Job location"
-                            {...field}
-                            className={cn(" w-full ")}
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          This is your Job Location.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
+                  </>
+                )}
+              />
 
-                <FormField
-                  control={form.control}
-                  name="companyName"
-                  render={({ field }) => (
-                    <>
-                      <FormItem>
-                        <FormLabel>Company Name</FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder="Enter your company name"
-                            {...field}
-                            className={cn("w-full")}
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          This is your company name.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    </>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="experienceLevel"
-                  render={({ field }) => (
+              <FormField
+                control={form.control}
+                name="jobLocation"
+                render={({ field }) => (
+                  <>
                     <FormItem>
-                      <FormLabel>Experience Level</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select experience level..." />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {experienceLevel.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      <FormLabel>Job Location</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Enter Job location"
+                          {...field}
+                          className={cn(" w-full ")}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        This is your Job Location.
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
-                  )}
-                />
-              </div>
+                  </>
+                )}
+              />
+              {/* </div> */}
 
-              <div className={cn(" w-[570px]  mr-6 flex flex-col gap-y-14")}>
-                <FormField
-                  control={form.control}
-                  name="salary"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Salary</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select Salary..." />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {Salaries.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              {/* <div
+                className={cn(
+                  " w-[570px]   mx-6 flex flex-col gap-y-14"
+                )}
+              > */}
+              <FormField
+                control={form.control}
+                name="salary"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Salary</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Salary..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Salaries.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <FormField
-                  control={form.control}
-                  name="salaryType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Salary Type</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select Salary Type..." />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {SalaryType.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="skillset"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Skillset</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select Skillset..." />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {skillset.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <FormField
+                control={form.control}
+                name="salaryType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Salary Type</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Salary Type..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {SalaryType.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="skillset"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Skillset</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Skillset..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {skillset.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <FormField
-                  control={form.control}
-                  name="employmentType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Employment Type</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        value={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select Employment Type..." />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {employmenttype.map((item) => (
-                            <SelectItem key={item.value} value={item.value}>
-                              {item.value}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="employmentType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Employment Type</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Employment Type..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {employmenttype.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* </div> */}
             </div>
 
-            <div className={cn(" ml-11 mr-11 flex flex-col gap-y-7")}>
+            <div className={cn(" ml-6 mr-16 flex flex-col gap-y-7")}>
               <FormField
                 control={form.control}
                 name="description"
