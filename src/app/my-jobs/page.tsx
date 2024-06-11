@@ -74,18 +74,20 @@ export default function Page() {
           style={{ display: "flex", marginTop: "100px", marginBottom: "20px" }}
         >
           <Input
-            style={{ width: "850px", marginRight: "5px" }}
+            // style={{ width: "850px", marginRight: "5px" }}
             onChange={(e) => {
               setquery(e.target.value);
             }}
             value={query}
             placeholder="Search by CompanyName..."
+            className=" w-[900px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
           />
+          {/* max-[815px]:w-[600px] max-lg:w-[800px] */}
           {/* <Button>Search</Button> */}
         </div>
 
         <div>
-          <Card className="w-fit">
+          <Card className="w-fit mx-10">
             <FormDataContextProvider>
               {/* <MyJobTable Formdata={Formdata} /> */}
               <MyJobTable query={query} isLoading={isLoading} setisLoading={setisLoading} />

@@ -92,7 +92,6 @@ interface FormData {
 }
 
 const GetJobs = async () => {
-
   const myjobs = await fetch("/api/myjobs");
   const data = await myjobs.json();
   return data;
@@ -104,11 +103,15 @@ const GetJobs = async () => {
 
 interface MyJobTableProps {
   query: string;
-  isLoading : boolean,
-  setisLoading : React.Dispatch<React.SetStateAction<boolean>>
+  isLoading: boolean;
+  setisLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export function MyJobTable({ query , isLoading , setisLoading }: MyJobTableProps) {
+export function MyJobTable({
+  query,
+  isLoading,
+  setisLoading,
+}: MyJobTableProps) {
   // console.log(Formdata)
   // prisma methods findmany and stuff works in routes only
   // Prisma methods cannot be used directly in client components. Prisma is designed to be used in a server-side environment due to the need to securely connect to your database. Client-side code runs in the user's browser, and exposing your database credentials and direct database access in the client is a significant security risk.
@@ -154,11 +157,11 @@ export function MyJobTable({ query , isLoading , setisLoading }: MyJobTableProps
   // console.log(data)
 
   useEffect(() => {
-    setisLoading(true)
+    setisLoading(true);
     const fetchJobs = async () => {
       const jobs = await GetJobs();
       setMyjobs(jobs);
-      setisLoading(false)
+      setisLoading(false);
     };
 
     fetchJobs();
@@ -171,14 +174,10 @@ export function MyJobTable({ query , isLoading , setisLoading }: MyJobTableProps
 
   // console.log will be infinite times cause GetJobs function called inside the component , call it inside useEffect
 
-
-
- 
-
   const filtereddata = (Myjobs: Array<FormDataType>) => {
     console.log(Myjobs);
 
-   return Myjobs.filter((item) =>
+    return Myjobs.filter((item) =>
       item.companyName
         .toLowerCase()
         .split(" ")
@@ -187,76 +186,75 @@ export function MyJobTable({ query , isLoading , setisLoading }: MyJobTableProps
     );
   };
 
-  
-
-  
   return (
     <>
-    <Table className=" w-[850px]">
-      {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-      <TableHeader>
-        <TableRow>
-          <TableHead className="w-32 text-center">NO.</TableHead>
-          <TableHead className=" w-32 text-center">TITLE</TableHead>
-          <TableHead className=" w-64 text-center">COMPANY NAME</TableHead>
-          <TableHead className=" w-32 text-center">SALARY</TableHead>
-          <TableHead className=" w-32 text-center">EDIT</TableHead>
-          <TableHead className="w-32 text-center">DELETE</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {filtereddata(Myjobs)?.map((invoice, index) => (
-          <TableRow key={invoice.id}>
-            <TableCell className="font-medium text-center">
-              {invoice.id}
-            </TableCell>
-            <TableCell className="text-center">{invoice.jobTitle}</TableCell>
-            <TableCell className="text-center">{invoice.companyName}</TableCell>
-            <TableCell className=" text-center">{invoice.salary}</TableCell>
-            <TableCell
-              className=" text-center"
-              onClick={(e) => {
-                console.log(invoice.id);
-                console.log(
-                  e.currentTarget.parentElement?.innerHTML.slice(129, 153)
-                );
-                invoice.id ===
-                e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
-                  setid(invoice.id)
-                ) : (
-                  <></>
-                );
-              }}
-            >
-              <Edit id={id} />
-            </TableCell>
-            <TableCell
-              className=" text-center"
-              onClick={(e) => {
-                console.log(invoice.id);
-                console.log(
-                  e.currentTarget.parentElement?.innerHTML.slice(129, 153)
-                );
-                invoice.id ===
-                e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
-                  setid(invoice.id)
-                ) : (
-                  <></>
-                );
-              }}
-              >
-              <Delete id={id} />
-            </TableCell>
+      <Table className=" w-fit max-md:text-xs  max-md:w-[300px]">
+        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-32 text-center">NO.</TableHead>
+            <TableHead className=" w-32 text-center">TITLE</TableHead>
+            <TableHead className=" w-64 text-center">COMPANY NAME</TableHead>
+            <TableHead className=" w-32 text-center">SALARY</TableHead>
+            <TableHead className=" w-32 text-center">EDIT</TableHead>
+            <TableHead className="w-32 text-center">DELETE</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-      {/* <TableFooter>
+        </TableHeader>
+        <TableBody>
+          {filtereddata(Myjobs)?.map((invoice, index) => (
+            <TableRow key={invoice.id}>
+              <TableCell className="font-medium text-center">
+                {invoice.id}
+              </TableCell>
+              <TableCell className="text-center">{invoice.jobTitle}</TableCell>
+              <TableCell className="text-center">
+                {invoice.companyName}
+              </TableCell>
+              <TableCell className=" text-center">{invoice.salary}</TableCell>
+              <TableCell
+                className=" text-center"
+                onClick={(e) => {
+                  console.log(invoice.id);
+                  console.log(
+                    e.currentTarget.parentElement?.innerHTML.slice(129, 153)
+                  );
+                  invoice.id ===
+                  e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
+                    setid(invoice.id)
+                  ) : (
+                    <></>
+                  );
+                }}
+              >
+                <Edit id={id} />
+              </TableCell>
+              <TableCell
+                className=" text-center"
+                onClick={(e) => {
+                  console.log(invoice.id);
+                  console.log(
+                    e.currentTarget.parentElement?.innerHTML.slice(129, 153)
+                  );
+                  invoice.id ===
+                  e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
+                    setid(invoice.id)
+                  ) : (
+                    <></>
+                  );
+                }}
+              >
+                <Delete id={id} />
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+        {/* <TableFooter>
         <TableRow>
         <TableCell colSpan={3}>Total</TableCell>
         <TableCell className="text-right">$2,500.00</TableCell>
         </TableRow>
       </TableFooter> */}
-    </Table>
-      </>
+      </Table>
+    </>
   );
 }

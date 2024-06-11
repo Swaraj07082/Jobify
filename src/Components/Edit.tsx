@@ -109,7 +109,7 @@ console.log(id)
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" onClick={()=>{
+        <Button variant="outline" className="max-md:text-xs" onClick={()=>{
 
         }}>Edit</Button>
       </PopoverTrigger>
