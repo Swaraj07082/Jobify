@@ -12,6 +12,7 @@ import { FormDataContextProvider } from "@/Context/FormDataContextProvider";
 import { useSession } from "next-auth/react";
 import db from "@/lib/db";
 import { ThreeDots } from "react-loader-spinner";
+import { useMediaQuery } from "usehooks-ts";
 
 export default function Page() {
   // console.log(searchParams)
@@ -47,28 +48,27 @@ export default function Page() {
 
   console.log(query);
 
-  const {status} = useSession()
-  const [isLoading, setisLoading] = useState<boolean>(false)
-
+  const { status } = useSession();
+  const [isLoading, setisLoading] = useState<boolean>(false);
+  const matches = useMediaQuery("(max-width: 768px)");
   return (
     <>
-       {isLoading ? (
-          <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center"> 
-
+      {isLoading ? (
+        <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center">
           <ThreeDots
-          visible={true}
-          height="80"
-          width="150"
-          color="#4fa94d"
-          radius="9"
-          ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
+            visible={true}
+            height="80"
+            width="150"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
           />
-          </div>
-        ) : (
-          <></>
-        )}
+        </div>
+      ) : (
+        <></>
+      )}
       <div className=" flex flex-col justify-center items-center">
         <div
           style={{ display: "flex", marginTop: "100px", marginBottom: "20px" }}
@@ -80,20 +80,37 @@ export default function Page() {
             }}
             value={query}
             placeholder="Search by CompanyName..."
-            className=" w-[900px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
+            className=" w-[900px] max-[575px]:w-[400px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
           />
           {/* max-[815px]:w-[600px] max-lg:w-[800px] */}
           {/* <Button>Search</Button> */}
         </div>
 
-        <div>
-          <Card className="w-fit mx-10">
+        {matches ? (
+          <div>
             <FormDataContextProvider>
               {/* <MyJobTable Formdata={Formdata} /> */}
-              <MyJobTable query={query} isLoading={isLoading} setisLoading={setisLoading} />
+              <MyJobTable
+                query={query}
+                isLoading={isLoading}
+                setisLoading={setisLoading}
+              />
             </FormDataContextProvider>
-          </Card>
-        </div>
+          </div>
+        ) : (
+          <div>
+            <Card className="w-fit mx-10">
+              <FormDataContextProvider>
+                {/* <MyJobTable Formdata={Formdata} /> */}
+                <MyJobTable
+                  query={query}
+                  isLoading={isLoading}
+                  setisLoading={setisLoading}
+                />
+              </FormDataContextProvider>
+            </Card>
+          </div>
+        )}
       </div>
     </>
   );

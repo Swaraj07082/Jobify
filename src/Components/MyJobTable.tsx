@@ -13,7 +13,17 @@ import {
 import { Button } from "./ui/button";
 
 import { Input } from "./ui/input";
-import { ReactNode, useContext, useEffect, useState } from "react";
+import {
+  AwaitedReactNode,
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useSearchParams } from "next/navigation";
 import { FormDataType } from "@/Context/FormDataContextProvider";
 import { useSession } from "next-auth/react";
@@ -21,6 +31,7 @@ import db from "@/lib/db";
 import { Edit } from "./Edit";
 import { Delete } from "./Delete";
 import { ThreeDots } from "react-loader-spinner";
+import { useMediaQuery } from "usehooks-ts";
 
 const invoices = [
   {
@@ -186,75 +197,120 @@ export function MyJobTable({
     );
   };
 
+  console.log(filtereddata(Myjobs));
+
+  const matches = useMediaQuery("(max-width: 768px)");
+
+  console.log(matches);
+
   return (
     <>
-      <Table className=" w-fit max-md:text-xs  max-md:w-[300px]">
-        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-32 text-center">NO.</TableHead>
-            <TableHead className=" w-32 text-center">TITLE</TableHead>
-            <TableHead className=" w-64 text-center">COMPANY NAME</TableHead>
-            <TableHead className=" w-32 text-center">SALARY</TableHead>
-            <TableHead className=" w-32 text-center">EDIT</TableHead>
-            <TableHead className="w-32 text-center">DELETE</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {filtereddata(Myjobs)?.map((invoice, index) => (
-            <TableRow key={invoice.id}>
-              <TableCell className="font-medium text-center">
-                {invoice.id}
-              </TableCell>
-              <TableCell className="text-center">{invoice.jobTitle}</TableCell>
-              <TableCell className="text-center">
-                {invoice.companyName}
-              </TableCell>
-              <TableCell className=" text-center">{invoice.salary}</TableCell>
-              <TableCell
-                className=" text-center"
-                onClick={(e) => {
-                  console.log(invoice.id);
-                  console.log(
-                    e.currentTarget.parentElement?.innerHTML.slice(129, 153)
-                  );
-                  invoice.id ===
-                  e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
-                    setid(invoice.id)
-                  ) : (
-                    <></>
-                  );
-                }}
-              >
-                <Edit id={id} />
-              </TableCell>
-              <TableCell
-                className=" text-center"
-                onClick={(e) => {
-                  console.log(invoice.id);
-                  console.log(
-                    e.currentTarget.parentElement?.innerHTML.slice(129, 153)
-                  );
-                  invoice.id ===
-                  e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
-                    setid(invoice.id)
-                  ) : (
-                    <></>
-                  );
-                }}
-              >
-                <Delete id={id} />
-              </TableCell>
+      {matches ? (
+        filtereddata(Myjobs).map((job) => (
+          <div key={job.id} className="border rounded-lg  mb-10 ">
+            <Table className=" w-[500px] max-[575px]:w-[400px]">
+              <TableRow>
+                <TableHead>TITLE</TableHead>
+                <TableCell>{job.jobTitle}</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableHead>TITLE</TableHead>
+                <TableCell>{job.companyName}</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableHead>TITLE</TableHead>
+                <TableCell>{job.salary}</TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableHead>TITLE</TableHead>
+                <TableCell>
+                  <Edit id={id} />
+                </TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableHead>TITLE</TableHead>
+                <TableCell>
+                  <Delete id={id} />
+                </TableCell>
+              </TableRow>
+            </Table>
+          </div>
+        ))
+      ) : (
+        <Table className=" w-fit max-md:text-xs  max-md:w-[300px]">
+          {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-32 text-center">NO.</TableHead>
+              <TableHead className=" w-32 text-center">TITLE</TableHead>
+              <TableHead className=" w-64 text-center">COMPANY NAME</TableHead>
+              <TableHead className=" w-32 text-center">SALARY</TableHead>
+              <TableHead className=" w-32 text-center">EDIT</TableHead>
+              <TableHead className="w-32 text-center">DELETE</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-        {/* <TableFooter>
+          </TableHeader>
+          <TableBody>
+            {filtereddata(Myjobs)?.map((invoice, index) => (
+              <TableRow key={invoice.id}>
+                <TableCell className="font-medium text-center">
+                  {invoice.id}
+                </TableCell>
+                <TableCell className="text-center">
+                  {invoice.jobTitle}
+                </TableCell>
+                <TableCell className="text-center">
+                  {invoice.companyName}
+                </TableCell>
+                <TableCell className=" text-center">{invoice.salary}</TableCell>
+                <TableCell
+                  className=" text-center"
+                  onClick={(e) => {
+                    console.log(invoice.id);
+                    console.log(
+                      e.currentTarget.parentElement?.innerHTML.slice(129, 153)
+                    );
+                    invoice.id ===
+                    e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
+                      setid(invoice.id)
+                    ) : (
+                      <></>
+                    );
+                  }}
+                >
+                  <Edit id={id} />
+                </TableCell>
+                <TableCell
+                  className=" text-center"
+                  onClick={(e) => {
+                    console.log(invoice.id);
+                    console.log(
+                      e.currentTarget.parentElement?.innerHTML.slice(129, 153)
+                    );
+                    invoice.id ===
+                    e.currentTarget.parentElement?.innerHTML.slice(129, 153) ? (
+                      setid(invoice.id)
+                    ) : (
+                      <></>
+                    );
+                  }}
+                >
+                  <Delete id={id} />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          {/* <TableFooter>
         <TableRow>
         <TableCell colSpan={3}>Total</TableCell>
         <TableCell className="text-right">$2,500.00</TableCell>
         </TableRow>
       </TableFooter> */}
-      </Table>
+        </Table>
+      )}
     </>
   );
 }
