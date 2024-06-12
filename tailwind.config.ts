@@ -1,6 +1,10 @@
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme"
 
+import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
+
+
+
 const config = {
   darkMode: ["class"],
   content: [
@@ -86,9 +90,30 @@ const config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      boxShadow: {
+        'custom': '0 0 10px rgba(0, 0, 0, 0.3)',
+      }
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate") , addVariablesForColors],
 } satisfies Config
 
+
+
+
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  addBase({
+    ":root": newVars,
+  });
+}
+
+
 export default config
+
+

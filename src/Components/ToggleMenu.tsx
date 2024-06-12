@@ -2,32 +2,43 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 import { Card } from "./ui/card";
+import { Button } from "./ui/button";
 
 export default function ToggleMenu() {
   return (
-    <Card className={cn(" h-56 m-4 flex flex-col justify-center gap-y-3")}>
+    <Card className={cn(" h-56 m-4 flex flex-col justify-center gap-y-3 shadow-lg ")}>
       <div className={cn(" ml-3")}>
-        <Link href={"/"}>Start a Search</Link>
+        <Link href={"/"} className=" hover:text-[#0066FF]">Start a Search</Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/my-jobs"}>My Jobs</Link>
+        <Link href={"/my-jobs"} className=" hover:text-[#0066FF]">
+          My Jobs
+        </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/salary-est"}>Salary Estimate</Link>
+        <Link className=" hover:text-[#0066FF]" href={"/salary-est"}>
+          Salary Estimate
+        </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/post-job"}>Post a Job</Link>
+        <Link href={"/post-job"} className=" hover:text-[#0066FF]">
+          Post a Job
+        </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/login"}>Login</Link>
+        <Link href={"/login"} className=" hover:text-[#0066FF]">
+          Login
+        </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/register"}>Register</Link>
+        <Link href={"/register"} className=" hover:text-[#0066FF]">
+          Register
+        </Link>
       </div>
     </Card>
   );

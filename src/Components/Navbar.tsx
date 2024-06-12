@@ -65,6 +65,7 @@ export default function Navbar() {
   // Ensure Theme State Synchronization: Make sure the theme state is properly synchronized with your component's rendering. You can use the useEffect hook to handle the theme changes.
 
   // useEffect Hook: Used useEffect to ensure the component is mounted before rendering. This prevents SSR issues where the theme state might not be correctly applied.
+
   return (
     <>
       <Menubar
@@ -75,19 +76,33 @@ export default function Navbar() {
         <div className={cn("flex gap-x-6 ")}>
           <MenubarMenu>
             <Link className="flex items-center gap-1" href={"/"}>
-              <Image src={jobify} width={45} height={45} className="font-bold" alt="" />
+              <Image
+                src={jobify}
+                width={45}
+                height={45}
+                className="font-bold"
+                alt=""
+              />
               <div className="flex text-xl font-bold ">JOBIFY</div>
             </Link>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">
+            <MenubarTrigger className={clsx(" max-lg:hidden " ,
+              {
+                "effect" : theme == 'light'
+              }
+             )}>
               <Link href={"/"}>Start a search</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">
+            <MenubarTrigger className={clsx(" max-lg:hidden " ,
+              {
+                "effect" : theme == 'light'
+              }
+             )}>
               <Link
                 href={status === "authenticated" ? "my-jobs" : "register"}
                 onClick={() => {
@@ -101,14 +116,18 @@ export default function Navbar() {
                   );
                 }}
               >
-              My Jobs
+                My Jobs
               </Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
             <MenubarTrigger
-              className=" max-lg:hidden effect"
+             className={clsx(" max-lg:hidden " ,
+              {
+                "effect" : theme == 'light'
+              }
+             )}
               onClick={() => {
                 status === "unauthenticated" ? (
                   toast({
@@ -120,14 +139,18 @@ export default function Navbar() {
                 );
               }}
             >
-              <Link className="hover:underline" href={"/salary-est"}>Salary Estimate</Link>
+              <Link className="" href={"/salary-est"}>
+                Salary Estimate
+              </Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger
-              className=" max-lg:hidden effect"
-              onClick={() => {
+            <MenubarTrigger className={clsx(" max-lg:hidden " ,
+              {
+                "effect" : theme == 'light'
+              }
+             )}  onClick={() => {
                 status === "unauthenticated" ? (
                   toast({
                     duration: 2100,
@@ -138,7 +161,10 @@ export default function Navbar() {
                 );
               }}
             >
-              <Link className="hover:underline" href={status === "authenticated" ? "post-job" : "register"}>
+              <Link
+                className=""
+                href={status === "authenticated" ? "post-job" : "register"}
+              >
                 Post A Job
               </Link>
             </MenubarTrigger>
@@ -157,8 +183,8 @@ export default function Navbar() {
             </>
           ) : (
             <Button
-              className= 'max-lg:hidden'
-              variant={ theme === 'light'? 'light' : 'default'}
+              className="max-lg:hidden box"
+              variant={theme === "light" ? "light" : "default"}
               onClick={() => {
                 signOut();
                 toast({

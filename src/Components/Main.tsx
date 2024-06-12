@@ -182,7 +182,7 @@ export default function Main({
 
         <div className={cn("   flex flex-col w-[72%] max-lg:mt-5 max-[478px]:mt-14  ")}>
           {filtereddata.map((item, index) => (
-            <Card key={item.id} className={cn(" mb-5")}>
+            <Card key={item.id} className={cn(" mb-8 hover:shadow-custom")}>
               <div className={cn("flex h-48 w-auto pl-5 max-md:h-40  max-[425px]:h-32 pt-0 ")}>
                 <div className={cn("flex-[1] self-center ")}>
                   <Image

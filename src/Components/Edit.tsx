@@ -104,7 +104,7 @@ export function Edit({ id }: String) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="max-md:text-xs" onClick={() => {}}>
+        <Button variant="light" className="max-md:text-xs" onClick={() => {}}>
           Edit
         </Button>
       </PopoverTrigger>

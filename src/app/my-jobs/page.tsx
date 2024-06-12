@@ -82,9 +82,10 @@ export default function Page() {
             onChange={(e) => {
               setquery(e.target.value);
             }}
+            shadow={true}
             value={query}
-            placeholder="Search by CompanyName..."
-            className=" w-[900px] max-[575px]:w-[400px]  max-[400px]:w-[250px] max-[500px]:w-[300px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
+            placeholder="🔍 Search by CompanyName..."
+            className=" w-[900px]  mb-7 max-[575px]:w-[400px]  max-[400px]:w-[250px] max-[500px]:w-[300px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
           />
           {/* max-[815px]:w-[600px] max-lg:w-[800px] */}
           {/* <Button>Search</Button> */}

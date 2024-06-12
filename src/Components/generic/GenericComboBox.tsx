@@ -130,7 +130,7 @@ export function GenericComboBox({
                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] h-48 p-0">
+            <PopoverContent className="w-[200px] h-48 p-0 shadow-xl">
               <Command>
                 {/* <CommandInput placeholder={`Search ${title[1]}...`} className="h-9" /> */}
                 <CommandEmpty>No framework found.</CommandEmpty>
@@ -180,7 +180,7 @@ export function GenericComboBox({
                 <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] h-48 p-0">
+            <PopoverContent className="w-[200px] h-48 p-0 shadow-xl">
               <Command>
                 {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
                 <CommandEmpty>No framework found.</CommandEmpty>
@@ -277,7 +277,7 @@ export function GenericComboBox({
                 <CaretSortIcon className="ml-2 max-lg:ml-0 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] h-48 p-0">
+            <PopoverContent className="w-[200px] h-48 p-0 shadow-xl">
               <Command>
                 {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
                 <CommandEmpty>No framework found.</CommandEmpty>
@@ -327,7 +327,7 @@ export function GenericComboBox({
                 <CaretSortIcon className="ml-2 max-lg:ml-0 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] h-48 p-0">
+            <PopoverContent className="w-[200px] h-48 p-0 shadow-xl">
               <Command>
                 {/* <CommandInput placeholder={`Search ${title[2]}...`} className="h-9" /> */}
                 <CommandEmpty>No framework found.</CommandEmpty>

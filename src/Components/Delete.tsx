@@ -42,7 +42,7 @@ export function Delete({ id }: DeleteProps) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="max-md:text-xs">Delete</Button>
+        <Button variant="destructive" className="max-md:text-xs hover:shadow-custom hover:bg-white hover:text-destructive text-white">Delete</Button>
       </PopoverTrigger>
       <PopoverContent className=" w-fit">
         <div className="flex flex-col gap-y-5 items-center justify-center">

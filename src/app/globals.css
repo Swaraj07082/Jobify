@@ -122,19 +122,15 @@ body {
   overflow-x: hidden;
 }
 
-
-.effect{
+.effect {
   background: linear-gradient(to right, #0066FF 50%, white 50%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
+  background-size: 200% 100%; /* Keep this if you want the transition effect */
+  background-position: 100% 0; /* Adjust this to position the blue part off-screen */
   transition: background-position 0.1s ease-out;
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
+  display: block;
 }
 
 .effect:hover {
   color: white;
   background-position: 0 0;
-  transition: all 0.2s ease-out;
 }

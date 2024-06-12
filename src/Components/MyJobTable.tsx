@@ -206,35 +206,42 @@ export function MyJobTable({
   return (
     <>
       {matches ? (
-        filtereddata(Myjobs).map((job) => (
-          <div key={job.id} className="border rounded-lg  mb-10 ">
+        filtereddata(Myjobs).map((job , index) => (
+          <div key={job.id} className="border rounded-lg mb-10 hover:shadow-custom ">
             <Table className=" w-[500px] max-[575px]:w-[400px] max-[500px]:w-[300px]  max-[400px]:w-[250px]">
+              <TableRow>
+                <TableHead>NO.</TableHead>
+                <TableCell>{index + 1}</TableCell>
+              </TableRow>
+
               <TableRow>
                 <TableHead>TITLE</TableHead>
                 <TableCell>{job.jobTitle}</TableCell>
               </TableRow>
 
               <TableRow>
-                <TableHead>TITLE</TableHead>
-                <TableCell>{job.companyName}</TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableHead>TITLE</TableHead>
+                <TableHead>COMPANY NAME</TableHead>
                 <TableCell>{job.salary}</TableCell>
               </TableRow>
 
               <TableRow>
-                <TableHead>TITLE</TableHead>
+                <TableHead>SALARY</TableHead>
                 <TableCell>
-                  <Edit id={id} />
+                  {job.salary}
                 </TableCell>
               </TableRow>
 
               <TableRow>
-                <TableHead>TITLE</TableHead>
+                <TableHead>EDIT</TableHead>
                 <TableCell>
-                  <Delete id={id} />
+                <Edit id={id} />
+                </TableCell>
+              </TableRow>
+
+              <TableRow>
+                <TableHead>DELETE</TableHead>
+                <TableCell>
+                <Delete id={id}/>
                 </TableCell>
               </TableRow>
             </Table>

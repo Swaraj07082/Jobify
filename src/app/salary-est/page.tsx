@@ -48,13 +48,14 @@ export default function Page() {
         <></>
       )}
       <div className="flex flex-col mx-20 mt-10">
-        <Card className="  max-sm:text-3xl max-[450px]:text-[20px] text-center h-52 rounded-none flex justify-center items-center font-serif text-[40px] font-bold">
+        <Card className=" shadow-md  max-sm:text-3xl max-[450px]:text-[20px] text-center h-52 rounded-none flex justify-center items-center font-serif text-[40px] font-bold">
           Salary Estimate
         </Card>
         <Input
           className=" mt-8"
-          placeholder="Search by JobTitle..."
+          placeholder="🔍 Search by JobTitle..."
           value={Searchtext}
+          shadow={true}
           onChange={(e) => {
             setSearchtext(e.target.value);
           }}
@@ -65,7 +66,7 @@ export default function Page() {
         {filtereddata(salaries).map((item) => (
           <Card
             key={item.id}
-            className=" h-32 flex flex-col pl-5 pt-5 rounded-none mt-8 max-[321px]:h-fit max-[321px]:pt-1 max-md:pt-3 max-md:h-24 max-sm:h-20 max-sm:pt-3 max-sm:pl-3 "
+            className=" hover:shadow-custom h-32 flex flex-col pl-5 pt-5 rounded-none mt-8 max-[321px]:h-fit max-[321px]:pt-1 max-md:pt-3 max-md:h-24 max-sm:h-20 max-sm:pt-3 max-sm:pl-3 "
           >
             <h1 className=" font-semibold max-md:text-[14px]">{item.title}</h1>
             <div className=" mt-2 text-blue-600 max-md:text-[14px] max-sm:mt-0">

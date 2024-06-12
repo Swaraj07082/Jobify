@@ -9,6 +9,7 @@ import { Jobs } from "./types/BannerProps";
 // import { query } from "./types/BannerProps";
 import { BannerProps } from "./types/BannerProps";
 import { FaPen } from "react-icons/fa";
+import { MaskContainer } from "./ui/svg-mask-effect";
 
 export default function Banner({
   Jobs,
@@ -31,11 +32,11 @@ export default function Banner({
 
   return (
     <div
-    className={cn(
-      "    ml-48 mr-48 mt-20  text-left max-lg:ml-16 max-lg:mr-16"
+      className={cn(
+        "    ml-48 mr-48 mt-20  text-left max-lg:ml-16 max-lg:mr-16"
       )}
-      >
-      <div className={cn("text-[54px] text-center")}>
+    >
+      <div className={cn("text-[54px] text-center max-[375px]:text-[48px] max-sm:leading-[52px] max-sm:mb-8")}>
         Find your <p className=" inline text-[#0066FF]">new job</p> today
       </div>
 
@@ -49,9 +50,9 @@ export default function Banner({
           className={cn(" w-[800px] max-md:w-auto")}
           value={query}
           onChange={onsetquery}
-          placeholder='✏️ What position are you looking for?'
+          placeholder="✏️ What position are you looking for?"
           type="text"
-
+          shadow={true}
         />
         <Input
           className={cn("w-[600px] max-md:w-auto")}
@@ -59,6 +60,7 @@ export default function Banner({
           value={location}
           onChange={onsetlocation}
           type="text"
+          shadow={true}
         />
         {/* <Button className={cn(" w-44 max-md:w-auto")}>Search</Button> */}
       </div>
