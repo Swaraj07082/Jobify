@@ -112,11 +112,11 @@ console.log(id)
         <Button variant="outline" className="max-md:text-xs" onClick={()=>{
 
         }}>Edit</Button>
-      </PopoverTrigger>
-      <PopoverContent className=" w-[340px]">
+      </PopoverTrigger> 
+      <PopoverContent className=" w-[340px] max-sm:w-[270px] ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid gap-4">
+            <div className="grid gap-4 max-sm:text-xs">
               <div className="space-y-2">
                 <h4 className="font-medium leading-none">MyJobs</h4>
                 <p className="text-sm text-muted-foreground">Edit</p>
@@ -144,7 +144,7 @@ console.log(id)
                                 variant="outline"
                                 role="combobox"
                                 className={cn(
-                                  "w-[200px] justify-between",
+                                  "w-[200px] justify-between max-sm:w-fit",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -225,7 +225,7 @@ console.log(id)
                                 variant="outline"
                                 role="combobox"
                                 className={cn(
-                                  "w-[200px] justify-between",
+                                  "w-[200px] justify-between max-sm:w-fit",
                                   !field.value && "text-muted-foreground"
                                 )}
                               >
@@ -281,7 +281,7 @@ console.log(id)
                     )}
                   />
                 </div>
-                <div className="grid grid-cols-3 items-center gap-4">
+                <div className="grid grid-cols-3 items-center gap-4 max-sm:text-xs">
                   <Label htmlFor="Company-Name">Company Name</Label>
                   <FormField
                     control={form.control}

@@ -80,7 +80,7 @@ export default function Page() {
             }}
             value={query}
             placeholder="Search by CompanyName..."
-            className=" w-[900px] max-[575px]:w-[400px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
+            className=" w-[900px] max-[575px]:w-[400px]  max-[400px]:w-[250px] max-[500px]:w-[300px] mx-10 max-[890px]:w-[700px] max-[800px]:w-[600px] max-md:w-[500px] max-lg:w-[800px]"
           />
           {/* max-[815px]:w-[600px] max-lg:w-[800px] */}
           {/* <Button>Search</Button> */}

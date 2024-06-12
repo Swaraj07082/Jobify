@@ -208,7 +208,7 @@ export function MyJobTable({
       {matches ? (
         filtereddata(Myjobs).map((job) => (
           <div key={job.id} className="border rounded-lg  mb-10 ">
-            <Table className=" w-[500px] max-[575px]:w-[400px]">
+            <Table className=" w-[500px] max-[575px]:w-[400px] max-[500px]:w-[300px]  max-[400px]:w-[250px]">
               <TableRow>
                 <TableHead>TITLE</TableHead>
                 <TableCell>{job.jobTitle}</TableCell>
@@ -314,3 +314,8 @@ export function MyJobTable({
     </>
   );
 }
+
+
+
+
+
