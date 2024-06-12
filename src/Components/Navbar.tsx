@@ -27,8 +27,8 @@ import {
 
 import Image from "next/image";
 
-import jobify from "../../public/Jobify.jpg";
-
+// import jobify from "../../public/Jobify.jpg";
+import jobify from "../../public/work.png";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 import ToggleMenu from "./ToggleMenu";
 import { redirect } from "next/navigation";
@@ -56,18 +56,21 @@ export default function Navbar() {
       >
         <div className={cn("flex gap-x-6 ")}>
           <MenubarMenu>
-            <Image src={jobify} width={100} height={100} alt="" />
+            <Link className="flex items-center gap-1" href={"/"}>
+              <Image src={jobify} width={45} height={45} className="font-bold" alt="" />
+              <div className="flex text-xl font-bold ">JOBIFY</div>
+            </Link>
           </MenubarMenu>
 
           <MenubarMenu>
             <MenubarTrigger className=" max-lg:hidden">
-              <Link href={"/"}>Start a search</Link>
+              <Link className="hover:underline" href={"/"}>Start a search</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
             <MenubarTrigger className=" max-lg:hidden">
-              <Link
+              <Link className="hover:underline"
                 href={status === "authenticated" ? "my-jobs" : "register"}
                 onClick={() => {
                   status === "unauthenticated" ? (
@@ -99,7 +102,7 @@ export default function Navbar() {
                 );
               }}
             >
-              <Link href={"/salary-est"}>Salary Estimate</Link>
+              <Link className="hover:underline" href={"/salary-est"}>Salary Estimate</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
@@ -117,7 +120,7 @@ export default function Navbar() {
                 );
               }}
             >
-              <Link href={status === "authenticated" ? "post-job" : "register"}>
+              <Link className="hover:underline" href={status === "authenticated" ? "post-job" : "register"}>
                 Post A Job
               </Link>
             </MenubarTrigger>
@@ -145,7 +148,7 @@ export default function Navbar() {
                 });
               }}
             >
-              LogOut
+              Log Out
             </Button>
           )}
           <div className=" max-lg:mt-2">

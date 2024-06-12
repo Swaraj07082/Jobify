@@ -1,5 +1,5 @@
 import "../app/globals.css";
-import { Inter as FontSans } from "next/font/google";
+import { Poppins as FontSans } from "next/font/google";
 
 import { cn } from "@/lib/utils";
 import Navbar from "@/Components/Navbar";
@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/Components/theme-provider";
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["500"],
 });
 
 type Props = {
