@@ -131,7 +131,6 @@ export function Register() {
   //   } at ${convertMillisecondsToIST(d.getTime())}`
   // );
 
-  
   const { toast } = useToast();
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -153,7 +152,7 @@ export function Register() {
       // alert("Submitted");
       toast({
         title: "Registered",
-        description:  `${days[d.getDay()]} , ${getOrdinalNum(d.getDate())} ${
+        description: `${days[d.getDay()]} , ${getOrdinalNum(d.getDate())} ${
           months[d.getMonth()]
         } at ${convertMillisecondsToIST(d.getTime())}`,
       });
@@ -162,9 +161,10 @@ export function Register() {
     } else {
       // alert("Error");
       toast({
-        duration:2100,
-        variant : 'destructive',
-        title: "Either the email or username you are trying to register with are already taken."
+        duration: 2100,
+        variant: "destructive",
+        title:
+          "Either the email or username you are trying to register with are already taken.",
       });
     }
   }
@@ -173,7 +173,7 @@ export function Register() {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <Card className="mx-auto max-w-sm">
+          <Card className="mx-auto max-w-sm  mt-16 max-sm:w-80 max-[375px]:w-72">
             <CardHeader>
               <CardTitle className="text-xl">Register</CardTitle>
               <CardDescription>
@@ -195,7 +195,7 @@ export function Register() {
                         </FormControl>
                         {/* <FormDescription>
                           This is your public display name.
-                        </FormDescription> */}
+                          </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
@@ -206,7 +206,7 @@ export function Register() {
                 {/* <div className="grid gap-2">
               <Label htmlFor="last-name">Last name</Label>
               <Input id="last-name" placeholder="Robinson" required />
-            </div> */}
+              </div> */}
                 {/* </div> */}
                 <div className="grid gap-2">
                   <FormField
@@ -220,18 +220,18 @@ export function Register() {
                         </FormControl>
                         {/* <FormDescription>
                           This is your public  name.
-                        </FormDescription> */}
+                          </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                   {/* <Label htmlFor="email">Email</Label>
               <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-                /> */}
+              id="email"
+              type="email"
+              placeholder="m@example.com"
+              required
+              /> */}
                 </div>
                 <div className="grid gap-2">
                   {/* <Label htmlFor="password">Password</Label>
@@ -242,20 +242,20 @@ export function Register() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Password</FormLabel>
-                        <div className="flex items-center ">
+                        <div className="flex items-center relative ">
                           {ViewPass ? (
                             <FaEye
                               onClick={() => {
                                 SetViewPass(!ViewPass);
                               }}
-                              className=" absolute right-[39%] "
+                              className="absolute right-3"
                             />
                           ) : (
                             <FaEyeSlash
                               onClick={() => {
                                 SetViewPass(!ViewPass);
                               }}
-                              className=" absolute right-[39%] "
+                              className="absolute right-3"
                             />
                           )}
 
@@ -270,7 +270,7 @@ export function Register() {
 
                         {/* <FormDescription>
                           This is your public  name.
-                        </FormDescription> */}
+                          </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}

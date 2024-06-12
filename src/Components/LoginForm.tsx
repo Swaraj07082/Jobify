@@ -31,7 +31,7 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useToast  } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
-import { ToastAction } from "../components/ui/toast";
+import { ToastAction } from "../Components/ui/toast";
 
 const formSchema = z.object({
   email: z.string().email().min(1, {
@@ -88,7 +88,7 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Card className="w-full max-w-sm">
+        <Card className="w-full max-w-sm max-sm:w-80 max-[375px]:w-72">
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>
             <CardDescription>
@@ -136,20 +136,20 @@ export default function LoginForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
-                    <div className="flex items-center ">
+                    <div className="flex items-center relative ">
                       {ViewPass ? (
                         <FaEye
                           onClick={() => {
                             SetViewPass(!ViewPass);
                           }}
-                          className=" absolute right-[40%] "
+                          className=" absolute right-3 "
                         />
                       ) : (
                         <FaEyeSlash
                           onClick={() => {
                             SetViewPass(!ViewPass);
                           }}
-                          className=" absolute right-[40%] "
+                          className=" absolute right-3 "
                         />
                       )}
 
