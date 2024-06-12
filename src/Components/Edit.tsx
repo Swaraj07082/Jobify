@@ -64,36 +64,31 @@ const FormSchema = z.object({
 });
 
 interface String {
-  id : string
+  id: string;
 }
 
-export function Edit({id}:String) {
+export function Edit({ id }: String) {
+  console.log(id);
 
-console.log(id)
-
-  const {data} = useSession()
-  console.log(data)
-
-  
+  const { data } = useSession();
+  console.log(data);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-   
-
     const response = await fetch("/api/demo", {
       method: "PUT",
       headers: {
-        'Content-Type': 'application/json'
-    },
-      body:JSON.stringify({
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         jobTitle: data.jobTitle,
         salary: data.salary,
         companyName: data.companyName,
-        id:id
-      })
+        id: id,
+      }),
     });
 
     toast({
@@ -109,10 +104,10 @@ console.log(id)
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" className="max-md:text-xs" onClick={()=>{
-
-        }}>Edit</Button>
-      </PopoverTrigger> 
+        <Button variant="outline" className="max-md:text-xs" onClick={() => {}}>
+          Edit
+        </Button>
+      </PopoverTrigger>
       <PopoverContent className=" w-[340px] max-sm:w-[270px] ">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

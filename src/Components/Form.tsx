@@ -94,9 +94,9 @@ export const formSchema = z.object({
     .refine((value) => value.startsWith("https://"), {
       message: "URL must start with 'https://'.",
     })
-    .refine((value) => !/\d/.test(value), {
-      message: "URL must not contain numbers",
-    }),
+    // .refine((value) => !/\d/.test(value), {
+    //   message: "URL must not contain numbers",
+    // }),
   // email: z.string().email().min(1, {
   //   message: "This field has to be filled.",
   // }),

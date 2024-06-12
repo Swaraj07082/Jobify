@@ -71,7 +71,11 @@ export default function Page() {
       )}
       <div className=" flex flex-col justify-center items-center">
         <div
-          style={{ display: "flex", marginTop: "100px", marginBottom: "20px" }}
+          style={{
+            display: "flex",
+            marginTop: "100px",
+            marginBottom: "20px",
+          }}
         >
           <Input
             // style={{ width: "850px", marginRight: "5px" }}

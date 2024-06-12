@@ -1,5 +1,5 @@
 "use client";
-import React, { MouseEventHandler, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import {
   Menubar,
   MenubarContent,
@@ -35,6 +35,8 @@ import { redirect } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useToast } from "./ui/use-toast";
 import { ThemeToggle } from "./ThemeToggle";
+import { useTheme } from "next-themes";
+import clsx from "clsx";
 
 export default function Navbar() {
   const [Open, SetOpen] = useState<boolean>(false);
@@ -47,11 +49,27 @@ export default function Navbar() {
 
   const { status } = useSession();
   const { toast } = useToast();
+
+  const { theme } = useTheme();
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  // Ensure Theme State Synchronization: Make sure the theme state is properly synchronized with your component's rendering. You can use the useEffect hook to handle the theme changes.
+
+  // useEffect Hook: Used useEffect to ensure the component is mounted before rendering. This prevents SSR issues where the theme state might not be correctly applied.
   return (
     <>
       <Menubar
         className={cn(
-          "h-20 flex justify-around  max-lg:justify-between max-lg:pl-12 max-lg:pr-12 "
+          "h-20 flex justify-around   max-lg:justify-between max-lg:pl-12 max-lg:pr-12 shadow-lg "
         )}
       >
         <div className={cn("flex gap-x-6 ")}>
@@ -60,13 +78,13 @@ export default function Navbar() {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">
-              <Link href={"/"}>Start a search</Link>
+            <MenubarTrigger className=" max-lg:hidden effect" >
+            <Link href={"/"} className="">Start a search</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className=" max-lg:hidden">
+            <MenubarTrigger className="max-lg:hidden effect">
               <Link
                 href={status === "authenticated" ? "my-jobs" : "register"}
                 onClick={() => {
@@ -80,14 +98,14 @@ export default function Navbar() {
                   );
                 }}
               >
-                My Jobs
+              My Jobs
               </Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
             <MenubarTrigger
-              className=" max-lg:hidden"
+              className=" max-lg:hidden effect"
               onClick={() => {
                 status === "unauthenticated" ? (
                   toast({
@@ -105,7 +123,7 @@ export default function Navbar() {
 
           <MenubarMenu>
             <MenubarTrigger
-              className=" max-lg:hidden"
+              className=" max-lg:hidden effect"
               onClick={() => {
                 status === "unauthenticated" ? (
                   toast({
@@ -136,7 +154,8 @@ export default function Navbar() {
             </>
           ) : (
             <Button
-              className=" max-lg:hidden"
+              className= 'max-lg:hidden'
+              variant={ theme === 'light'? 'light' : 'default'}
               onClick={() => {
                 signOut();
                 toast({

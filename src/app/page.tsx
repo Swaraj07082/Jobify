@@ -52,40 +52,42 @@ export default function Home() {
   return (
     <>
       {/* <LandingPage/> */}
-      <StateContextProvider>
-        {isLoading ? (
-          <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center">
-            <ThreeDots
-              visible={true}
-              height="80"
-              width="150"
-              color="#4fa94d"
-              radius="9"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
+
+      {isLoading ? (
+        <div className=" w-screen h-screen bg-[#bfbebe42] overflow-hidden flex justify-center items-center">
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="150"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>
+      ) : (
+        <>
+          <StateContextProvider>
+            <Banner
+              Jobs={Jobs}
+              query={query}
+              setquery={setquery}
+              location={location}
+              setlocation={setlocation}
             />
-          </div>
-        ) : (
-          <></>
-        )}
-        <Banner
-          Jobs={Jobs}
-          query={query}
-          setquery={setquery}
-          location={location}
-          setlocation={setlocation}
-        />
-        <Main
-          Jobs={Jobs}
-          query={query}
-          setquery={setquery}
-          location={location}
-          setlocation={setlocation}
-        />
-        {/* <PaginationDemo Page={Page} setPage={setPage} NO_OF_JOBS ={Jobs.length}/> */}
-        <PaginationDemo page={page} no_of_jobs={jobCount} />
-      </StateContextProvider>
+            <Main
+              Jobs={Jobs}
+              query={query}
+              setquery={setquery}
+              location={location}
+              setlocation={setlocation}
+            />
+            {/* <PaginationDemo Page={Page} setPage={setPage} NO_OF_JOBS ={Jobs.length}/> */}
+            <PaginationDemo page={page} no_of_jobs={jobCount} />
+          </StateContextProvider>
+        </>
+      )}
     </>
   );
 }
