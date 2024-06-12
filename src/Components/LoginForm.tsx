@@ -155,7 +155,7 @@ export default function LoginForm() {
 
                       <FormControl>
                         <Input
-                          placeholder="password..."
+                          placeholder="Password"
                           {...field}
                           type={ViewPass ? "password" : "text"}
                         />
