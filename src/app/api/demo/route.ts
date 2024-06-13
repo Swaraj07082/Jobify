@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import db from "../../../lib/db";
 
 interface QueryObject {
   [key: string]: string;
 }
 
-export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
+export const GET = async (req: Request | NextRequest, res: Response | NextResponse) => {
   const url = req.url ? new URL(req.url) : null;
   let searchParams;
 
@@ -49,7 +49,7 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export const POST = async (req: Request, res: NextApiResponse) => {
+export const POST = async (req: Request, res: Response) => {
   const body = await req.json();
 
   const { ...data } = body;
@@ -73,7 +73,7 @@ export const POST = async (req: Request, res: NextApiResponse) => {
   return new NextResponse(JSON.stringify(newJob));
 };
 
-export const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
+export const DELETE = async (req: any, res : any) => {
   const { id } = req.query;
 
   if (!id || typeof id !== "string") {
@@ -93,7 +93,7 @@ export const DELETE = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
-export const PUT = async (req: Request, res: NextApiResponse) => {
+export const PUT = async (req: Request, res: Response) => {
   const body = await req.json();
 
   const { ...data } = body;
