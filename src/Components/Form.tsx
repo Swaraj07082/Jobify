@@ -633,7 +633,7 @@ export function ProfileForm() {
                   if (button) {
                     button.style.animation = "clickAnimation 0.2s";
                     setTimeout(function () {
-                      button.style.animation = "";
+                      button?.style.animation == null?"" : "";
                     }, 200);
                   }
 

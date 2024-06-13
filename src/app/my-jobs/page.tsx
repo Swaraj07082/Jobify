@@ -67,8 +67,9 @@ export default function Page() {
           />
         </div>
       ) : (
-        <></>
+     <></>   
       )}
+     
       <div className=" flex flex-col justify-center items-center">
         <div
           style={{

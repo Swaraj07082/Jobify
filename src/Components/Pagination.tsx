@@ -36,7 +36,7 @@ export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
               if (button) {
                 button.style.animation = "clickAnimation 0.2s";
                 setTimeout(function () {
-                  button.style.animation = "";
+                  button?.style.animation == null? "" : "";
                 }, 200);
               }
             }}
@@ -63,17 +63,17 @@ export function PaginationDemo({ page, no_of_jobs }: PaginationProps) {
         </PaginationItem> */}
         <PaginationItem>
           <Button
+            id="button"
             onClick={() => {
               router.push(`?page=${page + 1}`);
               var button = document.getElementById("button");
               if (button) {
                 button.style.animation = "clickAnimation 0.2s";
                 setTimeout(function () {
-                  button.style.animation = "";
+                  button?.style.animation == null? "" : "";
                 }, 200);
               }
             }}
-            id="button"
             disabled={!hasNext}
             className="button w-24 max-[400px]:w-20"
           >

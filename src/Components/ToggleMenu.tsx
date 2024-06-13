@@ -3,28 +3,79 @@ import Link from "next/link";
 import React from "react";
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
-export default function ToggleMenu() {
+interface ToggleMenuProps {
+  status: string;
+}
+
+export default function ToggleMenu({ status }: ToggleMenuProps) {
+  console.log(status);
   return (
-    <Card className={cn(" h-56 m-4 flex flex-col justify-center gap-y-3 shadow-lg ")}>
+    <Card
+      className={cn(
+        " h-56 m-4 flex flex-col justify-center gap-y-3 shadow-lg "
+      )}
+    >
       <div className={cn(" ml-3")}>
-        <Link href={"/"} className=" hover:text-[#0066FF]">Start a Search</Link>
+        <Link href={"/"} className=" hover:text-[#0066FF]">
+          Start a Search
+        </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/my-jobs"} className=" hover:text-[#0066FF]">
+        <Link
+          href={status === "authenticated" ? "/my-jobs" : "/register"}
+          onClick={() => {
+            status === "unauthenticated" ? (
+              toast({
+                duration: 2100,
+                title: "You need to Register first",
+              })
+            ) : (
+              <></>
+            );
+          }}
+          className=" hover:text-[#0066FF]"
+        >
           My Jobs
         </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link className=" hover:text-[#0066FF]" href={"/salary-est"}>
+        <Link
+          className=" hover:text-[#0066FF]"
+          href={status === "authenticated" ? "/salary-est" : "/register"}
+          onClick={() => {
+            status === "unauthenticated" ? (
+              toast({
+                duration: 2100,
+                title: "You need to Register first",
+              })
+            ) : (
+              <></>
+            );
+          }}
+        >
           Salary Estimate
         </Link>
       </div>
 
       <div className={cn(" ml-3")}>
-        <Link href={"/post-job"} className=" hover:text-[#0066FF]">
+        <Link
+          href={status === "authenticated" ? "/post-job" : "/register"}
+          onClick={() => {
+            status === "unauthenticated" ? (
+              toast({
+                duration: 2100,
+                title: "You need to Register first",
+              })
+            ) : (
+              <></>
+            );
+          }}
+          className=" hover:text-[#0066FF]"
+        >
           Post a Job
         </Link>
       </div>

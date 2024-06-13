@@ -32,6 +32,8 @@ import { Edit } from "./Edit";
 import { Delete } from "./Delete";
 import { ThreeDots } from "react-loader-spinner";
 import { useMediaQuery } from "usehooks-ts";
+import { Register } from "./Register";
+import Link from "next/link";
 
 const invoices = [
   {
@@ -206,8 +208,11 @@ export function MyJobTable({
   return (
     <>
       {matches ? (
-        filtereddata(Myjobs).map((job , index) => (
-          <div key={job.id} className="border rounded-lg mb-10 hover:shadow-custom ">
+        filtereddata(Myjobs).map((job, index) => (
+          <div
+            key={job.id}
+            className="border rounded-lg mb-10 hover:shadow-custom "
+          >
             <Table className=" w-[500px] max-[575px]:w-[400px] max-[500px]:w-[300px]  max-[400px]:w-[250px]">
               <TableRow>
                 <TableHead>NO.</TableHead>
@@ -226,22 +231,20 @@ export function MyJobTable({
 
               <TableRow>
                 <TableHead>SALARY</TableHead>
-                <TableCell>
-                  {job.salary}
-                </TableCell>
+                <TableCell>{job.salary}</TableCell>
               </TableRow>
 
               <TableRow>
                 <TableHead>EDIT</TableHead>
                 <TableCell>
-                <Edit id={id} />
+                  <Edit id={id} />
                 </TableCell>
               </TableRow>
 
               <TableRow>
                 <TableHead>DELETE</TableHead>
                 <TableCell>
-                <Delete id={id}/>
+                  <Delete id={id} />
                 </TableCell>
               </TableRow>
             </Table>
@@ -318,11 +321,18 @@ export function MyJobTable({
       </TableFooter> */}
         </Table>
       )}
+      {filtereddata(Myjobs).length == 0 ? (
+        <>
+        <div className="flex w-full flex-col items-center justify-center gap-x-5 mt-5">
+          <h2 className=" text-xl">You have no posted jobs! </h2>
+          <Link href={'/post-job'} >
+          <Button className=" my-7 ">Post a job</Button>
+          </Link>
+        </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
-
-
-
-
-

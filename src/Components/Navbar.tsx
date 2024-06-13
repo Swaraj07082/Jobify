@@ -37,6 +37,7 @@ import { useToast } from "./ui/use-toast";
 import { ThemeToggle } from "./ThemeToggle";
 import { useTheme } from "next-themes";
 import clsx from "clsx";
+import DarkHamburgerMenu from "./DarkHamburgerMenu";
 
 export default function Navbar() {
   const [Open, SetOpen] = useState<boolean>(false);
@@ -75,7 +76,10 @@ export default function Navbar() {
       >
         <div className={cn("flex gap-x-6 ")}>
           <MenubarMenu>
-            <Link className="flex items-center gap-1" href={"/"}>
+            <Link
+              className="flex items-center gap-1"
+              href={"/"}
+            >
               <Image
                 src={jobify}
                 width={45}
@@ -88,23 +92,25 @@ export default function Navbar() {
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className={clsx(" max-lg:hidden " ,
-              {
-                "effect" : theme == 'light'
-              }
-             )}>
-              <Link href={"/"}>Start a search</Link>
+            <MenubarTrigger
+              className={clsx(" max-lg:hidden ", {
+                effect: theme == "light",
+              })}
+            >
+              <Link href={"/"}>
+                Start a search
+              </Link>
             </MenubarTrigger>
           </MenubarMenu>
 
           <MenubarMenu>
-            <MenubarTrigger className={clsx(" max-lg:hidden " ,
-              {
-                "effect" : theme == 'light'
-              }
-             )}>
+            <MenubarTrigger
+              className={clsx(" max-lg:hidden ", {
+                effect: theme == "light",
+              })}
+            >
               <Link
-                href={status === "authenticated" ? "my-jobs" : "register"}
+                href={status === "authenticated" ? "/my-jobs" : "/register"}
                 onClick={() => {
                   status === "unauthenticated" ? (
                     toast({
@@ -123,34 +129,10 @@ export default function Navbar() {
 
           <MenubarMenu>
             <MenubarTrigger
-             className={clsx(" max-lg:hidden " ,
-              {
-                "effect" : theme == 'light'
-              }
-             )}
+              className={clsx(" max-lg:hidden ", {
+                effect: theme == "light",
+              })}
               onClick={() => {
-                status === "unauthenticated" ? (
-                  toast({
-                    duration: 2100,
-                    title: "You need to Register first",
-                  })
-                ) : (
-                  <></>
-                );
-              }}
-            >
-              <Link className="" href={"/salary-est"}>
-                Salary Estimate
-              </Link>
-            </MenubarTrigger>
-          </MenubarMenu>
-
-          <MenubarMenu>
-            <MenubarTrigger className={clsx(" max-lg:hidden " ,
-              {
-                "effect" : theme == 'light'
-              }
-             )}  onClick={() => {
                 status === "unauthenticated" ? (
                   toast({
                     duration: 2100,
@@ -163,7 +145,32 @@ export default function Navbar() {
             >
               <Link
                 className=""
-                href={status === "authenticated" ? "post-job" : "register"}
+                href={status === "authenticated" ? "/salary-est" : "/register"}
+              >
+                Salary Estimate
+              </Link>
+            </MenubarTrigger>
+          </MenubarMenu>
+
+          <MenubarMenu>
+            <MenubarTrigger
+              className={clsx(" max-lg:hidden ", {
+                effect: theme == "light",
+              })}
+              onClick={() => {
+                status === "unauthenticated" ? (
+                  toast({
+                    duration: 2100,
+                    title: "You need to Register first",
+                  })
+                ) : (
+                  <></>
+                );
+              }}
+            >
+              <Link
+                className=""
+                href={status === "authenticated" ? "/post-job" : "/register"}
               >
                 Post A Job
               </Link>
@@ -199,17 +206,23 @@ export default function Navbar() {
           <div className=" max-lg:mt-2">
             <ThemeToggle />
           </div>
-          <Image
-            onClick={OnSetOpen}
-            className=" lg:hidden "
-            src={icon}
-            height={50}
-            width={50}
-            alt="image not found"
-          />
+          {theme === "light" ? (
+            <Image
+              onClick={OnSetOpen}
+              className=" lg:hidden "
+              src={icon}
+              height={50}
+              width={50}
+              alt="image not found"
+            />
+          ) : (
+            <Link href={""} className=" lg:hidden " onClick={OnSetOpen}>
+              <DarkHamburgerMenu />
+            </Link>
+          )}
         </div>
       </Menubar>
-      {Open && <ToggleMenu />}
+      {Open && <ToggleMenu status = {status} />}
     </>
   );
 }
