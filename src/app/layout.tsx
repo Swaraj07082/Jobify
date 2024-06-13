@@ -38,6 +38,7 @@ export default function RootLayout({ children }: Props) {
           <Provider>
             <FormDataContextProvider>
               <Navbar />
+              <SpeedInsights/>
               {children}
               <Toaster />
             </FormDataContextProvider>
