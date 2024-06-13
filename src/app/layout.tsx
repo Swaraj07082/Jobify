@@ -7,6 +7,7 @@ import { Toaster } from "@/Components/ui/toaster";
 import Provider from "@/Context/ClientSessionProvider";
 import { FormDataContextProvider } from "@/Context/FormDataContextProvider";
 import { cn } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const fontSans = FontSans({
   subsets: ["latin"],
