@@ -1,16 +1,28 @@
 "use client";
 import {
   Select,
-  SelectTrigger,
-  SelectItem,
   SelectContent,
+  SelectItem,
+  SelectTrigger,
   SelectValue,
 } from "../Components/ui/select";
 
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { CommandList } from "cmdk";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../Components/ui/button";
+import { Card } from "./ui/card";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "./ui/command";
 import {
   Form,
   FormControl,
@@ -21,46 +33,21 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "./ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { cn } from "@/lib/utils";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { CommandList } from "cmdk";
-import { Card } from "./ui/card";
-import { useContext, useEffect, useState } from "react";
-import { toast, useToast } from "./ui/use-toast";
-import { ToastAction } from "@radix-ui/react-toast";
-// import MultipleSelectorDemo from "./MultiSelectDemo";
-// import { FancyMultiSelect } from "./ui/MultiSelect";
-// import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import { toast } from "./ui/use-toast";
+
+import FormDataContext from "@/Context/FormDataContext";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { ThreeDots } from "react-loader-spinner";
 import JobTitles from "../../public/JobTitles.json";
 import Salaries from "../../public/Salaries.json";
 import SalaryType from "../../public/SalaryType.json";
-import skillset from "../../public/skillset.json";
 import employmenttype from "../../public/employmenttype.json";
 import experienceLevel from "../../public/experienceLevel.json";
-import FormDataContext from "@/Context/FormDataContext";
-import db from "@/lib/db";
-import { Sub } from "@radix-ui/react-menubar";
-import { error } from "console";
-import { useRouter } from "next/navigation";
-import { POST } from "@/app/api/demo/route";
-import { getSession, useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
-import { ThreeDots } from "react-loader-spinner";
-
-// in client components u can use the hooke useSearchParams , but for server components u get it as a prop as searchParams
+import skillset from "../../public/skillset.json";
 
 export const formSchema = z.object({
-  // username: z.string().min(2, {
-  //   message: "Username must be at least 2 characters.",
-  // }),
   jobTitle: z.string({
     required_error: "Please select a Job Title.",
   }),
@@ -93,22 +80,10 @@ export const formSchema = z.object({
     .url({ message: "Please enter a valid URL in https:// format " })
     .refine((value) => value.startsWith("https://"), {
       message: "URL must start with 'https://'.",
-    })
-    // .refine((value) => !/\d/.test(value), {
-    //   message: "URL must not contain numbers",
-    // }),
-  // email: z.string().email().min(1, {
-  //   message: "This field has to be filled.",
-  // }),
+    }),
 });
 
-// const jobLocation = [{
-//     "value":"San Francisco",
-//     "label":"San Francisco"
-// }]
-
 export function ProfileForm() {
-  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -117,7 +92,7 @@ export function ProfileForm() {
       experienceLevel: "",
       description: "",
       companyLogo: "",
-      // email: "",
+
       salary: "",
       salaryType: "",
       skillset: "",
@@ -127,93 +102,16 @@ export function ProfileForm() {
 
   const { reset } = form;
 
-  // const [Formdata, SetFormdata] = useState({})
   const { Formdata, SetFormdata } = useContext(FormDataContext);
-  console.log(Formdata);
 
-  // const postdata = async () => {
-  //   const res = await fetch("/api/jobs", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       jobTitle : Formdata.jobTitle,
-  //     }),
-  //   });
 
-  //   console.log(res);
-  // };
-
-  // const postdata = async () => {
-  //    await db.job.create({
-  //     data: {
-  //       jobTitle: Formdata.jobTitle,
-  //       companyName: Formdata.companyName,
-  //       salary: Formdata.salary,
-  //       salaryType: Formdata.salaryType,
-  //       jobLocation: Formdata.jobLocation,
-  //       experienceLevel: Formdata.experienceLevel,
-  //       skillset: Formdata.skillset,
-  //       employmentType: Formdata.employmentType,
-  //       description: Formdata.description,
-  //       companyLogo: Formdata.companyLogo,
-  //       email: Formdata.email,
-  //     },
-  //   });
-  // };
-
-  // console.log(Formdata.companyName)
-  // const postdata = async () => {
-  //   const data = await fetch("/api/demo", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       jobTitle: Formdata.jobTitle,
-  //       companyName: Formdata.companyName,
-  //       salary: Formdata.salary,
-  //       salaryType: Formdata.salaryType,
-  //       jobLocation: Formdata.jobLocation,
-  //       experienceLevel: Formdata.experienceLevel,
-  //       skillset: Formdata.skillset,
-  //       employmentType: Formdata.employmentType,
-  //       description: Formdata.description,
-  //       companyLogo: Formdata.companyLogo,
-  //       UserEmail: Formdata.UserEmail,
-  //     }),
-  //   });
-  // };
-  // console.log(data)
-  // console.log(Formdata.companyName)
-  // const parsedata = await data.json();
-
-  // console.log(parsedata);
   const router = useRouter();
-  // useEffect(() => {
-  //   // window.history.pushState(null, " ", `?formdata=${Formdata}`);
-
-  //   router.push(`?jobTitle=${Formdata.jobTitle}`),
-  //     {
-  //       scroll: false,
-  //     };
-  // }, [Formdata, router]);
-
-  // 2. Define a submit handler.
 
   const { data } = useSession();
 
-  console.log(data?.user?.email);
   const UserEmail = data?.user?.email;
-  console.log(UserEmail);
+ 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    // console.log(values.jobTitle);
-
-    // toast({
-    //   duration: 2100,
-    //   title: "Form Submitted",
-    // });
-    // reset();
-    // console.log(values);
-    // SetFormdata(values);
-
     const respone = await fetch("/api/demo", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -233,6 +131,7 @@ export function ProfileForm() {
     });
 
     if (respone.ok) {
+      reset();
       toast({
         title: "You submitted the following values:",
         duration: 2100,
@@ -249,37 +148,10 @@ export function ProfileForm() {
         title: "Error",
       });
     }
-
-    // let data = (JSON.stringify(values))
-    // POST()
-    // router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
-    // salary=${values.salary}&
-    // salaryType= ${values.salaryType}&
-    // jobLocation= ${values.jobLocation}&
-    // experienceLevel= ${values.experienceLevel}&
-    // skillset=${values.skillset}&
-    // employmentType= ${values.employmentType}&
-    // description=${values.description}&
-    // companyLogo= ${values.companyLogo}&
-    // email=${values.email}`),
-    //   {
-    //     scroll: false,
-    //   };
-
-    // router.push(`?jobTitle=${values.jobTitle}&companyName=${values.companyName}&
-    //  salary=${values.salary}&
-    //  salaryType= ${values.salaryType}&
-    //  jobLocation= ${values.jobLocation}&
-    //  experienceLevel= ${values.experienceLevel}&
-    //  skillset=${values.skillset}&
-    //  employmentType= ${values.employmentType}&
-    //  description=${values.description}&
-    //  companyLogo= ${values.companyLogo}`);
-    // postdata();
   }
 
   const { status } = useSession();
-  console.log(status);
+ 
   return (
     <>
       {status === "loading" ? (
@@ -306,11 +178,6 @@ export function ProfileForm() {
                 "grid grid-cols-2 mx-5 gap-x-5 gap-y-5 justify-around mt-8 max-md:grid-cols-1 "
               )}
             >
-              {/* <div
-                className={cn(
-                  " w-[570px] ml-6 mt-[10px]  flex flex-col gap-y-7 "
-                )}
-              > */}
               <FormField
                 control={form.control}
                 name="jobTitle"
@@ -383,7 +250,7 @@ export function ProfileForm() {
                 render={({ field }) => (
                   <FormItem className="">
                     <FormLabel>Experience Level</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value} >
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="Select experience level..." />
@@ -447,13 +314,7 @@ export function ProfileForm() {
                   </>
                 )}
               />
-              {/* </div> */}
 
-              {/* <div
-                className={cn(
-                  " w-[570px]   mx-6 flex flex-col gap-y-14"
-                )}
-              > */}
               <FormField
                 control={form.control}
                 name="salary"
@@ -552,7 +413,6 @@ export function ProfileForm() {
                   </FormItem>
                 )}
               />
-              {/* </div> */}
             </div>
 
             <div className={cn(" ml-6 mr-16 flex flex-col gap-y-7")}>
@@ -601,27 +461,6 @@ export function ProfileForm() {
                 )}
               />
 
-              {/* <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <>
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your email"
-                          {...field}
-                          type="email"
-                        />
-                      </FormControl>
-                      <FormDescription>This is your email.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  </> */}
-              {/* )}
-              /> */}
-
               <Button
                 type="submit"
                 className={cn(
@@ -633,11 +472,9 @@ export function ProfileForm() {
                   if (button) {
                     button.style.animation = "clickAnimation 0.2s";
                     setTimeout(function () {
-                      button?.style.animation == null?"" : "";
+                      button?.style.animation == null ? "" : "";
                     }, 200);
                   }
-
-                  // handleclick
                 }}
               >
                 Submit

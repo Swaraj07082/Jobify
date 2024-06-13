@@ -1,21 +1,17 @@
-import * as React from "react"
+import * as React from "react";
 
-import { Card , CardContent } from "../ui/card"
+import { Card, CardContent } from "../ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel"
+} from "../ui/carousel";
 
-import  CarouselProps from '../types/CarouselProps'
+import CarouselProps from "../types/CarouselProps";
 
-
-
-
-export function CarouselSize({length} : CarouselProps) {
- 
+export function CarouselSize({ length }: CarouselProps) {
   return (
     <Carousel
       opts={{
@@ -26,20 +22,20 @@ export function CarouselSize({length} : CarouselProps) {
       <CarouselContent>
         {Array.from({ length: length }).map((_, index) => (
           <>
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-3xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        </>
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <div className="p-1">
+                <Card>
+                  <CardContent className="flex aspect-square items-center justify-center p-6">
+                    <span className="text-3xl font-semibold">{index + 1}</span>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          </>
         ))}
       </CarouselContent>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
-  )
+  );
 }

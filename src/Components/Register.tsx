@@ -1,10 +1,13 @@
 "use client";
+import { Input } from "@/Components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { z } from "zod";
 import { Button } from "../Components/ui/button";
-import { useToast } from "./ui/use-toast";
-import { date, z } from "zod";
 import {
   Card,
   CardContent,
@@ -12,21 +15,15 @@ import {
   CardHeader,
   CardTitle,
 } from "../Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "../Components/ui/form";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useToast } from "./ui/use-toast";
 
 const months = [
   "January",
@@ -105,37 +102,23 @@ export function Register() {
     );
   }
   function convertMillisecondsToIST(milliseconds: number): string {
-    // Create a Date object from milliseconds
     const date = new Date(milliseconds);
 
-    // Set timezone to IST (Indian Standard Time)
     const ISTOptions: Intl.DateTimeFormatOptions = {
       timeZone: "Asia/Kolkata",
-      hour12: true, // Use 12-hour format
-      hour: "numeric", // Display hours
-      minute: "numeric", // Display minutes
-      second: "numeric", // Display seconds
+      hour12: true,
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
     };
 
-    // Format the time in IST with am/pm
     const ISTTime: string = date.toLocaleTimeString("en-IN", ISTOptions);
 
     return ISTTime;
   }
 
-  // console.log(convertMillisecondsToIST(1716626085488))
-
-  // console.log(
-  //   `${days[d.getDay()]} , ${getOrdinalNum(d.getDate())} ${
-  //     months[d.getMonth()]
-  //   } at ${convertMillisecondsToIST(d.getTime())}`
-  // );
-
   const { toast } = useToast();
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
     const response = await fetch("/api/user", {
       method: "POST",
       headers: { "Content-type": "application/json" },
@@ -146,10 +129,7 @@ export function Register() {
       }),
     });
 
-    // const data = await response.json()
-    // console.log(data)
     if (response.ok) {
-      // alert("Submitted");
       toast({
         title: "Registered",
         description: `${days[d.getDay()]} , ${getOrdinalNum(d.getDate())} ${
@@ -159,7 +139,7 @@ export function Register() {
       reset();
       router.push("/login");
     } else {
-      // alert("Error");
+      reset();
       toast({
         duration: 2100,
         variant: "destructive",
@@ -182,7 +162,6 @@ export function Register() {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4">
-                {/* <div className="grid grid-cols-2 gap-4"> */}
                 <div className="grid gap-2">
                   <FormField
                     control={form.control}
@@ -193,21 +172,13 @@ export function Register() {
                         <FormControl>
                           <Input placeholder="Username..." {...field} />
                         </FormControl>
-                        {/* <FormDescription>
-                          This is your public display name.
-                          </FormDescription> */}
+
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  {/* <Label htmlFor="username">Username</Label> */}
-                  {/* <Input id="username" placeholder="Max" required /> */}
                 </div>
-                {/* <div className="grid gap-2">
-              <Label htmlFor="last-name">Last name</Label>
-              <Input id="last-name" placeholder="Robinson" required />
-              </div> */}
-                {/* </div> */}
+
                 <div className="grid gap-2">
                   <FormField
                     control={form.control}
@@ -218,24 +189,13 @@ export function Register() {
                         <FormControl>
                           <Input placeholder="Email..." {...field} />
                         </FormControl>
-                        {/* <FormDescription>
-                          This is your public  name.
-                          </FormDescription> */}
+
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  {/* <Label htmlFor="email">Email</Label>
-              <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-              /> */}
                 </div>
                 <div className="grid gap-2">
-                  {/* <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" /> */}
                   <FormField
                     control={form.control}
                     name="password"
@@ -268,9 +228,6 @@ export function Register() {
                           </FormControl>
                         </div>
 
-                        {/* <FormDescription>
-                          This is your public  name.
-                          </FormDescription> */}
                         <FormMessage />
                       </FormItem>
                     )}
@@ -279,9 +236,6 @@ export function Register() {
                 <Button type="submit" className="w-full">
                   Create an account
                 </Button>
-                {/* <Button variant="outline" className="w-full">
-            Sign up with GitHub
-          </Button> */}
               </div>
               <div className="mt-4 text-center text-sm">
                 Already have an account?{" "}

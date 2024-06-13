@@ -1,43 +1,22 @@
 "use client";
-import React, { MouseEventHandler, useEffect, useState } from "react";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarTrigger,
-} from "../Components/ui/menubar";
 import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { Menubar, MenubarMenu, MenubarTrigger } from "../Components/ui/menubar";
 import { Button } from "./ui/button";
 
 import Link from "next/link";
 import icon from "../../public/burgermenu.svg";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../Components/ui/select";
-
 import Image from "next/image";
 
-// import jobify from "../../public/Jobify.jpg";
-import jobify from "../../public/work.png";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import ToggleMenu from "./ToggleMenu";
-import { redirect } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
-import { useToast } from "./ui/use-toast";
-import { ThemeToggle } from "./ThemeToggle";
-import { useTheme } from "next-themes";
 import clsx from "clsx";
+import { signOut, useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
+import jobify from "../../public/work.png";
 import DarkHamburgerMenu from "./DarkHamburgerMenu";
+import { ThemeToggle } from "./ThemeToggle";
+import ToggleMenu from "./ToggleMenu";
+import { useToast } from "./ui/use-toast";
 
 export default function Navbar() {
   const [Open, SetOpen] = useState<boolean>(false);
@@ -45,8 +24,6 @@ export default function Navbar() {
   const OnSetOpen = () => {
     SetOpen(!Open);
   };
-
-  // console.log(Open);
 
   const { status } = useSession();
   const { toast } = useToast();
@@ -63,10 +40,6 @@ export default function Navbar() {
     return null;
   }
 
-  // Ensure Theme State Synchronization: Make sure the theme state is properly synchronized with your component's rendering. You can use the useEffect hook to handle the theme changes.
-
-  // useEffect Hook: Used useEffect to ensure the component is mounted before rendering. This prevents SSR issues where the theme state might not be correctly applied.
-
   return (
     <>
       <Menubar
@@ -76,10 +49,7 @@ export default function Navbar() {
       >
         <div className={cn("flex gap-x-6 ")}>
           <MenubarMenu>
-            <Link
-              className="flex items-center gap-1"
-              href={"/"}
-            >
+            <Link className="flex items-center gap-1" href={"/"}>
               <Image
                 src={jobify}
                 width={45}
@@ -97,9 +67,7 @@ export default function Navbar() {
                 effect: theme == "light",
               })}
             >
-              <Link href={"/"}>
-                Start a search
-              </Link>
+              <Link href={"/"}>Start a search</Link>
             </MenubarTrigger>
           </MenubarMenu>
 
@@ -222,7 +190,7 @@ export default function Navbar() {
           )}
         </div>
       </Menubar>
-      {Open && <ToggleMenu status = {status} />}
+      {Open && <ToggleMenu status={status} />}
     </>
   );
 }

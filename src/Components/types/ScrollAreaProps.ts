@@ -1,5 +1,5 @@
 type ScrollAreaProps = {
-    width : number
-}
+  width: number;
+};
 
 export default ScrollAreaProps;

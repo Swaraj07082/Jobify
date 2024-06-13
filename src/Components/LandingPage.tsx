@@ -1,12 +1,8 @@
 import { cn } from "@/lib/utils";
-import React from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Select } from "./ui/select";
-import { Carousel } from "./ui/carousel";
 import { CarouselSize } from "./generic/GenericCarousel";
 import { ScrollAreaDemo } from "./generic/GenericScrollArea";
-import { title } from "process";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export default function LandingPage() {
   return (

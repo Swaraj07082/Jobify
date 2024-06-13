@@ -1,8 +1,6 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import React from "react";
 import { Card } from "./ui/card";
-import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 
 interface ToggleMenuProps {
@@ -10,7 +8,6 @@ interface ToggleMenuProps {
 }
 
 export default function ToggleMenu({ status }: ToggleMenuProps) {
-  console.log(status);
   return (
     <Card
       className={cn(

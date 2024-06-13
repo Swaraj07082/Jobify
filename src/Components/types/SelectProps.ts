@@ -1,6 +1,6 @@
 type SelectProps = {
   placeholder: string;
-  data : string[];
+  data: string[];
 };
 
 export default SelectProps;

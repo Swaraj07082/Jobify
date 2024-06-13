@@ -1,16 +1,16 @@
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import JobTitles from "../../public/JobTitles.json";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/Components/ui/popover";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import JobTitles from "../../public/JobTitles.json";
 import {
   Command,
   CommandEmpty,
@@ -19,23 +19,18 @@ import {
   CommandItem,
   CommandList,
 } from "./ui/command";
-import { GenericComboBox } from "./generic/GenericComboBox";
-import { Combobox } from "./ComboBox";
 
-import salaries from "../../public/Salaries.json";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/Components/ui/form";
+import salaries from "../../public/Salaries.json";
 
 import { toast } from "@/Components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 
 const languages = [
@@ -68,10 +63,7 @@ interface String {
 }
 
 export function Edit({ id }: String) {
-  console.log(id);
-
   const { data } = useSession();
-  console.log(data);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -119,19 +111,12 @@ export function Edit({ id }: String) {
               <div className="grid gap-2">
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="width">{title[0]}</Label>
-                  {/* <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              /> */}
-                  {/* <Combobox data={JobTitles} title={"Title"} /> */}
 
                   <FormField
                     control={form.control}
                     name="jobTitle"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        {/* <FormLabel>Language</FormLabel> */}
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -189,10 +174,7 @@ export function Edit({ id }: String) {
                             </Command>
                           </PopoverContent>
                         </Popover>
-                        {/* <FormDescription>
-                          This is the language that will be used in the
-                          dashboard.
-                        </FormDescription> */}
+
                         <FormMessage />
                       </FormItem>
                     )}
@@ -201,18 +183,12 @@ export function Edit({ id }: String) {
 
                 <div className="grid grid-cols-3 items-center gap-4">
                   <Label htmlFor="height">{title[1]}</Label>
-                  {/* <Input
-                id="height"
-                defaultValue="25px"
-                className="col-span-2 h-8"
-              /> */}
-                  {/* <Combobox data={salaries} title={"Salary"} /> */}
+
                   <FormField
                     control={form.control}
                     name="salary"
                     render={({ field }) => (
                       <FormItem className="flex flex-col">
-                        {/* <FormLabel>Language</FormLabel> */}
                         <Popover>
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -267,10 +243,7 @@ export function Edit({ id }: String) {
                             </Command>
                           </PopoverContent>
                         </Popover>
-                        {/* <FormDescription>
-                          This is the language that will be used in the
-                          dashboard.
-                        </FormDescription> */}
+
                         <FormMessage />
                       </FormItem>
                     )}
@@ -283,22 +256,14 @@ export function Edit({ id }: String) {
                     name="companyName"
                     render={({ field }) => (
                       <FormItem>
-                        {/* <FormLabel>Username</FormLabel> */}
                         <FormControl>
                           <Input placeholder="shadcn" {...field} />
                         </FormControl>
-                        {/* <FormDescription>
-                          This is your public display name.
-                        </FormDescription> */}
+
                         <FormMessage />
                       </FormItem>
                     )}
                   />
-                  {/* <Input
-                    id="Company-Name"
-                    placeholder="..."
-                    className="col-span-2 h-8"
-                  /> */}
                 </div>
               </div>
               <Button type="submit">Submit</Button>

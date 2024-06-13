@@ -1,6 +1,6 @@
-type GenericRadioGroupProps ={
-options : string[],
-length : number
-}
+type GenericRadioGroupProps = {
+  options: string[];
+  length: number;
+};
 
 export default GenericRadioGroupProps;

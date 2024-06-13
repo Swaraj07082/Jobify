@@ -1,14 +1,14 @@
-'use client'
+"use client";
 import { Dispatch, SetStateAction, useState } from "react";
 import FormDataContext from "./FormDataContext";
-import * as React from 'react';
+import * as React from "react";
 
 type FormDataContextProviderProps = {
   children: JSX.Element | JSX.Element[] | React.ReactNode | React.ReactElement;
 };
 
 export interface FormDataType {
-  id : string;
+  id: string;
   jobTitle: string;
   companyName: string;
   salary: string;
@@ -20,7 +20,7 @@ export interface FormDataType {
   description: string;
   companyLogo: string;
   UserEmail?: string | null | undefined;
-  values?:Array<Object>
+  values?: Array<Object>;
 }
 export interface FormDataContextType {
   Formdata: FormDataType;
@@ -31,7 +31,7 @@ export const FormDataContextProvider = ({
   children,
 }: FormDataContextProviderProps) => {
   const [Formdata, SetFormdata] = useState<FormDataType>({
-    id:"",
+    id: "",
     jobTitle: "",
     companyName: "",
     salary: "",

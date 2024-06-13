@@ -16,7 +16,7 @@ interface Salary {
 
 export default function Page() {
   const [Searchtext, setSearchtext] = useState<string>("");
-  console.log(Searchtext);
+
 
   const filtereddata = (salaries: Array<Salary>) => {
     return salaries.filter((item) =>

@@ -1,19 +1,9 @@
-
-import { ProfileForm } from '@/Components/Form'
-import { FormDataContextProvider } from '@/Context/FormDataContextProvider'
-import { authOptions } from '@/lib/auth'
-import { getServerSession } from 'next-auth'
-
-import React from 'react'
+import { ProfileForm } from "@/Components/Form";
 
 export default function page() {
-  // const session = getServerSession(authOptions)
-  // console.log(session)
   return (
     <>
-    {/* <FormDataContextProvider> */}
-    <ProfileForm/>
-    {/* </FormDataContextProvider> */}
+      <ProfileForm />
     </>
-  )
+  );
 }

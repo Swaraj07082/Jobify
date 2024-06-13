@@ -1,5 +1,5 @@
 type CarouselProps = {
-    length : number
-}
+  length: number;
+};
 
 export default CarouselProps;

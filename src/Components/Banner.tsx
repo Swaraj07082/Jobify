@@ -1,15 +1,7 @@
-import React, { SetStateAction, useState } from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-// import BannerProps from "./types/BannerProps";
-// import { BannerProps } from "./types/BannerProps";
-// import { JobsArray } from "./types/BannerProps";
-import { Jobs } from "./types/BannerProps";
-// import { query } from "./types/BannerProps";
+import React from "react";
+import { Input } from "./ui/input";
 import { BannerProps } from "./types/BannerProps";
-import { FaPen } from "react-icons/fa";
-import { MaskContainer } from "./ui/svg-mask-effect";
 
 export default function Banner({
   Jobs,
@@ -18,8 +10,6 @@ export default function Banner({
   location,
   setlocation,
 }: BannerProps) {
-  // console.log(Jobs)
-
   const onsetquery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setquery(e.target.value);
   };
@@ -28,15 +18,17 @@ export default function Banner({
     setlocation(e.target.value);
   };
 
-  //   console.log(query);
-
   return (
     <div
       className={cn(
         "    ml-48 mr-48 mt-20  text-left max-lg:ml-16 max-lg:mr-16"
       )}
     >
-      <div className={cn("text-[54px] text-center max-[375px]:text-[48px] max-sm:leading-[52px] max-sm:mb-8")}>
+      <div
+        className={cn(
+          "text-[54px] text-center max-[375px]:text-[48px] max-sm:leading-[52px] max-sm:mb-8"
+        )}
+      >
         Find your <p className=" inline text-[#0066FF]">new job</p> today
       </div>
 
@@ -62,7 +54,6 @@ export default function Banner({
           type="text"
           shadow={true}
         />
-        {/* <Button className={cn(" w-44 max-md:w-auto")}>Search</Button> */}
       </div>
     </div>
   );

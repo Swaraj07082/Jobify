@@ -1,13 +1,7 @@
 import db from "@/lib/db";
-import { Hash } from "crypto";
-import { NextApiRequest } from "next";
-import { NextRequest, NextResponse } from "next/server";
 import { hash } from "bcrypt";
+import { NextResponse } from "next/server";
 import { z } from "zod";
-
-// POST and GET name matters
-// every type of request like get post has a body headers etc
-// In HTTP, the request body is part of the request message carrying data from the client to the server. It's crucial for methods like POST, PUT, and PATCH, used to create, update, or modify resources. For example, in a POST request to create a user account, user details are in the request body
 
 const formSchema = z.object({
   username: z
@@ -41,7 +35,6 @@ const formSchema = z.object({
 
 export const POST = async (req: Request) => {
   try {
-    // const idk = await db.job.findMany();
     const body = await req.json();
 
     const { username, email, password } = formSchema.parse(body);
@@ -100,16 +93,3 @@ export const POST = async (req: Request) => {
     );
   }
 };
-
-// export const GET = async () => {
-//   try {
-//     const user = await db.user.findMany();
-
-//     return new NextResponse(JSON.stringify(user), { status: 200 });
-//   } catch (error) {
-//     return new NextResponse(
-//       JSON.stringify({ message: "Something went wrong!" }),
-//       { status: 500 }
-//     );
-//   }
-// };

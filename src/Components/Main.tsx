@@ -1,16 +1,11 @@
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
-import { Select } from "./ui/select";
-import GenericSelect from "./generic/GenericSelect";
 import Location from "../../public/location.json";
 import { GenericComboBox } from "./generic/GenericComboBox";
-import GenericRadioGroup from "./generic/GenericRadioGroup";
 
-import { Joan } from "next/font/google";
 import StateContext from "@/Context/StateContext";
-import { BannerProps } from "./types/BannerProps";
-import { Button } from "./ui/button";
 import Image from "next/image";
+import { BannerProps } from "./types/BannerProps";
 import { Card } from "./ui/card";
 
 export default function Main({
@@ -20,9 +15,6 @@ export default function Main({
   location,
   setlocation,
 }: BannerProps) {
-  // console.log(Location)
-  // console.log(Jobs)
-
   const { value, setValue } = React.useContext(StateContext);
   const { salaries, setsalaries } = React.useContext(StateContext);
   const { postingdates, setpostingdates } = React.useContext(StateContext);
@@ -32,12 +24,10 @@ export default function Main({
 
   const [page, setpage] = useState(0);
 
-  console.log(Jobs);
 
-  // console.log(query.toLowerCase().split(" ").join(""))
+
   const filtereddata = Jobs.filter(
     (item) =>
-      // item.jobTitle.toLocaleLowerCase().indexOf(query.toLowerCase()) !== -1
       item.jobTitle
         .toLowerCase()
         .split(" ")
@@ -70,7 +60,7 @@ export default function Main({
         .includes(salaries.toLowerCase().split(" ").join(""))
   );
 
-  console.log(filtereddata);
+  
 
   return (
     <>
@@ -79,7 +69,6 @@ export default function Main({
           " flex flex-col justify-center items-center gap-x-5 mt-12 max-sm:mt-5 "
         )}
       >
-        {/* <GenericSelect placeholder='Location' data={Location}/> */}
         <div className={cn(" w-[72%] h-24 ")}>
           <GenericComboBox
             data={Location}
@@ -180,10 +169,18 @@ export default function Main({
           />
         </div>
 
-        <div className={cn("   flex flex-col w-[72%] max-lg:mt-5 max-[478px]:mt-14  ")}>
+        <div
+          className={cn(
+            "   flex flex-col w-[72%] max-lg:mt-5 max-[478px]:mt-14  "
+          )}
+        >
           {filtereddata.map((item, index) => (
             <Card key={item.id} className={cn(" mb-8 hover:shadow-custom")}>
-              <div className={cn("flex h-48 w-auto pl-5 max-md:h-40  max-[425px]:h-32 pt-0 ")}>
+              <div
+                className={cn(
+                  "flex h-48 w-auto pl-5 max-md:h-40  max-[425px]:h-32 pt-0 "
+                )}
+              >
                 <div className={cn("flex-[1] self-center ")}>
                   <Image
                     src={item.companyLogo}

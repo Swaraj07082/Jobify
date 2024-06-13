@@ -9,29 +9,25 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { z } from "zod";
-import { FaEye } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
 
+import { useState } from "react";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "../Components/ui/form";
-import { useState } from "react";
 
 import { signIn } from "next-auth/react";
-import { useToast  } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
-import { ToastAction } from "../Components/ui/toast";
+import { useToast } from "./ui/use-toast";
 
 const formSchema = z.object({
   email: z.string().email().min(1, {
@@ -57,29 +53,27 @@ export default function LoginForm() {
   const router = useRouter();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
     const LoginData = await signIn("credentials", {
       email: values.email,
       password: values.password,
       redirect: false,
     });
 
-    // console.log(LoginData)
-
     if (LoginData?.error) {
-      // console.log(LoginData.error);
+      reset();
+
       toast({
-        duration : 2100 ,
-        variant : 'destructive',
+        duration: 2100,
+        variant: "destructive",
         title:
           "Either the email or password you are trying to log in with are incorrect.",
       });
     } else {
+      reset();
+
       router.push("/");
       toast({
-        duration : 2100 ,
+        duration: 2100,
         title: "Logged In successfully",
       });
     }
@@ -111,25 +105,13 @@ export default function LoginForm() {
                         {...field}
                       />
                     </FormControl>
-                    {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
+
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
-              {/* <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              /> */}
             </div>
             <div className="grid gap-2">
-              {/* <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" required /> */}
               <FormField
                 control={form.control}
                 name="password"
@@ -161,9 +143,7 @@ export default function LoginForm() {
                         />
                       </FormControl>
                     </div>
-                    {/* <FormDescription>
-                This is your public display name.
-              </FormDescription> */}
+
                     <FormMessage />
                   </FormItem>
                 )}
