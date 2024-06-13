@@ -1,18 +1,14 @@
-import type { Config } from "tailwindcss"
-import { fontFamily } from "tailwindcss/defaultTheme"
-
-import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
-
-
+import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -20,16 +16,16 @@ const config = {
       padding: "2rem",
       screens: {
         "2xl": "1400px",
-          // => @media (max-width: 1535px) { ... }
-          xl: { max: "1279px" },
-          // => @media (max-width: 1279px) { ... }
-          lg: { max: "1024px" },
-          // => @media (max-width: 1023px) { ... }
-          md: { max: "768px" },
-          // => @media (max-width: 767px) { ... }
-          sm: { max: "639px" },
-          // => @media (max-width: 639px) { ... }
-          cs: { max: "375px" },
+        // => @media (max-width: 1535px) { ... }
+        xl: { max: "1279px" },
+        // => @media (max-width: 1279px) { ... }
+        lg: { max: "1024px" },
+        // => @media (max-width: 1023px) { ... }
+        md: { max: "768px" },
+        // => @media (max-width: 767px) { ... }
+        sm: { max: "639px" },
+        // => @media (max-width: 639px) { ... }
+        cs: { max: "375px" },
       },
     },
     extend: {
@@ -91,29 +87,11 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       boxShadow: {
-        'custom': '0 0 10px rgba(0, 0, 0, 0.3)',
-      }
+        custom: "0 0 10px rgba(0, 0, 0, 0.3)",
+      },
     },
   },
-  plugins: [require("tailwindcss-animate") , addVariablesForColors],
-} satisfies Config
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config;
 
-
-
-
-
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
- 
-  addBase({
-    ":root": newVars,
-  });
-}
-
-
-export default config
-
-
+export default config;
