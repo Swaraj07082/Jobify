@@ -94,7 +94,7 @@ export const PUT = async (req: Request, res: Response) => {
 
   const { ...data } = body;
 
-  const updatedData = db.job.update({
+  const updatedData = await db.job.update({
     where: {
       id: String(data.id),
     },
