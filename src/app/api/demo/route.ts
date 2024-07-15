@@ -76,7 +76,8 @@ export const POST = async (req: Request, res: Response) => {
 };
 
 export const DELETE = async (req: NextRequest | Request) => {
-  const id = req.url.slice(34).toString();
+  const url = new URL(req.url);
+  const id = url.searchParams.get("id") ?? undefined;
 
   try {
     const deletedJob = await db.job.delete({ where: { id: id } });
