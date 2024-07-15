@@ -32,6 +32,7 @@ import salaries from "../../public/Salaries.json";
 import { toast } from "@/Components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 const languages = [
   { label: "English", value: "en" },
@@ -93,6 +94,11 @@ export function Edit({ id }: String) {
       ),
     });
   }
+
+  useEffect(() => {
+    form.reset();
+  }, [form]);
+
   return (
     <Popover>
       <PopoverTrigger asChild>

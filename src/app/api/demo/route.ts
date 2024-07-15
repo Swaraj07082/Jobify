@@ -6,7 +6,10 @@ interface QueryObject {
   [key: string]: string;
 }
 
-export const GET = async (req: Request | NextRequest, res: Response | NextResponse) => {
+export const GET = async (
+  req: Request | NextRequest,
+  res: Response | NextResponse
+) => {
   const url = req.url ? new URL(req.url) : null;
   let searchParams;
 
@@ -19,7 +22,6 @@ export const GET = async (req: Request | NextRequest, res: Response | NextRespon
   }
 
   const page = searchParams?.get("page") || 1;
-  
 
   const jobs_per_page = 5;
 
@@ -53,7 +55,7 @@ export const POST = async (req: Request, res: Response) => {
   const body = await req.json();
 
   const { ...data } = body;
-  
+
   const newJob = await db.job.create({
     data: {
       jobTitle: data.jobTitle,
@@ -73,17 +75,11 @@ export const POST = async (req: Request, res: Response) => {
   return new NextResponse(JSON.stringify(newJob));
 };
 
-export const DELETE = async (req: any, res : any) => {
-  const { id } = req.query;
-
-  if (!id || typeof id !== "string") {
-    return res
-      .status(400)
-      .json({ message: "ID is required and must be a string" });
-  }
+export const DELETE = async (req: NextRequest | Request) => {
+  const id = req.url.slice(34).toString();
 
   try {
-    const deletedJob = await db.job.delete({ where: { id: String(id) } });
+    const deletedJob = await db.job.delete({ where: { id: id } });
     return new NextResponse(JSON.stringify(deletedJob), { status: 200 });
   } catch (error) {
     console.error("Failed to delete job:", error);
@@ -97,7 +93,6 @@ export const PUT = async (req: Request, res: Response) => {
   const body = await req.json();
 
   const { ...data } = body;
-
 
   const updatedData = db.job.update({
     where: {
