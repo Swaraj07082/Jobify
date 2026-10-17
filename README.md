@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Jobify
 
-## Getting Started
+**A full-stack job board** — register, sign in, post jobs, browse listings, and manage your own postings.
 
-First, run the development server:
+## Stack
+
+- **Next.js 14** (App Router) + React 18 + TypeScript
+- **MongoDB** via **Prisma**
+- **NextAuth** (credentials + JWT sessions)
+- **Tailwind CSS** + Radix / shadcn UI
+- **Vitest** (API unit tests) + **Playwright** (E2E)
+
+## Features
+
+- User registration and login with hashed passwords (bcrypt)
+- Browse and filter public job listings
+- Authenticated job posting, editing, and deletion (ownership-scoped)
+- “My Jobs” dashboard for your listings
+- Salary estimate page with static cards
+- Dark / light theme support
+
+## Prerequisites
+
+- Node.js 18+
+- A MongoDB database (local or [Atlas](https://www.mongodb.com/atlas))
+- Environment variables from `.env.example`
+
+## Environment
+
+Copy `.env.example` to `.env` in the project root:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+DATABASE_URL="mongodb+srv://USER:PASSWORD@CLUSTER/jobify?retryWrites=true&w=majority"
+NEXTAUTH_SECRET="generate-a-long-random-secret"
+NEXTAUTH_URL="http://localhost:3000"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+| Variable | Purpose |
+|----------|---------|
+| `DATABASE_URL` | Prisma MongoDB connection string |
+| `NEXTAUTH_SECRET` | Signs JWT session cookies |
+| `NEXTAUTH_URL` | Canonical app URL for NextAuth |
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm install
+npx prisma generate
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+`npm install` also runs `prisma generate` via `postinstall`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features & routes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+| Route | Auth | Description |
+|-------|------|-------------|
+| `/` | Public | Browse and filter jobs |
+| `/register`, `/login` | Public | Create account / sign in |
+| `/post-job` | Required | Create a job listing |
+| `/my-jobs` | Required | View, edit, and delete your jobs |
+| `/salary-est` | Public | Static salary estimate cards |
 
-## Deploy on Vercel
+Mutating APIs (`POST` / `PUT` / `DELETE` on `/api/demo`) require a session. Jobs are scoped to the signed-in user’s email. `/api/myjobs` returns only the current user’s jobs.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+npm run dev        # development server
+npm run build      # production build
+npm run start      # start production server
+npm run lint       # ESLint
+npm test           # Vitest unit/API tests
+npm run test:e2e   # Playwright end-to-end happy path
+```
+
+### First-time Playwright setup
+
+```bash
+npx playwright install chromium
+```
+
+E2E tests start `npm run dev` automatically (unless a server is already running) and need a reachable `DATABASE_URL`.
+
+## Architecture (happy path)
+
+```
+Browser → App Router pages → API routes → Prisma → MongoDB
+                ↑
+         NextAuth JWT session
+```
+
+1. Register → `POST /api/user` (bcrypt hash)
+2. Login → NextAuth credentials → JWT cookie
+3. Post job → `POST /api/demo` (owner email from session)
+4. Browse → `GET /api/demo`
+5. My Jobs → `GET /api/myjobs`
+6. Edit / Delete → `PUT` / `DELETE /api/demo` with ownership checks
+7. Logout → clears session
+
+## Tests
+
+- **Unit (Vitest):** registration validation; unauthenticated mutations return `401`; owners can update/delete; `/api/myjobs` requires a session
+- **E2E (Playwright):** register → login → post job → my-jobs → edit → delete → logout
+
+## License
+
+Private project (`"private": true` in `package.json`).
